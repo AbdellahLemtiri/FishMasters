@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__ . '/../database.php';
-
+namespace App\models;
 class User {
     private $conn;
     private $table = "users";
@@ -12,8 +11,7 @@ class User {
     private $roleUser;
     private $idRole;
     public function __construct() {
-        $database = new Database();
-        $this->conn = $database->getConnection();
+        
     }
     public function getIdUser(){
         return $this->idUser;

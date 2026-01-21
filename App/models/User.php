@@ -10,7 +10,7 @@ class User {
     public $emailUser;
     public $passwordUser;
     public $roleUser;
-    pubilc $idRole;
+    public $idRole;
     public function __construct() {
         $database = new Database();
         $this->conn = $database->getConnection();

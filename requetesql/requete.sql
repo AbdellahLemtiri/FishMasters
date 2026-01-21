@@ -126,4 +126,4 @@ CREATE TABLE reglements (
 );
 
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////
--- git commit "feat(sql): add competitions, pecheurs, prises, tabele es and enums for competition types and statuses"
+git commit -m "fix(sql) UPDATE the competitions table to add missing fields and correct data types"

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Create Competition Modal - Fishing Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec37",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102213",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .modal-blur-bg {
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen overflow-hidden">
+    <!-- Dashboard Background (Dimmed/Blurred) -->
+    <div class="relative w-full h-screen overflow-hidden opacity-30 grayscale-[0.5] pointer-events-none">
+        <div class="layout-container flex h-full flex-col">
+            <!-- Header -->
+            <header
+                class="flex items-center justify-between border-b border-solid border-[#28392b] px-10 py-3 bg-[#111812]">
+                <div class="flex items-center gap-8">
+                    <div class="flex items-center gap-4 text-white">
+                        <div class="size-4">
+                            <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-white text-lg font-bold leading-tight">Fishing Admin</h2>
+                    </div>
+                    <div class="flex items-center gap-9">
+                        <a class="text-white text-sm font-medium" href="#">Dashboard</a>
+                        <a class="text-primary text-sm font-medium border-b-2 border-primary" href="#">Competitions</a>
+                        <a class="text-white text-sm font-medium" href="#">Users</a>
+                        <a class="text-white text-sm font-medium" href="#">Settings</a>
+                    </div>
+                </div>
+                <div class="flex flex-1 justify-end gap-8 items-center">
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                        data-alt="Admin user profile picture"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCFwwiwqjh4Jmd0EL_tjW4aG_qxL2ghb-Ba6u8tV08XRiYBtZ726VMsI1xRC0saOFK6wCVUqq9upczTwl-NMKqf_47MD631W_zHC3ptgCgsmCMCk-rN3XCtox_9obZKmgk1gde2JccsCm--0D4S7gXtaBuTPnZqRMfqseLiuqdAJydxQl3gkumDEmg-MN6KEkawbKTLFlLz7XOApkveXIGO22Bu8OQRe2p74HD9OMMSBT6XoRjqn9ySUhfx08WfPeu1EXruMFWhMSo");'>
+                    </div>
+                </div>
+            </header>
+            <div class="flex flex-1">
+                <!-- Sidebar -->
+                <aside class="w-64 border-r border-[#28392b] bg-[#111812] p-4 flex flex-col gap-4">
+                    <div class="flex flex-col">
+                        <h1 class="text-white text-base font-medium">Admin Panel</h1>
+                        <p class="text-[#9db9a1] text-sm">Competition Management</p>
+                    </div>
+                    <nav class="flex flex-col gap-2">
+                        <div class="flex items-center gap-3 px-3 py-2 text-white">
+                            <span class="material-symbols-outlined">dashboard</span>
+                            <p class="text-sm font-medium">Overview</p>
+                        </div>
+                        <div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#28392b] text-white">
+                            <span class="material-symbols-outlined">trophy</span>
+                            <p class="text-sm font-medium">Manage Competitions</p>
+                        </div>
+                        <div class="flex items-center gap-3 px-3 py-2 text-white/60">
+                            <span class="material-symbols-outlined">analytics</span>
+                            <p class="text-sm font-medium">Results</p>
+                        </div>
+                    </nav>
+                </aside>
+                <!-- Table Content Area -->
+                <main class="flex-1 p-10">
+                    <div class="flex justify-between items-end mb-6">
+                        <h2 class="text-white text-3xl font-bold">Manage Competitions</h2>
+                        <button class="bg-primary text-background-dark font-bold px-6 py-2 rounded-lg">Create
+                            Competition</button>
+                    </div>
+                    <div class="rounded-lg border border-[#3b543f] bg-[#111812] overflow-hidden">
+                        <table class="w-full text-left">
+                            <thead class="bg-[#1c271d]">
+                                <tr class="text-white text-sm">
+                                    <th class="px-6 py-4">ID</th>
+                                    <th class="px-6 py-4">Name</th>
+                                    <th class="px-6 py-4">Dates</th>
+                                    <th class="px-6 py-4">Location</th>
+                                    <th class="px-6 py-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t border-[#3b543f] text-[#9db9a1]">
+                                    <td class="px-6 py-4">001</td>
+                                    <td class="px-6 py-4 text-white">Winter Classic</td>
+                                    <td class="px-6 py-4">Jan 15-20</td>
+                                    <td class="px-6 py-4">Lake Michigan</td>
+                                    <td class="px-6 py-4"><span
+                                            class="px-3 py-1 bg-[#28392b] text-white rounded-md text-xs">Active</span>
+                                    </td>
+                                </tr>
+                                <tr class="border-t border-[#3b543f] text-[#9db9a1]">
+                                    <td class="px-6 py-4">002</td>
+                                    <td class="px-6 py-4 text-white">Sea Bass Pro</td>
+                                    <td class="px-6 py-4">Feb 02-05</td>
+                                    <td class="px-6 py-4">Miami Coast</td>
+                                    <td class="px-6 py-4"><span
+                                            class="px-3 py-1 bg-[#28392b] text-white rounded-md text-xs">Pending</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Overlay -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 modal-blur-bg">
+        <!-- Modal Content -->
+        <div
+            class="w-full max-w-2xl bg-background-dark border border-primary/40 rounded-xl shadow-[0_0_50px_rgba(19,236,55,0.15)] overflow-hidden flex flex-col">
+            <!-- Modal Header -->
+            <div class="px-8 py-6 border-b border-[#28392b] flex justify-between items-center">
+                <div>
+                    <h2 class="text-white text-2xl font-bold tracking-tight">Create New Competition</h2>
+                    <p class="text-[#9db9a1] text-sm mt-1">Set the parameters for your upcoming fishing event.</p>
+                </div>
+                <button class="text-[#9db9a1] hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <!-- Modal Form Body -->
+            <div class="p-8 space-y-6">
+                <!-- Comp Name -->
+                <div class="space-y-2">
+                    <label class="text-white text-sm font-semibold uppercase tracking-wider">Competition Name</label>
+                    <input
+                        class="w-full bg-[#1c271d] border-[#3b543f] text-white rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-slate-500 outline-none"
+                        placeholder="e.g. Atlantic Bass Championship 2024" type="text" />
+                </div>
+                <!-- Dates Row -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="text-white text-sm font-semibold uppercase tracking-wider">Start Date</label>
+                        <div class="relative">
+                            <input
+                                class="w-full bg-[#1c271d] border-[#3b543f] text-white rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none [color-scheme:dark]"
+                                type="date" />
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-white text-sm font-semibold uppercase tracking-wider">End Date</label>
+                        <div class="relative">
+                            <input
+                                class="w-full bg-[#1c271d] border-[#3b543f] text-white rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none [color-scheme:dark]"
+                                type="date" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Location -->
+                <div class="space-y-2">
+                    <label class="text-white text-sm font-semibold uppercase tracking-wider">Location</label>
+                    <div
+                        class="flex items-center gap-2 bg-[#1c271d] border border-[#3b543f] rounded-lg px-4 py-3 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary">
+                        <span class="material-symbols-outlined text-[#9db9a1]">location_on</span>
+                        <input
+                            class="bg-transparent border-none text-white w-full p-0 focus:ring-0 placeholder:text-slate-500 outline-none"
+                            placeholder="City, Region or Water Body Name" type="text" />
+                    </div>
+                </div>
+                <!-- Environment Selector -->
+                <div class="space-y-3">
+                    <label class="text-white text-sm font-semibold uppercase tracking-wider">Environment Type</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Option 1: Sea -->
+                        <label class="cursor-pointer group">
+                            <input checked="" class="hidden peer" name="environment" type="radio" />
+                            <div
+                                class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-[#1c271d] border border-[#3b543f] group-hover:border-primary/50 peer-checked:bg-primary/10 peer-checked:border-primary transition-all">
+                                <span class="material-symbols-outlined text-3xl peer-checked:text-primary">waves</span>
+                                <span class="text-sm font-bold text-white uppercase peer-checked:text-primary">Saltwater
+                                    / Sea</span>
+                            </div>
+                        </label>
+                        <!-- Option 2: Freshwater -->
+                        <label class="cursor-pointer group">
+                            <input class="hidden peer" name="environment" type="radio" />
+                            <div
+                                class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-[#1c271d] border border-[#3b543f] group-hover:border-primary/50 peer-checked:bg-primary/10 peer-checked:border-primary transition-all">
+                                <span
+                                    class="material-symbols-outlined text-3xl peer-checked:text-primary">set_meal</span>
+                                <span
+                                    class="text-sm font-bold text-white uppercase peer-checked:text-primary">Freshwater
+                                    / Lake</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="px-8 py-6 bg-[#1c271d]/50 border-t border-[#28392b] flex justify-end gap-4">
+                <button
+                    class="px-6 py-3 rounded-lg border border-[#3b543f] text-white text-sm font-bold hover:bg-white/5 transition-colors">
+                    Cancel
+                </button>
+                <button
+                    class="px-8 py-3 rounded-lg bg-primary text-background-dark text-sm font-black uppercase tracking-widest shadow-[0_0_20px_rgba(19,236,55,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+                    Save Competition
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

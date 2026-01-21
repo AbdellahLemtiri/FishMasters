@@ -1,50 +1,60 @@
 <?php
-require_once __DIR__ . '/../database.php';
 
-class Role { private $table = "role";
+namespace App\Models;
+
+use PDO;
+
+class Role
+{
+    private $table = "role";
 
     private $conn;
     private $idRole;
     private $titreRole;
 
-    public function getIdRole() {
+    public function getIdRole()
+    {
         return $this->idRole;
     }
 
-    public function getTitreRole() {
+    public function getTitreRole()
+    {
         return $this->titreRole;
     }
 
-    public function setIdRole($idRole) {
+    public function setIdRole($idRole)
+    {
         $this->idRole = $idRole;
     }
 
-    public function setTitreRole($titreRole) {
+    public function setTitreRole($titreRole)
+    {
         $this->titreRole = $titreRole;
     }
-    public function __construct() {
-        $database = new Database();
-        $this->conn = $database->getConnection();
+    public function __construct($db)
+    {
+        $this->conn = $db;
     }
-    public function ajouterRole($titre) {
-        $query = 'INSERT INTO ' . $this->table . ' ("titreRole") VALUES (:titre)';        
+    public function ajouterRole($titre)
+    {
+        $query = 'INSERT INTO ' . $this->table . ' ("titreRole") VALUES (:titre)';
         $stmt = $this->conn->prepare($query);
         $titre = htmlspecialchars(strip_tags($titre));
         $stmt->bindParam(':titre', $titre);
-        if($stmt->execute()) {
+        if ($stmt->execute()) {
             return true;
         }
         return false;
     }
 
-    public function supprimerRole($id) {
+    public function supprimerRole($id)
+    {
         $query = 'DELETE FROM ' . $this->table . ' WHERE "idRole" = :id';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
-        if($stmt->execute()) {
+        if ($stmt->execute()) {
             return true;
         }
         return false;
     }
 }
-?>

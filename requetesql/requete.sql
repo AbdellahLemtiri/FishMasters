@@ -1,3 +1,5 @@
+
+
 CREATE TABLE roles (
     id_role SERIAL PRIMARY KEY,
     nom_role VARCHAR(50) UNIQUE NOT NULL
@@ -9,6 +11,5 @@ CREATE TABLE utilisateurs (
     email_user VARCHAR(255) UNIQUE NOT NULL,
     password_user VARCHAR(255) NOT NULL,
 
-    user_role_id INT NOT NULL,
-    user_role_id INT REFERENCES roles(id_role) ON DELETE RESTRICT
+    user_role_id INT NOT NULL REFERENCES roles(id_role) ON DELETE RESTRICT
 );

@@ -27,3 +27,21 @@ CREATE TABLE competitions (
 
 INSERT INTO competitions (titreCompetition, lieuCompetition, dateDebut, dateFin, typeCompetition, image) VALUES 
 ('Grand Prix de la Baie', 'Dakhla', '2024-10-12', '2024-10-14', 'Mer', 'https://lh3.googleusercontent.com/aida-public/AB6AXuC3cmYHLi21Ysqi_xbbhTChL2N-gv4jzQ5BT-yNj5frDPUsdYmuzEyu8eBlRetQAgocQdr7zOuQ_1NXT8JUNQIrNxK_ODG3jN0PYMD0eJVIN9w8eQUYBIoimMCLIxVxPIj_mFyaHoZyEhFqDLJgx4hudnE6V8aNLAnF3SUrP-J9cdLA2Iv2XaBGWHCMQf0bisNBESiUUjbEEhlUPZRJMsrwwlWNKASgGgYDFPmWP--w9IF6cnueL5jpca3C_ZKOjA5C-b5xm3oMd-TM');
+
+
+CREATE TABLE pecheurs (
+    region VARCHAR(60),
+    specialite VARCHAR(40),
+    photoPecheur VARCHAR(250),
+    statutPecheur BOOLEAN DEFAULT TRUE 
+) INHERITS (users);
+
+
+CREATE TABLE prises (
+    id_prise SERIAL PRIMARY KEY,
+    espece VARCHAR(50),
+    poids FLOAT,
+    taille FLOAT,
+    id_pecheur INT REFERENCES pecheurs(id_user) ON DELETE CASCADE,
+    id_competition INT  
+);

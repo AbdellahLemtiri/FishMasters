@@ -205,4 +205,10 @@ class Competition
         $stmt->execute([':id' => $this->idCompetition]);
         return true;
     }
+
+    public static function listCompetitions($pdo)
+    {
+        $stmt = $pdo->query("SELECT c.*, cat.name as category_name FROM competitions c JOIN categories cat ON c.category_id = cat.id");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

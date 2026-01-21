@@ -2,7 +2,7 @@
 
 namespace App\models;
 use DateTime;
-use App\Models\Competition;
+use App\models\Competition;
 class Prise
 {
 
@@ -81,5 +81,5 @@ public function getIdPrise(): int { return $this->idPrise; }
     public function creatPrise(){}
     public function updatePrise(){}
     public function deletePrise(){}
-
+ //git -commit "fea(Prise) : add the Prise model with its getters and setters and validation logic"
 }

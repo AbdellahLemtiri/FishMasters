@@ -1,9 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-require_once __DIR__ . '/../app/controllers/VisitorController.php';
-
-$controller = new VisitorController();
-$controller->calendar();
-?>
+namespace public;
+use config\Connexion;
+echo  'helo';
+require_once __DIR__ . '/../config/Connexion.php';
+echo Connexion::connect()->getConnexion();

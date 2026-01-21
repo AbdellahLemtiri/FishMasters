@@ -1,19 +1,19 @@
-
 <?php
 namespace App\models;
-
-
-// extends User
-class Pecheur  {
+ 
+use DateTime;
+use App\models\User;    
+use PDO;
+class Pecheur extends User {
     private string $region;
     private string $specialite;
     private string $photoPecheur;
-    private bool $statutPecheur;  
-    
-    
-    
-  
- 
+    private bool $statutPecheur;    
+    private PDO $db;
+ public function __construct($db)
+ {
+    $this->db = $db;
+ }
     public function getRegion(): string {
         return $this->region;
     }
@@ -44,6 +44,5 @@ class Pecheur  {
     public function setStatutPecheur(bool $statut): void {
         $this->statutPecheur = $statut;
     }
-    // public function 
+ //git commit -m "add the Pecheur model and its getters and setters"  
 }
-

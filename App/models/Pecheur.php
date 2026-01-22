@@ -1,12 +1,10 @@
 <?php
 
-namespace App\models;
-
-use DateTime;
-
-use App\models\User;
-require_once 'User.php';
+namespace App\Models;
+use App\models\User;    
+use Config\Connexion;
 use PDO;
+use App\Utils\Logger;
 
 class Pecheur extends User
 {
@@ -14,11 +12,8 @@ class Pecheur extends User
     private string $specialite;
     private string $photoPecheur;
     private bool $statutPecheur;
-    private PDO $db;
-    public function __construct($db)
-    {
-        $this->db = $db;
-    }
+ 
+
     public function getRegion(): string
     {
         return $this->region;
@@ -56,8 +51,10 @@ class Pecheur extends User
     public function setStatutPecheur(bool $statut): void
     {
         $this->statutPecheur = $statut;
+      
     }
 
+    
 
     
 }

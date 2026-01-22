@@ -1,22 +1,22 @@
 CREATE TABLE roles (
-    id_role SERIAL PRIMARY KEY,
-    nom_role VARCHAR(50) UNIQUE NOT NULL
+    idRole SERIAL PRIMARY KEY,
+    nomRole VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE utilisateurs (
-    id_user SERIAL PRIMARY KEY,
-    nom_user VARCHAR(100) NOT NULL,
-    email_user VARCHAR(255) UNIQUE NOT NULL,
-    password_user VARCHAR(255) NOT NULL,
-    user_role_id INT NOT NULL REFERENCES roles (id_role) ON DELETE RESTRICT
+    idUser SERIAL PRIMARY KEY,
+    nomUser VARCHAR(100) NOT NULL,
+    emailUser VARCHAR(255) UNIQUE NOT NULL,
+    passwordUser     VARCHAR(255) NOT NULL,
+    roleId INT NOT NULL REFERENCES roles (idRole) ON DELETE RESTRICT
 );
 
 
 
  
-DROP TABLE IF EXISTS inscriptionsCompetitions CASCADE;
+DROP TABLE IF EXISTS roles CASCADE;
 DROP TABLE IF EXISTS reglements CASCADE;
-DROP TABLE IF EXISTS prise CASCADE;  
+DROP TABLE IF EXISTS utilisateurs CASCADE;  
 DROP TABLE IF EXISTS prises CASCADE;  
  
 DROP TABLE IF EXISTS pecheurs CASCADE;
@@ -34,18 +34,7 @@ CREATE TABLE pecheurs (
 ) INHERITS (utilisateurs);
  
  
-CREATE TABLE prise (
-    idPrise SERIAL PRIMARY KEY,
-    idespece INT REFERENCES especes (idEspece) ON DELETE CASCADE,
-    poids FLOAT DEFAULT NULL,
-    taille FLOAT DEFAULT NULL,
-    photo VARCHAR(250),
-    dateHeure TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    spot VARCHAR(100),
-    statut BOOLEAN DEFAULT TRUE,
-    idPecheur INT REFERENCES utilisateurs (id_user) ON DELETE CASCADE,
-    idCompetition INT REFERENCES competitions (idCompetition) ON DELETE CASCADE
-);
+
 
 -- //////////////////////////////////////////////////////////////////////////////////////////////
 -- table competitions, especes, reglements, inscriptions n'apportez aucune modification sans autorisation 
@@ -122,3 +111,15 @@ ALTER TABLE "utilisateurs" RENAME COLUMN "email_user" TO "emailUser";
 
 ALTER TABLE "utilisateurs" RENAME COLUMN "password_user" TO "passwordUser";
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////
+CREATE TABLE prises (
+    idPrise SERIAL PRIMARY KEY,
+    idespece INT REFERENCES especes (idEspece) ON DELETE CASCADE,
+    poids FLOAT DEFAULT NULL,
+    taille FLOAT DEFAULT NULL,
+    photo VARCHAR(250),
+    dateHeure TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    spot VARCHAR(100),
+    statut BOOLEAN DEFAULT TRUE,
+    idPecheur INT REFERENCES utilisateurs (idUser) ON DELETE CASCADE,
+    idCompetition INT REFERENCES competitions (idCompetition) ON DELETE CASCADE
+);

@@ -5,12 +5,16 @@ namespace App\models;
 use PDO;
 use PDOException;
 use Exception;
-require_once 'User.php';
+use App\models\User;
 class Fan extends User
 {
     private $statut_fan = 1;
     private $dateInscription;
-
+    public function __construct()
+    {
+        parent::__construct();
+        $this->dateInscription = new \DateTime();
+    }
     public function getStatut()
     {
         return $this->statut_fan;
@@ -113,3 +117,4 @@ class Fan extends User
         }
     }
 }
+

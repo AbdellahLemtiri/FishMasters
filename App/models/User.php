@@ -2,8 +2,8 @@
 namespace App\models;
 
 use PDO;
-
-class User
+use Config\Connexion;   
+abstract class User
 {
     protected $conn;
     protected $table = "users";
@@ -13,10 +13,7 @@ class User
     protected $passwordUser;
     protected $roleUser;
     protected $idRole;
-    public function __construct($db)
-    {
-        $this->conn = $db;
-    }
+    protected $db  ;
     public function getIdUser()
     {
         return $this->idUser;
@@ -93,6 +90,7 @@ class User
 
     public function login($email, $password)
     {
+    
         $query = 'SELECT * FROM ' . $this->table . ' WHERE "emailUser" = :email';
 
         $stmt = $this->conn->prepare($query);

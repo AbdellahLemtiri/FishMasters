@@ -257,7 +257,4 @@ class Prise
             return [];
         }
     }
-
-
-    git commit -m "Completed Prise model with CRUD operations and logging"
 }

@@ -1,6 +1,7 @@
 <?php
+    namespace APP\models;
 
-    class Badge{
+    class Badge extends BaseModel{
         private $id_badge;
         private $titre_badge;
         private $icon_badge;
@@ -22,11 +23,11 @@
             }
         }
 
-        static function ajouterBadge($badge, $pdo){
+        static function ajouterBadge($badge){
             try{
                 $sql = "INSERT INTO badges (titre_badge, icon_badge, min_score)
                         VALUES (:titre_badge, :icon_badge, :min_score)";
-                $stmt = $pdo->prepare($sql);
+                $stmt = $this->db->prepare($sql);
                 $stmt->execute([
                     ':titre_badge' => $badge->titre_badge,
                     ':icon_badge' => $badge->icon_badge,
@@ -40,12 +41,12 @@
             }
         }
 
-        public function modifierBadge($badge, $pdo){
+        public function modifierBadge($badge){
             try{
                 $sql = "UPDATE badges
                         SET titre_badge = :titre_badge, icon_badge = :icon_badge, min_score = :min_score
                         WHERE id_badge = :id_badge";
-                $stmt = $pdo->prepare($sql);
+                $stmt = $this->db->prepare($sql);
                 $stmt->execute([
                     ':titre_badge' => $badge->titre_badge,
                     ':icon_badge' => $badge->icon_badge,
@@ -60,11 +61,11 @@
             }
         }
 
-        public function supprimerBadge($pdo){
+        public function supprimerBadge(){
             try{
                 $sql = "DELETE FROM badges
                         WHERE id_badge = :id_badge";
-                $stmt = $pdo->prepare($sql);
+                $stmt = $this->db->prepare($sql);
                 $stmt->execute([
                     ':id_badge' => $this->id_badge
                 ]);
@@ -76,11 +77,11 @@
             }
         }
 
-        static function getById($id_badge, $pdo){
+        static function getById($id_badge){
             try{
                 $sql = "SELECT * FROM badges
                         WHERE id_badge = :id_badge";
-                $stmt = $pdo->prepare($sql);
+                $stmt = $this->db->prepare($sql);
                 $stmt->execute([
                     ':id_badge' => $this->id_badge
                 ]);
@@ -93,10 +94,10 @@
             }
         }
 
-        static function allBadges($pdo){
+        static function allBadges(){
             try{
                 $sql = "SELECT * FROM badges";
-                $stmt = $pdo->prepare($sql);
+                $stmt = $this->db->prepare($sql);
                 $stmt->execute();
 
                 return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);

@@ -192,8 +192,7 @@ class Competition
 
     public function delete(PDO $pdo): bool
     {
-
-        $sql = "DELETE FROM competitions WHERE idCompetion = :id";
+        $sql = "DELETE FROM competitions WHERE idCompetition = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':id' => $this->idCompetition]);
         return true;

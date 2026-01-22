@@ -44,5 +44,5 @@ class Pecheur extends User {
     public function setStatutPecheur(bool $statut): void {
         $this->statutPecheur = $statut;
     }
- //git commit -m "add the Pecheur model and its getters and setters"  
+ 
 }

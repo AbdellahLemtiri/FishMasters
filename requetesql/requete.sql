@@ -51,12 +51,12 @@ CREATE TABLE prises (
     idPrise SERIAL PRIMARY KEY,
     espece VARCHAR(50),
     poids FLOAT DEFAULT NULL,
-    taille FLOAT eDEFAULT NULL,
+    taille FLOAT DEFAULT NULL,
     photo VARCHAR(250),
-    dateHeure DATETIME CURRENT_TIMESTAMP,
+    dateHeure TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     spot VARCHAR(100),
     statut BOOLEAN DEFAULT TRUE,
-    idPecheur INT REFERENCES pecheurs (id_user) ON DELETE CASCADE,
+    idPecheur INT REFERENCES utilisateurs (id_user) ON DELETE CASCADE,
     idCompetition INT REFERENCES competitions (idCompetition) ON DELETE CASCADE
 );
 
@@ -69,24 +69,26 @@ CREATE TYPE competition_category AS ENUM ('Individuel', 'Équipe');
 CREATE TYPE competition_status AS ENUM ('ouvert', 'en cours', 'terminé') DEFAULT 'ouvert';
 
 
-drop if EXISTS competitions;
+drop table if  EXISTS competitions;
 CREATE TABLE competitions (
     idCompetition SERIAL PRIMARY KEY,
     titreCompetition VARCHAR(255) NOT NULL,
     lieu VARCHAR(255),
-    date_debut TIMESTAMP NOT NULL,
+    dateDebut TIMESTAMP NOT NULL,
+    dateFin TIMESTAMP NOT NULL,
     typeMilieu competition_water_type,
     categorie competition_category,
     nbManches INT DEFAULT 1,
     status competition_status 
 );
-  DROP if EXISTS especes;
-CREATE TABLE especes (
-    idEspece SERIAL PRIMARY KEY,
-    nom VARCHAR(100) UNIQUE NOT NULL,
-    nomScientifique VARCHAR(150),
-    description TEXT
-);
+
+    DROP table IF EXISTS especes;
+    CREATE TABLE especes (
+        idEspece SERIAL PRIMARY KEY,
+        nom VARCHAR(100) UNIQUE NOT NULL,
+        nomScientifique VARCHAR(150),
+        description TEXT
+    );
  DROP TABLE  IF EXISTS reglements;
 CREATE TABLE reglements (
     idReglement SERIAL PRIMARY KEY,
@@ -112,7 +114,7 @@ CREATE TABLE inscriptionsCompetitions (
 
 
 
-drop if EXISTS reglements;
+drop table if EXISTS reglements;
 CREATE TABLE reglements (
     idReglement SERIAL PRIMARY KEY,
     competitionId INT NOT NULL,

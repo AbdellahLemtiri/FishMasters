@@ -1,8 +1,8 @@
 <?php
 
-namespace App\models;
+namespace App\Models;
 use DateTime;
-use App\models\Competition;
+use App\Models\Competition;
 class Prise
 {
 
@@ -17,7 +17,7 @@ private bool $isRelache;
 private string $statut;  
 private int $idPecheur;  
 private int $idCompetition; 
-// private Competition $competition
+private Competition $competition;
 
 public function getIdPrise(): int { return $this->idPrise; }
     public function getEspece(): string { return $this->espece; }
@@ -28,7 +28,7 @@ public function getIdPrise(): int { return $this->idPrise; }
     public function getSpot(): string { return $this->spot; }
     public function getIsRelache(): bool { return $this->isRelache; }
     public function getStatut(): string { return $this->statut; }
-    // public function getIdPecheur(): int { return $this->idPecheur; }
+    public function getIdPecheur(): int { return $this->idPecheur; }
     public function getIdCompetition(): int { return $this->idCompetition; }
 
      
@@ -73,13 +73,8 @@ public function getIdPrise(): int { return $this->idPrise; }
     public function setSpot(string $s): void { $this->spot = $s; }
     public function setIsRelache(bool $r): void { $this->isRelache = $r; }
     public function setDateHeure(DateTime $d): void { $this->dateHeure = $d; }
-    // public function setIdPecheur(int $id): void { $this->idPecheur = $id; }
+    public function setIdPecheur(int $id): void { $this->idPecheur = $id; }
     public function setIdCompetition(int $id): void { $this->idCompetition = $id; }
- 
-    public function getAllPrisePecheur(){}
-    public function getPriseById(){}
-    public function creatPrise(){}
-    public function updatePrise(){}
-    public function deletePrise(){}
- //git -commit "fea(Prise) : add the Prise model with its getters and setters and validation logic"
+
+    
 }

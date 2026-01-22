@@ -40,16 +40,31 @@ VALUES (
         'https://lh3.googleusercontent.com/aida-public/AB6AXuC3cmYHLi21Ysqi_xbbhTChL2N-gv4jzQ5BT-yNj5frDPUsdYmuzEyu8eBlRetQAgocQdr7zOuQ_1NXT8JUNQIrNxK_ODG3jN0PYMD0eJVIN9w8eQUYBIoimMCLIxVxPIj_mFyaHoZyEhFqDLJgx4hudnE6V8aNLAnF3SUrP-J9cdLA2Iv2XaBGWHCMQf0bisNBESiUUjbEEhlUPZRJMsrwwlWNKASgGgYDFPmWP--w9IF6cnueL5jpca3C_ZKOjA5C-b5xm3oMd-TM'
     );
 
+
+ 
+DROP TABLE IF EXISTS inscriptionsCompetitions CASCADE;
+DROP TABLE IF EXISTS reglements CASCADE;
+DROP TABLE IF EXISTS prise CASCADE;  
+DROP TABLE IF EXISTS prises CASCADE;  
+ 
+DROP TABLE IF EXISTS pecheurs CASCADE;
+DROP TABLE IF EXISTS competitions CASCADE;
+DROP TABLE IF EXISTS especes CASCADE;
+ 
+DROP TYPE IF EXISTS competition_water_type CASCADE;
+DROP TYPE IF EXISTS competition_category CASCADE;
+DROP TYPE IF EXISTS competition_status CASCADE;
 CREATE TABLE pecheurs (
     region VARCHAR(60),
     specialite VARCHAR(40),
     photoPecheur VARCHAR(250),
     statutPecheur BOOLEAN DEFAULT TRUE
 ) INHERITS (utilisateurs);
-
-CREATE TABLE prises (
+ 
+ 
+CREATE TABLE prise (
     idPrise SERIAL PRIMARY KEY,
-    espece VARCHAR(50),
+    idespece INT REFERENCES especes (idEspece) ON DELETE CASCADE,
     poids FLOAT DEFAULT NULL,
     taille FLOAT DEFAULT NULL,
     photo VARCHAR(250),
@@ -66,10 +81,10 @@ CREATE TYPE competition_water_type AS ENUM ('Mer', 'Eau douce');
 
 CREATE TYPE competition_category AS ENUM ('Individuel', 'Équipe');
 
-CREATE TYPE competition_status AS ENUM ('ouvert', 'en cours', 'terminé') DEFAULT 'ouvert';
+CREATE TYPE competition_status AS ENUM ('ouvert', 'en cours', 'terminé') ;
 
 
-drop table if  EXISTS competitions;
+ 
 CREATE TABLE competitions (
     idCompetition SERIAL PRIMARY KEY,
     titreCompetition VARCHAR(255) NOT NULL,
@@ -77,19 +92,23 @@ CREATE TABLE competitions (
     dateDebut TIMESTAMP NOT NULL,
     dateFin TIMESTAMP NOT NULL,
     typeMilieu competition_water_type,
-    categorie competition_category,
+     
     nbManches INT DEFAULT 1,
+    idCategorie INT REFERENCES categories (idCategorie),
     status competition_status 
 );
 
-    DROP table IF EXISTS especes;
+   create table categories (
+        idCategorie SERIAL PRIMARY KEY,
+        nomCategorie VARCHAR(100) UNIQUE NOT NULL
+    );
     CREATE TABLE especes (
         idEspece SERIAL PRIMARY KEY,
         nom VARCHAR(100) UNIQUE NOT NULL,
         nomScientifique VARCHAR(150),
         description TEXT
     );
- DROP TABLE  IF EXISTS reglements;
+  
 CREATE TABLE reglements (
     idReglement SERIAL PRIMARY KEY,
     competitionId INT NOT NULL,
@@ -102,7 +121,7 @@ CREATE TABLE reglements (
     UNIQUE(competitionId, especeId)
 );
 
-DROP TABLE  IF EXISTS inscriptionsCompetitions;
+ 
 CREATE TABLE inscriptionsCompetitions (
     id SERIAL PRIMARY KEY,
     idPecheur INT NOT NULL,
@@ -114,7 +133,7 @@ CREATE TABLE inscriptionsCompetitions (
 
 
 
-drop table if EXISTS reglements;
+ 
 CREATE TABLE reglements (
     idReglement SERIAL PRIMARY KEY,
     competitionId INT NOT NULL,

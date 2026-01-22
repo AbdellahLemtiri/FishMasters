@@ -1,48 +1,62 @@
 <?php
+
 namespace App\models;
- 
+
 use DateTime;
-use App\models\User;    
+use App\models\User;
 use PDO;
-class Pecheur extends User {
+
+class Pecheur extends User
+{
     private string $region;
     private string $specialite;
     private string $photoPecheur;
-    private bool $statutPecheur;    
+    private bool $statutPecheur;
+    private int $idRole;
     private PDO $db;
- public function __construct($db)
- {
-    $this->db = $db;
- }
-    public function getRegion(): string {
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
+    public function getRegion(): string
+    {
         return $this->region;
     }
-    public function setRegion(string $region): void {
+    public function setRegion(string $region): void
+    {
         $this->region = $region;
     }
 
-   
-    public function getSpecialite(): string {
+
+    public function getSpecialite(): string
+    {
         return $this->specialite;
     }
-    public function setSpecialite(string $specialite): void {
+    public function setSpecialite(string $specialite): void
+    {
         $this->specialite = $specialite;
     }
 
-    
-    public function getPhotoPecheur(): string {
+
+    public function getPhotoPecheur(): string
+    {
         return $this->photoPecheur;
     }
-    public function setPhotoPecheur(string $path): void {
+    public function setPhotoPecheur(string $path): void
+    {
         $this->photoPecheur = $path;
     }
+  
 
-     
-    public function getStatutPecheur(): bool {
+    public function getStatutPecheur(): bool
+    {
         return $this->statutPecheur;
     }
-    public function setStatutPecheur(bool $statut): void {
+    public function setStatutPecheur(bool $statut): void
+    {
         $this->statutPecheur = $statut;
     }
- 
+
+
+    
 }

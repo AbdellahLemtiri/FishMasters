@@ -17,7 +17,7 @@ private bool $isRelache;
 private string $statut;  
 private int $idPecheur;  
 private int $idCompetition; 
-private Competition $competition;
+private Competition $competition;    
 
 public function getIdPrise(): int { return $this->idPrise; }
     public function getEspece(): string { return $this->espece; }

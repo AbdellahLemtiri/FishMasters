@@ -1,5 +1,4 @@
 <?php
-
 namespace App\models;
 
 use PDO;
@@ -116,5 +115,3 @@ class User
         return false;
     }
 }
-
- 

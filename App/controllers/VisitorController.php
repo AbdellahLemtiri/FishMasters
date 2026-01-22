@@ -1,6 +1,10 @@
 <?php
+<<<<<<< HEAD
 namespace App\Controllers;
 use App\models\Competition;
+=======
+require_once __DIR__ . '/../models/Competition.php';
+>>>>>>> origin/Abdellah/featPecheur
 
 class VisitorController {
     

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../models/Competition.php';
+namespace App\Controllers;
 use App\models\Competition;
 
 class VisitorController {

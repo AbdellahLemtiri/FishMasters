@@ -4,7 +4,7 @@ namespace App\models;
 
 use PDO;
 
-class User
+abstract class User
 {
     private $conn;
     private $table = "users";
@@ -68,30 +68,30 @@ class User
         $this->idRole = $idRole;
     }
 
-    public function register($nom, $email, $password, $idRole)
-    {
-        $query = 'INSERT INTO ' . $this->table . ' 
-                  ("nomUser", "emailUser", "passwordUser", "idRole") 
-                  VALUES (:nom, :email, :pass, :role)';
+    // public function register($nom, $email, $password, $idRole)
+    // {
+    //     $query = 'INSERT INTO ' . $this->table . ' 
+    //               ("nomUser", "emailUser", "passwordUser", "idRole") 
+    //               VALUES (:nom, :email, :pass, :role)';
 
-        $stmt = $this->conn->prepare($query);
+    //     $stmt = $this->conn->prepare($query);
 
-        $nom = htmlspecialchars(strip_tags($nom));
-        $email = htmlspecialchars(strip_tags($email));
+    //     $nom = htmlspecialchars(strip_tags($nom));
+    //     $email = htmlspecialchars(strip_tags($email));
 
 
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    //     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt->bindParam(':nom', $nom);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':pass', $passwordHash);
-        $stmt->bindParam(':role', $idRole);
+    //     $stmt->bindParam(':nom', $nom);
+    //     $stmt->bindParam(':email', $email);
+    //     $stmt->bindParam(':pass', $passwordHash);
+    //     $stmt->bindParam(':role', $idRole);
 
-        if ($stmt->execute()) {
-            return true;
-        }
-        return false;
-    }
+    //     if ($stmt->execute()) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     public function login($email, $password)
     {

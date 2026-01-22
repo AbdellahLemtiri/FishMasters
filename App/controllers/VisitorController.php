@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/Competition.php';
+use App\models\Competition;
 
 class VisitorController {
     

@@ -1,8 +1,11 @@
 <?php
 
-namespace APP\models;
-use App\models\User;
+namespace App\models;
 
+use PDO;
+use PDOException;
+use Exception;
+require_once 'User.php';
 class Fan extends User
 {
     private $statut_fan = 1;
@@ -23,17 +26,17 @@ class Fan extends User
         return $this->dateInscription;
     }
 
-    static function ajouterFan($fan)
+    public function ajouterFan($fan)
     {
         try {
-            $sql = "INSERT INTO fans (nom_user, email_user, password_user, user_role_id, statut_fan)
-                        VALUES (:nom_user, :email_user, :password_user, :role_id, :statut_fan)";
+            $sql = "INSERT INTO fans (nomUser, emailUser, passwordUser, idRole, statut_fan)
+                        VALUES (:nomUser, :emailUser, :passwordUser, :role_id, :statut_fan)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
-                'nom_user' => $fan->nom_user,
-                'email_user' => $fan->email_user,
-                'password_user' => password_hash($fan->password_user, PASSWORD_DEFAULT),
-                'role_id' => $fan->user_role_id,
+                'nomUser' => $fan->nomUser,
+                'emailUser' => $fan->emailUser,
+                'passwordUser' => password_hash($fan->passwordUser, PASSWORD_DEFAULT),
+                'role_id' => $fan->idRole,
                 'statut_fan' => $fan->statut_fan
             ]);
 
@@ -48,16 +51,16 @@ class Fan extends User
     {
         try {
             $sql = "UPDATE fans
-                        SET nom_user = :nom_user, email_user = :email_user, password_user = :password_user, user_role_id = :role_id, statut_fan = :statut_fan
-                        WHERE id_user = :id_user";
+                        SET nomUser = :nomUser, emailUser = :emailUser, passwordUser = :passwordUser, idRole = :role_id, statut_fan = :statut_fan
+                        WHERE idUser = :idUser";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
-                'nom_user' => $fan->nom_user,
-                'email_user' => $fan->email_user,
-                'password_user' => password_hash($fan->password_user, PASSWORD_DEFAULT),
-                'role_id' => $fan->user_role_id,
+                'nomUser' => $fan->nomUser,
+                'emailUser' => $fan->emailUser,
+                'passwordUser' => password_hash($fan->passwordUser, PASSWORD_DEFAULT),
+                'role_id' => $fan->idRole,
                 'statut_fan' => $fan->statut_fan,
-                'id_user' => $this->id_user
+                'idUser' => $this->idUser
             ]);
 
             return true;
@@ -71,9 +74,9 @@ class Fan extends User
     {
         try {
             $sql = "DELETE FROM fans
-                        WHERE id_user = :id_user";
+                        WHERE idUser = :idUser";
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['id_user' => $this->id_user]);
+            $stmt->execute(['idUser' => $this->idUser]);
             return true;
         } catch (PDOException $e) {
             error_log('Erreur lors de la suppression du fan:\n' . $e->getMessage() . '\n------------------\n');
@@ -81,12 +84,12 @@ class Fan extends User
         }
     }
 
-    static function getById($id_fan)
+    public function getById($id_fan)
     {
         try {
-            $sql = "SELECT * FROM fans WHERE id_user = :id_user";
+            $sql = "SELECT * FROM fans WHERE idUser = :idUser";
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['id_user' => $id_fan]);
+            $stmt->execute(['idUser' => $id_fan]);
             $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
 
             return $stmt->fetch();
@@ -96,7 +99,7 @@ class Fan extends User
         }
     }
 
-    static function allFans()
+    public function allFans()
     {
         try {
             $sql = "SELECT * FROM fans";

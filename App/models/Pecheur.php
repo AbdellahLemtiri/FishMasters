@@ -3,7 +3,9 @@
 namespace App\models;
 
 use DateTime;
+
 use App\models\User;
+require_once 'User.php';
 use PDO;
 
 class Pecheur extends User
@@ -12,7 +14,6 @@ class Pecheur extends User
     private string $specialite;
     private string $photoPecheur;
     private bool $statutPecheur;
-    private int $idRole;
     private PDO $db;
     public function __construct($db)
     {

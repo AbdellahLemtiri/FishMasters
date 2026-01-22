@@ -5,15 +5,14 @@ use PDO;
 
 class User
 {
-    private $conn;
-    private $table = "users";
-
-    private $idUser;
-    private $nomUser;
-    private $emailUser;
-    private $passwordUser;
-    private $roleUser;
-    private $idRole;
+    protected $conn;
+    protected $table = "users";
+    protected $idUser;
+    protected $nomUser;
+    protected $emailUser;
+    protected $passwordUser;
+    protected $roleUser;
+    protected $idRole;
     public function __construct($db)
     {
         $this->conn = $db;

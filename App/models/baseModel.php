@@ -1,6 +1,6 @@
 <?php
-    namespace APP\models;
-    use CONFIG\Connexion;
+    namespace App\models;
+    use Config\Connexion;
 
     class BaseModel{
         protected $db;

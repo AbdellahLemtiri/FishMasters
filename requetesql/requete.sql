@@ -117,5 +117,8 @@ CREATE TABLE reglements (
     CONSTRAINT fk_espece FOREIGN KEY (especeId) REFERENCES especes (idEspece) ON DELETE CASCADE,
     UNIQUE(competitionId, especeId)
 );
+ALTER TABLE "utilisateurs" RENAME COLUMN "nom_user" TO "nomUser";
+ALTER TABLE "utilisateurs" RENAME COLUMN "email_user" TO "emailUser";
 
+ALTER TABLE "utilisateurs" RENAME COLUMN "password_user" TO "passwordUser";
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////

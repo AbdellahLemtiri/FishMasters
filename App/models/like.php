@@ -1,6 +1,9 @@
 <?php
-    namespace APP\models;
-    
+    namespace App\models;
+    use PDOException;
+    use PDO;
+    USE Exception;
+    require_once 'baseModel.php';
     class Like extends BaseModel{
         private $fan_id;
         private $id_like;
@@ -28,7 +31,7 @@
             }
         }
 
-        static function ajouterLike($like){
+        public function ajouterLike($like){
             try{
                 $sql = "INSERT INTO likes(fan_id, statut_like, pecheur_id, prise_id, competition_id)
                         VALUES (:fan_id, :statut_like, :pecheur_id, :prise_id, :competition_id)";
@@ -83,7 +86,7 @@
             }
         }
 
-        static function getById($id_like){
+        public function getById($id_like){
             try{
                 $sql = "SELECT * FROM likes WHERE id_like = :id_like";
                 $stmt = $this->db->prepare($sql);
@@ -97,7 +100,7 @@
             }
         }
 
-        static function likesByFan($fan_id){
+        public function likesByFan($fan_id){
             try{
                 $sql = "SELECT * FROM likes WHERE fan_id = :fan_id";
                 $stmt = $this->db->prepare($sql);
@@ -110,7 +113,7 @@
             }
         }
 
-        static function likesByPecheur($pecheur_id){
+        public function likesByPecheur($pecheur_id){
             try{
                 $sql = "SELECT * FROM likes WHERE pecheur_id = :pecheur_id";
                 $stmt = $this->db->prepare($sql);
@@ -123,7 +126,7 @@
             }
         }
 
-        static function likesByPrise($prise_id){
+        public function likesByPrise($prise_id){
             try{
                 $sql = "SELECT * FROM likes WHERE prise_id = :prise_id";
                 $stmt = $this->db->prepare($sql);
@@ -136,7 +139,7 @@
             }
         }
 
-        static function likesByCompetition($competition_id){
+        public function likesByCompetition($competition_id){
             try{
                 $sql = "SELECT * FROM likes WHERE competition_id = :competition_id";
                 $stmt = $this->db->prepare($sql);
@@ -149,7 +152,7 @@
             }
         }
 
-        static function allLikes(){
+        public function allLikes(){
             try{
                 $sql = "SELECT * FROM likes";
                 $stmt = $this->db->prepare($sql);

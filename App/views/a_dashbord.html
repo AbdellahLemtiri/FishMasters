@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Fishing Admin Dashboard V1</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec37",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#0a0f0a",
+                        "card-dark": "#121a12",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .bg-gradient-dark {
+            background: linear-gradient(135deg, #0a0f0a 0%, #121a12 100%);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0f0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1a2e1d;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #13ec37;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased">
+    <div class="flex h-screen overflow-hidden bg-gradient-dark">
+        <!-- Sidebar Navigation -->
+        <aside
+            class="w-64 flex-shrink-0 border-r border-white/5 bg-background-dark/50 backdrop-blur-xl hidden lg:flex flex-col">
+            <div class="p-6 flex items-center gap-3">
+                <div
+                    class="size-10 rounded-lg bg-primary flex items-center justify-center shadow-[0_0_15px_rgba(19,236,55,0.4)]">
+                    <span class="material-symbols-outlined text-black font-bold">sailing</span>
+                </div>
+                <div>
+                    <h1 class="text-white font-extrabold text-lg leading-tight">FishDash</h1>
+                    <p class="text-primary text-[10px] uppercase tracking-widest font-bold">Admin Console</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 py-4 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary group border border-primary/20"
+                    href="#">
+                    <span class="material-symbols-outlined fill-1">dashboard</span>
+                    <span class="text-sm font-semibold">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all"
+                    href="a_competition.php">
+                    <span class="material-symbols-outlined">trophy</span>
+                    <span class="text-sm font-medium">Competitions</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all"
+                    href="#">
+                    <span class="material-symbols-outlined">groups</span>
+                    <span class="text-sm font-medium">Fishermen</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all"
+                    href="#">
+                    <span class="material-symbols-outlined">set_meal</span>
+                    <span class="text-sm font-medium">Catches</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all"
+                    href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="text-sm font-medium">Settings</span>
+                </a>
+            </nav>
+            <div class="p-4 mt-auto border-t border-white/5">
+                <div class="flex items-center gap-3 p-2 bg-white/5 rounded-xl border border-white/5">
+                    <div class="size-9 rounded-full bg-cover bg-center" data-alt="User profile avatar of admin"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD6sY-T0MErdU3KiN3_yZ1Q796YTAcOMGkXxAvUiUxFPzTXMipxGmqkzITChjH5Q-J7Oe_eOwIoCF5-cJFF03WLD_LaUtaZGTdhoqvrYCH8SFCQ0BuAXLID877QJ1PS18qAelynBlP-41-k_s0tQG-ELHqUkuZAujGtARcXuoJlnvp-CbBEaaxJTJgMPf8OPzgrxnaVUNz8cZUoniLTRI8JDQ1GgeeaX7P1w-UpAM8rmLJWr_w98Va2e5EK6aBUkw2zHYYr8ijfQ6c')">
+                    </div>
+                    <div class="flex-1 overflow-hidden">
+                        <p class="text-xs font-bold text-white truncate">Captain Hook</p>
+                        <p class="text-[10px] text-slate-500 truncate">Senior Admin</p>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-slate-500 text-sm cursor-pointer hover:text-primary">logout</span>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navbar -->
+            <header
+                class="h-16 flex items-center justify-between px-8 border-b border-white/5 bg-background-dark/20 backdrop-blur-md">
+                <div class="flex items-center gap-4 w-1/3">
+                    <div class="relative w-full max-w-sm">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xl">search</span>
+                        <input
+                            class="w-full bg-white/5 border-white/10 rounded-lg py-2 pl-10 pr-4 text-sm text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600"
+                            placeholder="Search tournaments, catches, or users..." type="text" />
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="relative p-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white transition-all">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span
+                            class="absolute top-2 right-2 size-2 bg-primary rounded-full border border-background-dark"></span>
+                    </button>
+                    <div class="h-8 w-px bg-white/10 mx-2"></div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-medium text-slate-300">Live Status:</span>
+                        <span
+                            class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-bold border border-primary/20">
+                            <span class="size-1.5 bg-primary rounded-full animate-pulse"></span>
+                            CONNECTED
+                        </span>
+                    </div>
+                </div>
+            </header>
+            <!-- Dashboard Body -->
+            <div class="flex-1 overflow-y-auto p-8 space-y-8">
+                <!-- KPI Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div
+                        class="bg-white/5 border border-white/10 rounded-xl p-6 relative overflow-hidden group hover:border-primary/30 transition-all">
+                        <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <span class="material-symbols-outlined text-8xl">trophy</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="size-12 rounded-lg bg-yellow-500/20 text-yellow-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined">trophy</span>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-sm font-medium">Total Competitions</p>
+                                <h3 class="text-2xl font-bold text-white">128</h3>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center gap-2">
+                            <span class="text-primary text-xs font-bold">+12%</span>
+                            <span class="text-slate-600 text-[10px] font-medium uppercase tracking-wider">vs last
+                                month</span>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white/5 border border-white/10 rounded-xl p-6 relative overflow-hidden group hover:border-primary/30 transition-all">
+                        <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <span class="material-symbols-outlined text-8xl">person</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="size-12 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined">person</span>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-sm font-medium">Active Fishermen</p>
+                                <h3 class="text-2xl font-bold text-white">1,402</h3>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center gap-2">
+                            <span class="text-primary text-xs font-bold">+42</span>
+                            <span class="text-slate-600 text-[10px] font-medium uppercase tracking-wider">new
+                                today</span>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white/5 border border-white/10 rounded-xl p-6 relative overflow-hidden group hover:border-primary/30 transition-all">
+                        <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <span class="material-symbols-outlined text-8xl">schedule</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="size-12 rounded-lg bg-orange-500/20 text-orange-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined">schedule</span>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-sm font-medium">Pending Catches</p>
+                                <h3 class="text-2xl font-bold text-white">45</h3>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="w-full bg-white/5 rounded-full h-1.5">
+                                <div class="bg-orange-500 h-1.5 rounded-full w-2/3"></div>
+                            </div>
+                            <p class="text-[10px] text-slate-500 mt-2">Urgent Review Required</p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white/5 border border-white/10 rounded-xl p-6 relative overflow-hidden group hover:border-primary/30 transition-all">
+                        <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <span class="material-symbols-outlined text-8xl">verified</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="size-12 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
+                                <span class="material-symbols-outlined">verified</span>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-sm font-medium">Validated Catches</p>
+                                <h3 class="text-2xl font-bold text-white">892</h3>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center gap-2">
+                            <span class="text-primary text-xs font-bold">98.4%</span>
+                            <span class="text-slate-600 text-[10px] font-medium uppercase tracking-wider">Accuracy
+                                rate</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Middle Section: Charts & Activity -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Charts Area -->
+                    <div class="lg:col-span-2 space-y-8">
+                        <!-- Bar Chart: Catches per Competition -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                            <div class="flex items-center justify-between mb-8">
+                                <div>
+                                    <h2 class="text-white text-lg font-bold">Catches per Competition</h2>
+                                    <p class="text-slate-500 text-xs">Volume distribution across major active tourneys
+                                    </p>
+                                </div>
+                                <select
+                                    class="bg-background-dark border-white/10 text-xs text-slate-400 rounded-lg py-1 px-3">
+                                    <option>Last 30 Days</option>
+                                    <option>Last 90 Days</option>
+                                </select>
+                            </div>
+                            <div
+                                class="h-[250px] flex items-end justify-around gap-4 px-4 border-b border-white/5 pb-2">
+                                <div class="flex flex-col items-center gap-4 w-12">
+                                    <div class="w-full bg-primary/20 border-t-2 border-primary rounded-t-sm"
+                                        style="height: 60%"></div>
+                                    <span
+                                        class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter text-center">Open
+                                        A</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-4 w-12">
+                                    <div class="w-full bg-primary border-t-2 border-primary rounded-t-sm"
+                                        style="height: 85%"></div>
+                                    <span
+                                        class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter text-center">Elite
+                                        B</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-4 w-12">
+                                    <div class="w-full bg-primary/40 border-t-2 border-primary rounded-t-sm"
+                                        style="height: 45%"></div>
+                                    <span
+                                        class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter text-center">Bass
+                                        C</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-4 w-12">
+                                    <div class="w-full bg-primary/10 border-t-2 border-primary rounded-t-sm"
+                                        style="height: 30%"></div>
+                                    <span
+                                        class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter text-center">Wild
+                                        D</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-4 w-12">
+                                    <div class="w-full bg-primary border-t-2 border-primary rounded-t-sm"
+                                        style="height: 95%"></div>
+                                    <span
+                                        class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter text-center">Master
+                                        E</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-4 w-12">
+                                    <div class="w-full bg-primary/60 border-t-2 border-primary rounded-t-sm"
+                                        style="height: 70%"></div>
+                                    <span
+                                        class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter text-center">Coast
+                                        F</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Species Distribution & Map Highlight -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                                <h2 class="text-white text-lg font-bold mb-6">Species Distribution</h2>
+                                <div class="flex items-center gap-8">
+                                    <div class="relative size-32">
+                                        <!-- Fake Donut Chart -->
+                                        <svg class="size-full -rotate-90" viewbox="0 0 36 36">
+                                            <circle class="stroke-white/5" cx="18" cy="18" fill="none" r="16"
+                                                stroke-width="3"></circle>
+                                            <circle class="stroke-primary" cx="18" cy="18" fill="none" r="16"
+                                                stroke-dasharray="60, 100" stroke-width="3"></circle>
+                                            <circle class="stroke-blue-500" cx="18" cy="18" fill="none" r="16"
+                                                stroke-dasharray="25, 100" stroke-dashoffset="-60" stroke-width="3">
+                                            </circle>
+                                            <circle class="stroke-orange-500" cx="18" cy="18" fill="none" r="16"
+                                                stroke-dasharray="15, 100" stroke-dashoffset="-85" stroke-width="3">
+                                            </circle>
+                                        </svg>
+                                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                            <span class="text-xl font-extrabold text-white">4.2k</span>
+                                            <span class="text-[9px] text-slate-500 font-bold uppercase">Total</span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3 flex-1">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <span class="size-2 bg-primary rounded-full"></span>
+                                                <span class="text-xs text-slate-300">Largemouth Bass</span>
+                                            </div>
+                                            <span class="text-xs font-bold">60%</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <span class="size-2 bg-blue-500 rounded-full"></span>
+                                                <span class="text-xs text-slate-300">Rainbow Trout</span>
+                                            </div>
+                                            <span class="text-xs font-bold">25%</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <span class="size-2 bg-orange-500 rounded-full"></span>
+                                                <span class="text-xs text-slate-300">Northern Pike</span>
+                                            </div>
+                                            <span class="text-xs font-bold">15%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="bg-white/5 border border-white/10 rounded-xl overflow-hidden relative min-h-[200px]">
+                                <div class="absolute inset-0 bg-cover bg-center grayscale opacity-30 mix-blend-overlay"
+                                    data-alt="Stylized map showing fishing hotspots" data-location="Florida Everglades"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFrskMc0sT0wkrgAbTZPmWAAdmABD_mPijE_TrGTW7QrSld0szAsbPHUDuGvA-m53dOnXDhpTFFDBjXMacBz3zYtFmm8AOBuQNsROH0ZPR7-7rqp_iECHPB8zJHI6_AWGNIDDd73bJ74qsYAwfohV5ZSoCB9xAH_wEIOF9uFv1TGwpm5ZcO-UEeUF7x6P8mdWRUf7tXHG4EBKPNCzMbNKbRU63XioMtb0asi_fi6--Zu7PNu3lyCx9aH68gLky_p3umlrpXRHEw9M')">
+                                </div>
+                                <div class="relative p-6 h-full flex flex-col justify-between">
+                                    <div>
+                                        <h2 class="text-white text-lg font-bold">Active Hotspot</h2>
+                                        <p class="text-slate-400 text-xs flex items-center gap-1">
+                                            <span
+                                                class="material-symbols-outlined text-sm text-primary">location_on</span>
+                                            Lake Okeechobee, FL
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="text-white">
+                                            <p class="text-2xl font-black">214</p>
+                                            <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">
+                                                Fishermen Live</p>
+                                        </div>
+                                        <button
+                                            class="bg-primary hover:bg-primary/90 text-black font-bold py-2 px-4 rounded-lg text-xs transition-all">
+                                            View Map
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Recent Activity Panel -->
+                    <div
+                        class="lg:col-span-1 bg-white/5 border border-white/10 rounded-xl overflow-hidden flex flex-col h-full">
+                        <div class="p-6 border-b border-white/5">
+                            <h2 class="text-white text-lg font-bold">Recent Activity</h2>
+                            <p class="text-slate-500 text-xs">Live stream of validated catch logs</p>
+                        </div>
+                        <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                            <!-- Activity Item -->
+                            <div class="flex gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
+                                <div class="size-10 rounded-full bg-cover bg-center flex-shrink-0"
+                                    data-alt="Fisherman profile photo"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGH0cSq6klG1tzJV09gw09iKrhah0WvOcgBWwAH8z2KuI-1YJfL4kf32hMyaiNY3CDK1F0carCCBoZnkyQFmNANO5kQAitAW_rd37i-9R8WGBFHWnl6iYWEUUEVciki1p9cRIRibO-k8yaZckgFgbr1JsOBcvzIDa_gPj9ExZNmCTVq_Wq1IE4ylMlLaNzzk6ZrZQFMjoIbVV3cHgP8tOk5c3rDUgNWgw4Doi6SNNundplODd3LhyEsyUoWPQE2LipYwjJ1V8F2-w')">
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-slate-200">
+                                        <span class="font-bold text-white">Mike Wilson</span> validated a <span
+                                            class="text-primary font-bold">5.4kg Bass</span>
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-slate-500">Tournament A</span>
+                                        <span class="size-1 bg-slate-700 rounded-full"></span>
+                                        <span class="text-[10px] text-slate-500">2 mins ago</span>
+                                    </div>
+                                </div>
+                                <span
+                                    class="material-symbols-outlined text-primary opacity-0 group-hover:opacity-100 transition-opacity">check_circle</span>
+                            </div>
+                            <div
+                                class="flex gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group border border-primary/10 bg-primary/5">
+                                <div
+                                    class="size-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-primary">add_circle</span>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-slate-200">
+                                        New Competition: <span class="text-white font-bold">Spring Finale 2024</span>
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-primary/80 font-bold uppercase">System
+                                            Event</span>
+                                        <span class="size-1 bg-primary/30 rounded-full"></span>
+                                        <span class="text-[10px] text-slate-500">14 mins ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
+                                <div class="size-10 rounded-full bg-cover bg-center flex-shrink-0"
+                                    data-alt="Fisherman profile photo"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuABb13PqafSFTNm44MzzRFJLU2Uvw2BDAPOqrW8_y6LHUG2xmBUYU4wmmgPn6H9xK15dCkzVd_VLDBuxSAq92c-WTN8vyEqOeNn_cIvpCbLdvbg41RynUM3yj9zoQj2VJExmGJjXLSs6eIAWjYSnCtXx5KInn-xyP46yBLq4IRve-5YFzUq71LqVu6_4lgweux_8nvbNUT7kXPjLhLnKJDCImz52fVRI6pRE2g9q8de-8I4rH3yKTE_rWuXVfs5SMoc0nDrP_zlwgM')">
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-slate-200">
+                                        <span class="font-bold text-white">Sarah Jenkins</span> joined <span
+                                            class="text-white font-bold">Open Tournament B</span>
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-slate-500">Fisherman #1042</span>
+                                        <span class="size-1 bg-slate-700 rounded-full"></span>
+                                        <span class="text-[10px] text-slate-500">28 mins ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
+                                <div class="size-10 rounded-full bg-cover bg-center flex-shrink-0"
+                                    data-alt="Fisherman profile photo"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCRmy4KUN38cvNR8pi1WybhKt3GvQ-sG324w2Ln-X_VbrIhbJo3OS2zbNfCfy7HtstBrIPeRlDoyDGtNohitlLy1GISV4NPswsSCCJOU9dSRhjQEdD71bXrrqCkFqdNGJ3mxTMZ3NTEg_xg67n9OPexI4UE_Go-YsNqsmKkRh7F7O6NMgulk6LzlOH4txvYt_TRiOktpJirZaovxiYrCcIwx1df_g1N94_S3kT1nzHzuKI71r9BslbKg2m9KxyaouOo6xbZ5JPbKhw')">
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-slate-200">
+                                        <span class="font-bold text-white">David Miller</span> uploaded <span
+                                            class="text-orange-500 font-bold">3 Pending Logs</span>
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-slate-500">Waiting Validation</span>
+                                        <span class="size-1 bg-slate-700 rounded-full"></span>
+                                        <span class="text-[10px] text-slate-500">1 hour ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group">
+                                <div class="size-10 rounded-full bg-cover bg-center flex-shrink-0"
+                                    data-alt="Fisherman profile photo"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBTQkFnkRa4e2em2SwXjyQiU2Nl3SHtnVBmFIAWfUWbZU2uaI2wj_8AcTKWSH76JoyinSOoGhrbFcBirg-B7_bb7rrEMSvQGtEf-VgKgfoxNQiPkBXAf70B8gZm7xfT6CNQwH_JXA8QsJTgzIMF_nt169uODjVH8L95kQj_wfkmX02_Hbmrrq5Q3o43QTCscADLfx9_4SASZi9UgAoCCg0jKaJcF5yMo6TQQEOg-uEkp9p4f8H8kBDPyMCciBd-qK-COhZ1IPZo3DU')">
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-slate-200">
+                                        <span class="font-bold text-white">Alex Wong</span> achieved <span
+                                            class="text-yellow-500 font-bold">Rank 1</span>
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-slate-500">Elite Series</span>
+                                        <span class="size-1 bg-slate-700 rounded-full"></span>
+                                        <span class="text-[10px] text-slate-500">2 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            class="m-6 border border-white/10 hover:border-white/20 text-slate-400 text-xs font-bold py-3 rounded-lg transition-all">
+                            View All Activity
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

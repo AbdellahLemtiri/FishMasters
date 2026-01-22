@@ -1,12 +1,19 @@
 <?php
-class Species
+//CREATE TABLE especes (
+//     idEspece SERIAL PRIMARY KEY,
+//     nom VARCHAR(100) UNIQUE NOT NULL,
+//     nomScientifique VARCHAR(150),
+//     description TEXT
+// );
+class Especes
 {
-    private $id;
-    private $name;
-    private $minSize;
-    private $pointsCoefficient;
+    private int $idEspece;
+    private string $nom;
+    private string $nomScientifique;
+    private string $description;
     private $db;
 
+// 
     public function __construct($db)
     {
         $this->db = $db;
@@ -14,34 +21,34 @@ class Species
 
     public function addSpecies($data)
     {
-        $stmt = $this->db->prepare("INSERT INTO species (name, min_size, points_coefficient) VALUES (:name, :minSize, :pointsCoefficient)");
+        $stmt = $this->db->prepare("INSERT INTO especes (nom, nomScientifique, description) VALUES (:nom, :nomScientifique, :description)");
         return $stmt->execute([
-            'name' => $data['name'],
-            'minSize' => $data['minSize'],
-            'pointsCoefficient' => $data['pointsCoefficient']
+            'nom' => $data['nom'],
+            'nomScientifique' => $data['nomScientifique'],
+            'description' => $data['description']
         ]);
     }
 
     public function updateSpecies($id, $data)
     {
-        $stmt = $this->db->prepare("UPDATE species SET name = :name, min_size = :minSize, points_coefficient = :pointsCoefficient WHERE id = :id");
+        $stmt = $this->db->prepare("UPDATE especes SET nom = :nom, nomScientifique = :nomScientifique, description = :description WHERE idEspece = :idEspece");
         return $stmt->execute([
-            'name' => $data['name'],
-            'minSize' => $data['minSize'],
-            'pointsCoefficient' => $data['pointsCoefficient'],
-            'id' => $id
+            'nom' => $data['nom'],
+            'nomScientifique' => $data['nomScientifique'],
+            'description' => $data['description'],
+            'idEspece' => $id
         ]);
     }
 
     public function deleteSpecies($id)
     {
-        $stmt = $this->db->prepare("DELETE FROM species WHERE id = :id");
-        return $stmt->execute(['id' => $id]);
+        $stmt = $this->db->prepare("DELETE FROM especes WHERE idEspece = :idEspece");
+        return $stmt->execute(['idEspece' => $id]);
     }
 
     public function listSpecies()
     {
-        $stmt = $this->db->query("SELECT * FROM species");
+        $stmt = $this->db->query("SELECT * FROM especes");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

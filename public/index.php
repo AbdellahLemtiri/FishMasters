@@ -1,13 +1,12 @@
 <?php
 session_start();
 
-// require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Config;
 use App\Controllers\AuthController;
+use config\Connexion;
 
-$database = new \Database();
-$db = $database->getConnection();
+$db = Connexion::connect()->getConnexion();
 
 $action = $_GET['action'] ?? 'home';
 
@@ -15,7 +14,9 @@ $authController = new AuthController($db);
 
 switch ($action) {
     case 'signup':
-        include 'views/auth/signup.php'; 
+        include '../App/views/layouts/header.php';
+        include '../App/views/auth/signup.php';
+        include '../App/views/layouts/footer.php';
         break;
 
     case 'process_signup':
@@ -23,7 +24,9 @@ switch ($action) {
         break;
 
     case 'login':
-        include 'views/auth/login.php';
+        include '../App/views/layouts/header.php';
+        include '../App/views/auth/login.php';
+        include '../App/views/layouts/footer.php';
         break;
 
     case 'process_login':
@@ -36,34 +39,24 @@ switch ($action) {
         break;
 
     default:
-        include 'views/home.php';
+        include '../App/views/layouts/header.php';
+        include '../App/views/visitor/home.php';
+        include '../App/views/layouts/footer.php';
+        break;
+
+    case 'admin_dashboard':
+        if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) {
+            header('Location: index.php?action=login');
+            exit();
+        }
+        $view = 'admin/dashboard.php';
+        break;
+
+    case 'dashboard':
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?action=login');
+            exit();
+        }
+        $view = 'user/dashboard.php';
         break;
 }
-?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Blog MaBagnole</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-10">
-   
-    <h1 class="text-3xl font-bold text-red-600 mb-6">🚗 Blog MaBagnole (Architecture MVC)</h1>
-
-    <div class="grid gap-4">
-        <?php foreach($mesArticles as $article): ?>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-bold mb-2"><?= $article['titre'] ?></h2>
-               
-                <p class="text-gray-600">
-                    <?= $article['resume'] ?>
-                    <a href="#" class="text-blue-500 hover:underline text-sm ml-2">Voir l'article</a>
-                </p>
-            </div>
-        <?php endforeach; ?>
-    </div>
-
-</body>
-</html>

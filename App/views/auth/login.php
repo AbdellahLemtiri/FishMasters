@@ -9,7 +9,7 @@ require_once __DIR__ . '/../layouts/header.php';
             <span class="material-symbols-outlined text-primary text-5xl">tsunami</span>
         </div>
         <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white font-display">
-            Connexion FishPro
+            Connexion FishMasters
         </h2>
         <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
             Accédez à vos compétitions et statistiques
@@ -46,9 +46,6 @@ require_once __DIR__ . '/../layouts/header.php';
                         <label for="password" class="block text-sm font-bold text-slate-700 dark:text-slate-300">
                             Mot de passe
                         </label>
-                        <a href="#" class="text-xs font-medium text-primary hover:text-green-400 transition-colors">
-                            Oublié ?
-                        </a>
                     </div>
                     <div class="relative">
                         <input id="password" name="passwordUser" type="password" autocomplete="current-password" required 

@@ -4,115 +4,64 @@ namespace App\models;
 
 use PDO;
 
-abstract class User
+class User
 {
-    private $conn;
-    private $table = "users";
+    protected $conn;
+    private $table = "utilisateurs";
 
     private $idUser;
     private $nomUser;
     private $emailUser;
-    private $passwordUser;
-    private $roleUser;
     private $idRole;
+
     public function __construct($db)
     {
         $this->conn = $db;
     }
-    public function getIdUser()
-    {
-        return $this->idUser;
-    }
-    public function getNomUser()
-    {
-        return $this->nomUser;
-    }
-    public function getEmailUser()
-    {
-        return $this->emailUser;
-    }
-    public function getPasswordUser()
-    {
-        return $this->passwordUser;
-    }
-    public function getRoleUser()
-    {
-        return $this->roleUser;
-    }
-    public function getIdRole()
-    {
-        return $this->idRole;
-    }
-    public function setIdUser($idUser)
-    {
-        $this->idUser = $idUser;
-    }
 
-    public function setNomUser($nomUser)
-    {
-        $this->nomUser = $nomUser;
-    }
+    public function getIdUser() { return $this->idUser; }
+    public function getNomUser() { return $this->nomUser; }
+    public function getIdRole() { return $this->idRole; }
 
-    public function setEmailUser($emailUser)
-    {
-        $this->emailUser = $emailUser;
-    }
-
-    public function setPasswordUser($passwordUser)
-    {
-        $this->passwordUser = $passwordUser;
-    }
-
-    public function setIdRole($idRole)
-    {
-        $this->idRole = $idRole;
-    }
-
-    // public function register($nom, $email, $password, $idRole)
-    // {
-    //     $query = 'INSERT INTO ' . $this->table . ' 
-    //               ("nomUser", "emailUser", "passwordUser", "idRole") 
-    //               VALUES (:nom, :email, :pass, :role)';
-
-    //     $stmt = $this->conn->prepare($query);
-
-    //     $nom = htmlspecialchars(strip_tags($nom));
-    //     $email = htmlspecialchars(strip_tags($email));
+    public function setIdUser($id) { $this->idUser = $id; }
+    public function setNomUser($nom) { $this->nomUser = $nom; }
+    public function setIdRole($id) { $this->idRole = $id; }
 
 
-    //     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    public function register($nom, $email, $password, $idRole = 2)
+    {
+        $query = 'INSERT INTO ' . $this->table . ' 
+                  (nomuser, emailuser, passworduser, role_id) 
+                  VALUES (:nom, :email, :pass, :role)';
 
-    //     $stmt->bindParam(':nom', $nom);
-    //     $stmt->bindParam(':email', $email);
-    //     $stmt->bindParam(':pass', $passwordHash);
-    //     $stmt->bindParam(':role', $idRole);
+        $stmt = $this->conn->prepare($query);
 
-    //     if ($stmt->execute()) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':pass', $passwordHash);
+        $stmt->bindParam(':role', $idRole);
+
+        return $stmt->execute();
+    }
 
     public function login($email, $password)
     {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE "emailUser" = :email';
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE emailuser = :email';
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
-            if (password_verify($password, $row['passwordUser'])) {
-                $this->setIdUser($row['idUser']);
-                $this->setNomUser($row['nomUser']);
-                $this->setEmailUser($row['emailUser']);
-                $this->setIdRole($row['idRole']);
-
+            if (password_verify($password, $row['passworduser'])) {
+                $this->setIdUser($row['iduser']);
+                $this->setNomUser($row['nomuser']);
+                $this->setIdRole($row['role_id']);
                 return true;
             }
         }
-
         return false;
     }
 }

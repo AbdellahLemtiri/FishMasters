@@ -146,4 +146,12 @@ CREATE TABLE reglements (
     UNIQUE(competitionId, especeId)
 );
 
+INSERT INTO utilisateurs (nomuser, emailuser, passworduser, role_id) 
+VALUES (
+    'Administrateur', 
+    'admin@exemple.com', 
+    '$2y$10$ak/OkVsM2.l8RSTgjO7houqTnk8z.28bl9Et86dBzSb4W3tz7rjqq', 
+    1
+);
+
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -2,12 +2,8 @@
 
 namespace App\models;
 
-<<<<<<< HEAD
-use App\utils\Logger;
-=======
 use App\Utils\Logger;
 
->>>>>>> origin/feature/visiteur
 use PDOException;
 use DateTime;
 use Exception;
@@ -30,10 +26,7 @@ class Competition
     private PDO $db;
 
 
-    public function __construct(PDO $db)
-    {
-        $this->db = $db;
-    }
+   
 
     public function __construct(
         int $idCompetition,

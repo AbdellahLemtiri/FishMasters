@@ -72,21 +72,6 @@ class Prise
         return $this->idCompetition;
     }
 
-<<<<<<< HEAD
-=======
-private int $idPrise; 
-private string $espece;  
-private float $poids;   
-private float $taille;  
-private string $photo;  
-private DateTime $dateHeure;  
-private string $spot;  
-private bool $isRelache;  
-private string $statut;  
-private int $idPecheur;  
-private int $idCompetition; 
-private  $competition;
->>>>>>> origin/feature/visiteur
 
 
     public function setPoids($poids): bool
@@ -125,7 +110,6 @@ private  $competition;
         return true;
     }
 
-<<<<<<< HEAD
     public function setIdPrise(int $id): void
     {
         $this->idPrise = $id;
@@ -269,9 +253,4 @@ private  $competition;
             return [];
         }
     }
-=======
-    
-
-    
->>>>>>> origin/feature/visiteur
 }

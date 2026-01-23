@@ -6,43 +6,6 @@ use Config\Connexion;
 abstract class User
 {
     protected $conn;
-<<<<<<< HEAD
-    protected $table = "users";
-    protected $idUser;
-    protected $nomUser;
-    protected $emailUser;
-    protected $passwordUser;
-    protected $roleUser;
-    protected $idRole;
-    protected $db  ;
-    public function getIdUser()
-    {
-        return $this->idUser;
-    }
-    public function getNomUser()
-    {
-        return $this->nomUser;
-    }
-    public function getEmailUser()
-    {
-        return $this->emailUser;
-    }
-    public function getPasswordUser()
-    {
-        return $this->passwordUser;
-    }
-    public function getRoleUser()
-    {
-        return $this->roleUser;
-    }
-    public function getIdRole()
-    {
-        return $this->idRole;
-    }
-    public function setIdUser($idUser)
-    {
-        $this->idUser = $idUser;
-=======
     private $table = "utilisateurs";
 
     private $idUser;
@@ -53,7 +16,6 @@ abstract class User
     public function __construct($db)
     {
         $this->conn = $db;
->>>>>>> origin/feature/visiteur
     }
 
     public function getIdUser() { return $this->idUser; }
@@ -85,12 +47,7 @@ abstract class User
 
     public function login($email, $password)
     {
-<<<<<<< HEAD
-    
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE "emailUser" = :email';
-=======
         $query = 'SELECT * FROM ' . $this->table . ' WHERE emailuser = :email';
->>>>>>> origin/feature/visiteur
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':email', $email);
@@ -106,8 +63,4 @@ abstract class User
         }
         return false;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/feature/visiteur

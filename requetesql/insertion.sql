@@ -1,0 +1,48 @@
+INSERT INTO competitions (titreCompetition, lieu, dateDebut, dateFin, typeMilieu, nbManches, idCategorie, status) VALUES
+('Coupe Atlantique', 'Agadir', '2025-06-01', '2025-06-03', 'Mer', 2, 1, 'ouvert'),
+('Truite Cup', 'Ifrane', '2025-05-10', '2025-05-11', 'Eau douce', 1, 1, 'ouvert'),
+('Carpe Trophy', 'Beni Mellal', '2025-07-01', '2025-07-05', 'Eau douce', 3, 2, 'en cours'),
+('Ocean Master', 'Dakhla', '2025-08-10', '2025-08-12', 'Mer', 2, 2, 'ouvert'),
+('Lake Challenge', 'Bin El Ouidane', '2025-09-01', '2025-09-02', 'Eau douce', 1, 1, 'ouvert'),
+('Fishing Fest', 'Essaouira', '2025-10-05', '2025-10-06', 'Mer', 1, 1, 'terminé'),
+('Predator Cup', 'Ouarzazate', '2025-11-01', '2025-11-02', 'Eau douce', 1, 2, 'ouvert'),
+('Open Sea', 'Tanger', '2025-12-01', '2025-12-03', 'Mer', 2, 1, 'ouvert'),
+('Fresh Water Pro', 'Azrou', '2025-04-15', '2025-04-16', 'Eau douce', 1, 2, 'terminé'),
+('Final Master', 'Casablanca', '2025-06-20', '2025-06-22', 'Mer', 2, 1, 'en cours');
+
+
+
+INSERT INTO especes (nom, nomScientifique, description) VALUES
+('Truite', 'Salmo trutta', 'Poisson eau douce'),
+('Brochet', 'Esox lucius', 'Prédateur'),
+('Perche', 'Perca fluviatilis', 'Commun en lac'),
+('Sandre', 'Sander lucioperca', 'Carnassier'),
+('Carpe', 'Cyprinus carpio', 'Sportive'),
+('Silure', 'Silurus glanis', 'Eau douce'),
+('Black Bass', 'Micropterus salmoides', 'Sportif');
+
+
+
+
+INSERT INTO utilisateurs (nomUser, emailUser, passwordUser, roleId) VALUES
+('Ali', 'ali@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 2),
+('Sara', 'sara@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 2),
+('Yassine', 'yass@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 2),
+('Omar', 'omar@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 2),
+('Imane', 'imane@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 3),
+('Khalid', 'khalid@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 2),
+('Nora', 'nora@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 3),
+('Hassan', 'hassan@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 2),
+('Fatima', 'fatima@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 2),
+('AdminUser', 'admin@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 1);
+
+INSERT INTO reglements (competitionId, especeId, tailleMin, pointsFixes, pointsParCm) VALUES
+(1,1,20,10,2),
+(1,2,30,15,3),
+(2,1,25,12,2),
+(3,1,40,20,4),
+(4,1,35,18,3),
+(5,1,15,8,1);
+
+
+-- Lpass howa   password123 

@@ -111,15 +111,30 @@ ALTER TABLE "utilisateurs" RENAME COLUMN "email_user" TO "emailUser";
 
 ALTER TABLE "utilisateurs" RENAME COLUMN "password_user" TO "passwordUser";
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////
-CREATE TABLE prises (
+
+  CREATE TABLE prises (
     idPrise SERIAL PRIMARY KEY,
-    idespece INT REFERENCES especes (idEspece) ON DELETE CASCADE,
+    idEspece INT REFERENCES especes (idEspece) ON DELETE CASCADE,
     poids FLOAT DEFAULT NULL,
     taille FLOAT DEFAULT NULL,
     photo VARCHAR(250),
     dateHeure TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     spot VARCHAR(100),
-    statut BOOLEAN DEFAULT TRUE,
+    relache BOOLEAN DEFAULT TRUE, -- TRUE = Catch & Release, FALSE = Gardé
+    statut VARCHAR(20) DEFAULT 'En attente', --  En attente', 'Validée', 'Refusée'
     idPecheur INT REFERENCES utilisateurs (idUser) ON DELETE CASCADE,
     idCompetition INT REFERENCES competitions (idCompetition) ON DELETE CASCADE
 );
+INSERT INTO roles (nomRole) VALUES 
+('Admin'),
+('Pecheur');
+INSERT INTO categories (nomCategorie) VALUES 
+('Individuel'),
+('Équipe');
+
+INSERT INTO especes (nom, nomScientifique, description) VALUES 
+('Truite', 'Salmo trutta', 'La truite est un poisson  douce apprécié des pêcheurs sportifs.'),
+('Brochet', 'Esox lucius', 'Le brochet est un prédateur redoutable des eaux douces.'),
+('Perche', 'Perca fluviatilis', 'La perche est un poisson populaire dans les lacs et rivières.'),
+('Sandre', 'Sander lucioperca', 'Le sandre est un poisson carnassier très prisé pour la pêche sportive.'),
+('Carpe', 'Cyprinus carpio', 'La carpe est un poisson   douce souvent pêché pour le sport et la consommation.');

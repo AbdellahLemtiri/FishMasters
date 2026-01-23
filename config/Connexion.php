@@ -9,7 +9,7 @@ class Connexion
     private string $nomDB = "app";
     private string $userDB = "admin";
     private string $passDB = "2ab7ff85ad29c37722ce4990";
-    private string $hostDB = "dockhosting.dev";
+    private string $hostDB = "www.dockhosting.dev";
     private int $portDB = 48660;
 
     private ?PDO $pdo = null;

@@ -1,0 +1,1 @@
+git  commit -m "Fixed issues with PriseController and Prise model"

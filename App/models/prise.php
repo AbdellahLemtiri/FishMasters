@@ -12,12 +12,12 @@ class Prise
 {
     private int $idPrise;
     private string $espece;
-    private float $poids;
-    private float $taille;
+    private float $poids =  0;
+    private float $taille = 0;
     private string $photo;
     private DateTime $dateHeure;
     private string $spot;
-    private bool $isRelache;
+    private bool $relache;
     private string $statut;
     private int $idPecheur;
     private int $idCompetition;
@@ -35,7 +35,7 @@ class Prise
     {
         return $this->espece;
     }
-    public function getPoids(): float
+    public function getPoids(): float | null
     {
         return $this->poids;
     }
@@ -57,7 +57,7 @@ class Prise
     }
     public function getIsRelache(): bool
     {
-        return $this->isRelache;
+        return $this->relache;
     }
     public function getStatut(): string
     {
@@ -74,18 +74,20 @@ class Prise
 
 
 
-    public function setPoids(float $poids): bool
+    public function setPoids($poids): bool
     {
-        if ($poids <= 0) {
+
+        if ($poids < 0) {
             return false;
         }
         $this->poids = $poids;
         return true;
+
     }
 
-    public function setTaille(float $taille): bool
+    public function setTaille($taille): bool
     {
-        if ($taille <= 0) {
+        if ($taille < 0) {
             return false;
         }
         $this->taille = $taille;
@@ -104,10 +106,6 @@ class Prise
 
     public function setPhoto(string $photoPath): bool
     {
-        $extension = pathinfo($photoPath, PATHINFO_EXTENSION);
-        if (!in_array(strtolower($extension), ['jpg', 'jpeg', 'png'])) {
-            return false;
-        }
         $this->photo = $photoPath;
         return true;
     }
@@ -124,9 +122,9 @@ class Prise
     {
         $this->spot = $s;
     }
-    public function setIsRelache(bool $r): void
+    public function setRelache(bool $r): void
     {
-        $this->isRelache = $r;
+        $this->relache = $r;
     }
     public function setDateHeure(DateTime $d): void
     {
@@ -155,8 +153,8 @@ class Prise
     public  function createPrise(): bool
     {
         $conn = $this->db->getConnexion();
-        $sql = "INSERT INTO prises (espece, poids, taille, photo, date_heure, spot, is_relache, statut, id_pecheur, id_competition)
-                VALUES (:espece, :poids, :taille, :photo, :date_heure, :spot, :is_relache, :statut, :id_pecheur, :id_competition)";
+        $sql = "INSERT INTO prises (idEspece, poids, taille, photo, spot,relache, statut, idPecheur, idCompetition)
+                VALUES (:espece, :poids, :taille, :photo, :spot, :is_relache,'En attente' , :idPecheur, :idCompetition)";
 
         try {
             $stmt = $conn->prepare($sql);
@@ -166,12 +164,10 @@ class Prise
                 ':poids' => $this->poids,
                 ':taille' => $this->taille,
                 ':photo' => $this->photo,
-                ':date_heure' => $this->dateHeure,
                 ':spot' => $this->spot,
-                ':is_relache' => $this->isRelache,
-                ':statut' => $this->statut,
-                ':id_pecheur' => $this->idPecheur,
-                ':id_competition' => $this->idCompetition
+                ':is_relache' => $this->relache,
+                ':idPecheur' => $this->idPecheur,
+                ':idCompetition' => $this->idCompetition
             ]);
         } catch (\PDOException $e) {
             Logger::log($e->getMessage());
@@ -185,7 +181,7 @@ class Prise
         $conn = $this->db->getConnexion();
         $sql = "UPDATE prises
                 SET espece = :espece, poids = :poids, taille = :taille, photo = :photo, date_heure = :date_heure,
-                    spot = :spot, is_relache = :is_relache, statut = :statut, id_pecheur = :id_pecheur, id_competition = :id_competition
+                    spot = :spot, is_relache = :is_relache, statut = :statut, idPecheur = :idPecheur, idCompetition = :idCompetition
                 WHERE id_prise = :id_prise";
 
         try {
@@ -198,10 +194,10 @@ class Prise
                 ':photo' => $this->photo,
                 ':date_heure' => $this->dateHeure,
                 ':spot' => $this->spot,
-                ':is_relache' => $this->isRelache,
+                ':is_relache' => $this->relache,
                 ':statut' => $this->statut,
-                ':id_pecheur' => $this->idPecheur,
-                ':id_competition' => $this->idCompetition,
+                ':idPecheur' => $this->idPecheur,
+                ':idCompetition' => $this->idCompetition,
                 ':id_prise' => $this->idPrise
             ]);
         } catch (\PDOException $e) {

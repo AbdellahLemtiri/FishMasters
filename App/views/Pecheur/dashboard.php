@@ -82,7 +82,7 @@
     </style>
 </head>
 
-<body class="bg-background-dark font-display text-slate-200 antialiased overflow-hidden">
+<body class="bg-background-dark font-display text-slate-200  overflow-">
 
     <div id="priseModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleModal()"></div>
@@ -100,8 +100,7 @@
                     </button>
                 </div>
 
-                <form id="formPrise" class="grid grid-cols-1 md:grid-cols-2 gap-5" enctype="multipart/form-data">
-
+                <form id="formPrise" action="../../../public/index.php?action=savePrise" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-5" enctype="multipart/form-data">
                     <div class="space-y-2">
                         <div class="space-y-2">
                             <label class="text-[10px] font-black text-primary uppercase tracking-widest px-1">Espèce</label>
@@ -115,11 +114,11 @@
                             <label class="text-[10px] font-black text-primary uppercase tracking-widest px-1">Action</label>
                             <div class="flex gap-2 h-[52px]">
                                 <label class="flex-1 flex items-center justify-center gap-2 cursor-pointer bg-white/5 border border-white/10 rounded-2xl transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/10">
-                                    <input type="radio" name="isRelache" value="1" class="hidden" checked>
+                                    <input type="radio" name="relache" value="1" class="hidden" checked>
                                     <span class="text-[10px] font-bold uppercase">Relâché</span>
                                 </label>
                                 <label class="flex-1 flex items-center justify-center gap-2 cursor-pointer bg-white/5 border border-white/10 rounded-2xl transition-all has-[:checked]:border-red-500/50 has-[:checked]:bg-red-500/10">
-                                    <input type="radio" name="isRelache" value="0" class="hidden">
+                                    <input type="radio" name="relache" value="0" class="hidden">
                                     <span class="text-[10px] font-bold uppercase">Gardé</span>
                                 </label>
                             </div>
@@ -195,7 +194,19 @@
             </div>
         </div>
     </div>
+<main class="flex-1 flex flex-col h-full ">
+  
 
+    <div class="flex-1 overflow-y-auto custom-scrollbar">
+        
+        <section id="dashboardView" class="p-10 space-y-10">
+            </section>
+
+        <section id="profileView" class="hidden p-10 space-y-10">
+            </section>
+
+    </div>
+</main>
     <div class="flex h-screen overflow-hidden">
         <aside class="w-72 border-r border-white/5 bg-background-dark p-6 hidden lg:flex flex-col gap-8">
             <div class="flex items-center gap-3 px-2 text-primary">
@@ -212,6 +223,15 @@
                 <a href="#" class="flex items-center gap-3 p-4 hover:bg-white/5 rounded-xl transition-all text-slate-400">
                     <span class="material-symbols-outlined">leaderboard</span> <span class="text-sm font-medium">Classement</span>
                 </a>
+                <a href="#" onclick="showSection('dashboardView')" class="flex items-center gap-3 p-4 hover:bg-white/5 rounded-xl transition-all text-slate-400">
+        <span class="material-symbols-outlined">grid_view</span> 
+        <span class="text-sm font-bold">Dashboard</span>
+    </a>
+
+    <a href="#" onclick="showSection('profileView')" class="flex items-center gap-3 p-4 hover:bg-white/5 rounded-xl transition-all text-slate-400">
+        <span class="material-symbols-outlined">account_circle</span> 
+        <span class="text-sm font-bold">Mon Profil</span>
+    </a>
             </nav>
             <div class="relative group overflow-hidden bg-white/10 backdrop-blur-xl border border-white/20 p-5 rounded-3xl w-64 transition-all duration-500 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20">
     
@@ -256,7 +276,7 @@
 </div>
         </aside>
 
-        <main class="flex-1 flex flex-col h-full overflow-hidden">
+        <main class="flex-1 flex flex-col h-full overflow-hidden  ">
             <header class="h-24 px-10 flex items-center justify-between border-b border-white/5">
                 <div class="flex flex-col">
                     <h1 class="text-3xl font-black italic uppercase tracking-tighter">Tableau de Bord</h1>
@@ -373,8 +393,89 @@
                 </section>
             </div>
         </main>
+    </div><section id="profileView" class="p-10 space-y-10 custom-scrollbar overflow-y-auto h-full hidden">
+    <div class="flex items-center gap-6 mb-12">
+        <div class="relative group">
+            <img id="profilePreview" src="https://ui-avatars.com/api/?name=Abdellah&background=13ec6d&color=0a140f" 
+                 class="size-32 rounded-[2.5rem] object-cover border-4 border-primary/20 shadow-2xl transition-transform group-hover:scale-105">
+            <label for="avatarInput" class="absolute -bottom-2 -right-2 size-10 bg-primary text-background-dark rounded-xl flex items-center justify-center cursor-pointer hover:rotate-12 transition-all shadow-lg">
+                <span class="material-symbols-outlined text-xl">edit</span>
+                <input type="file" id="avatarInput" class="hidden" accept="image/*">
+            </label>
+        </div>
+        <div>
+            <h2 class="text-4xl font-black italic uppercase tracking-tighter">Mon Profil</h2>
+            <p class="text-primary font-bold text-xs uppercase tracking-[0.3em]">ID: #98234 - Pêcheur Élite</p>
+        </div>
     </div>
 
+    <form id="profileForm" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
+        <div class="glass p-8 rounded-[2.5rem] space-y-6">
+            <h3 class="text-sm font-black uppercase text-primary tracking-widest flex items-center gap-2">
+                <span class="material-symbols-outlined">person</span> Bio & Identité
+            </h3>
+            <div class="space-y-4">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-500 uppercase px-1">Nom Complet</label>
+                    <input type="text" value="Abdellah L." class="w-full bg-white/5 border-white/10 rounded-2xl py-4 px-5 text-sm focus:ring-primary focus:border-primary transition-all">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-500 uppercase px-1">Club / Association</label>
+                    <input type="text" placeholder="Ex: Casa Surfcasting Club" class="w-full bg-white/5 border-white/10 rounded-2xl py-4 px-5 text-sm focus:ring-primary transition-all">
+                </div>
+            </div>
+        </div>
+
+        <div class="glass p-8 rounded-[2.5rem] space-y-6">
+            <h3 class="text-sm font-black uppercase text-primary tracking-widest flex items-center gap-2">
+                <span class="material-symbols-outlined">phishing</span> Expertise
+            </h3>
+            <div class="space-y-4">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-500 uppercase px-1">Technique Favorite</label>
+                    <select class="w-full bg-white/5 border-white/10 rounded-2xl py-4 px-5 text-sm focus:ring-primary cursor-pointer">
+                        <option>Surfcasting</option>
+                        <option>Spinning (Leurres)</option>
+                        <option>Jigging</option>
+                        <option>Pêche à la mouche</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-500 uppercase px-1">Région principale</label>
+                    <input type="text" value="Safi / Essaouira" class="w-full bg-white/5 border-white/10 rounded-2xl py-4 px-5 text-sm focus:ring-primary transition-all">
+                </div>
+            </div>
+        </div>
+
+        <div class="md:col-span-2 flex justify-end gap-4">
+            <button type="button" class="px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-slate-400 hover:text-white transition-all">Annuler</button>
+            <button type="submit" class="px-10 py-4 bg-primary text-background-dark rounded-2xl font-black text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(19,236,109,0.2)] transition-all">
+                Sauvegarder les changements
+            </button>
+        </div>
+    </form>
+</section>
+
+
+<script>
+    // Logic dyal preview dyal sora
+    document.getElementById('avatarInput').addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profilePreview').src = e.target.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+
+    // Logic dyal save (Simulation)
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Hna ghadi t-dir l-Fetch dyalk l-backend (PHP)
+        alert('Profil mis à jour avec succès !');
+    });
+</script>
     <script>
         // Modal Logic
         function toggleModal() {
@@ -439,6 +540,25 @@
             const fileName = e.target.files[0] ? e.target.files[0].name : "";
             document.getElementById('fileName').textContent = "Fichier sélectionné: " + fileName;
         });
+
+
+        function showSection(sectionId) {
+    // 1. Khbbi ga3 l-sections
+    document.getElementById('dashboardView').classList.add('hidden');
+    document.getElementById('profileView').classList.add('hidden');
+
+    // 2. Bayen ghir dik li bghina
+    const activeSection = document.getElementById(sectionId);
+    activeSection.classList.remove('hidden');
+
+    // 3. Bedel l-unwan f l-Header (Optionnel)
+    const title = document.getElementById('pageTitle');
+    if(sectionId === 'profileView') {
+        title.innerText = "Mon Profil";
+    } else {
+        title.innerText = "Tableau de Bord";
+    }
+}
     </script>
 </body>
 

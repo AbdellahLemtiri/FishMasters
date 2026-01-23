@@ -11,13 +11,25 @@ class PriseController
     public function creatPrise()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $espece = $_POST['espece'] ?? '';
+            $espece = $_POST['espece'] ?? 1;
             $poids = $_POST['poids'] ?? null;
             $taille = $_POST['taille'] ?? null;
-            $dateHeure = $_POST['dateHeure'] ?? '';
+
+            if ($poids === null) {
+                $poids = 0;
+            } else {
+                $poids = floatval($poids);
+            }
+
+            if ($taille === null) {
+                $taille = 0;
+            } else {
+                $taille = floatval($taille);
+            }
+            
             $spot = $_POST['spot'] ?? '';
-            $isRelache = $_POST['isRelache'];
-            $idPecheur = ($_POST['idPecheur'] ?? 0);
+            $relache = $_POST['relache'];
+            $idPecheur = ($_POST['idPecheur'] ?? 1);
             $photo = '';
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 try {
@@ -27,21 +39,21 @@ class PriseController
                 }
             }
             $prise = new Prise();
-            $prise->setEspece($espece);
+            $prise->setEspece(2);
             $prise->setPoids($poids);
             $prise->setTaille($taille);
-            $prise->setDateHeure($dateHeure);
             $prise->setSpot($spot);
-            $prise->setIsRelache($isRelache);
-            $prise->setIdPecheur($idPecheur);
+            $prise->setRelache($relache);
+            $prise->setIdPecheur(4);
             $prise->setPhoto($photo);
+            $prise->setIdCompetition(1);
             $prise->createPrise();
         }
     }
 
     private function handleUpload($file): string
     {
-        $storageDir = __DIR__ . '../../public/uploads/prises/';
+        $storageDir = __DIR__ . '../../../public/uploads/prises/';
         echo $storageDir;
         if (!is_dir($storageDir)) {
             mkdir($storageDir, 0777, true);
@@ -51,10 +63,8 @@ class PriseController
 
         if (move_uploaded_file($file['tmp_name'], $storageDir . $newName)) {
             return $newName;
+        } else {
+            return '';
         }
-         
-        throw new Exception('Erreur lors du telechargement du fichier.');
     }
 }
-
-

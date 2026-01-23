@@ -6,11 +6,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Controllers\AuthController;
 use config\Connexion;
 use App\Controllers\PriseController;
-// $db = Connexion::connect();
+use App\Controllers\PecheurController;
+$db = Connexion::connect();
 $action = $_GET['action'] ?? 'home';
-// $authController = new AuthController($db);
+$authController = new AuthController($db);
 $priseController = new PriseController();
 $useStandardLayout = true;
+$PecheurController = new PecheurController();
 $view = '';
 
 switch ($action) {
@@ -38,16 +40,21 @@ switch ($action) {
         $view = __DIR__ . '/../App/views/admin/a_dashbord.php';
         $useStandardLayout = false;
         break;
-
+  
+   
     case 'logout':
         session_destroy();
         header('Location: index.php');
         exit();
 ///////////////////  Pecheur ////////////////////
-
-    break;    case 'savePrise':
+  case 'dashboardPecheur':
+    $PecheurController->dashboardPecheur();
+    break;
+  case 'savePrise':
        $priseController->creatPrise();
         break;
+
+/////////////////////////////////////////////////
     default:
         $view = '../App/views/visitor/home.php';
         break;

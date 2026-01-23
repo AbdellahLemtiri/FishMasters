@@ -6,12 +6,12 @@ use Config\Connexion;
 abstract class User
 {
     protected $conn;
-    private $table = "utilisateurs";
+    protected $table = "utilisateurs";
 
-    private $idUser;
-    private $nomUser;
-    private $emailUser;
-    private $idRole;
+    protected $idUser;
+    protected $nomUser;
+    protected $emailUser;
+    protected $idRole;
 
     public function __construct($db)
     {

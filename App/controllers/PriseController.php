@@ -26,11 +26,13 @@ class PriseController
             } else {
                 $taille = floatval($taille);
             }
-            
+
             $spot = $_POST['spot'] ?? '';
             $relache = $_POST['relache'];
             $idPecheur = ($_POST['idPecheur'] ?? 1);
             $photo = '';
+
+
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 try {
                     $photo = $this->handleUpload($_FILES['photo']);
@@ -38,16 +40,24 @@ class PriseController
                     Logger::log("Erreur de telechargement de l'image : " . $e->getMessage());
                 }
             }
-            $prise = new Prise();
-            $prise->setEspece(2);
-            $prise->setPoids($poids);
-            $prise->setTaille($taille);
-            $prise->setSpot($spot);
-            $prise->setRelache($relache);
-            $prise->setIdPecheur(4);
-            $prise->setPhoto($photo);
-            $prise->setIdCompetition(1);
-            $prise->createPrise();
+            try {
+                $prise = new Prise();
+                $prise->setEspece(2);
+                $prise->setPoids($poids);
+                $prise->setTaille($taille);
+                $prise->setSpot($spot);
+                $prise->setRelache($relache);
+                $prise->setIdPecheur(4);
+                $prise->setPhoto($photo);
+                $prise->setIdCompetition(1);
+                $prise->createPrise();
+                header('Location: index.php?action=dashboard&success=creation_successful'); 
+                exit();
+            } catch (Exception $e) {
+                Logger::log("Erreur lors de la création de la prise : " . $e->getMessage());
+                header('Location: index.php?action=dashboard&error=creation_failed');
+                exit();
+            }
         }
     }
 
@@ -67,4 +77,6 @@ class PriseController
             return '';
         }
     }
+
+    
 }

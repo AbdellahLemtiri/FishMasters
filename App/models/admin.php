@@ -10,7 +10,7 @@ class Admin {
         $this->db = $db;
     }
 
-    
+    // Login admin
     public function login($email, $password) {
         $stmt = $this->db->prepare("SELECT * FROM admins WHERE email = :email");
         $stmt->execute(['email' => $email]);

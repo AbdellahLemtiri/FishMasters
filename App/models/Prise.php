@@ -17,7 +17,7 @@ private bool $isRelache;
 private string $statut;  
 private int $idPecheur;  
 private int $idCompetition; 
-private  $competition;
+private Competition $competition;
 
 public function getIdPrise(): int { return $this->idPrise; }
     public function getEspece(): string { return $this->espece; }
@@ -75,8 +75,6 @@ public function getIdPrise(): int { return $this->idPrise; }
     public function setDateHeure(DateTime $d): void { $this->dateHeure = $d; }
     public function setIdPecheur(int $id): void { $this->idPecheur = $id; }
     public function setIdCompetition(int $id): void { $this->idCompetition = $id; }
-
-    
 
     
 }

@@ -369,7 +369,7 @@
                     </div>
                 </div>
             </div>
-            <form id="form">
+            <form id="form" class="hidden">
                 <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 modal-blur-bg">
                     <!-- Modal Content -->
                     <div
@@ -477,6 +477,37 @@
         </main>
     </div>
     </form>
+    <script>
+        const modal = document.getElementById('form');
+        const createBtn = document.getElementById('competition');
+        const closeBtn = document.getElementById('close1');
+
+        // 1. Hide the modal by default when the page loads
+        // (Your current HTML has it visible by default)
+        modal.classList.add('hidden');
+
+        // 2. Function to open modal
+        createBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        // 3. Function to close modal
+        const closeModal = () => {
+            modal.classList.add('hidden');
+        };
+
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevents form submission
+            closeModal();
+        });
+
+        // 4. Close modal if user clicks on the dark backdrop
+        modal.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-blur-bg')) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -1,47 +1,128 @@
 <?php
-class Species
+//CREATE TABLE especes (
+//     idEspece SERIAL PRIMARY KEY,
+//     nom VARCHAR(100) UNIQUE NOT NULL,
+//     nomScientifique VARCHAR(150),
+//     description TEXT
+// );
+class Especes
 {
-    private $id;
-    private $name;
-    private $minSize;
-    private $pointsCoefficient;
+    private int $idEspece;
+    private string $nom;
+    private string $nomScientifique;
+    private string $description;
     private $db;
+
 
     public function __construct($db)
     {
         $this->db = $db;
     }
 
-    public function addSpecies($data)
+
+    public function getIdEspece(): int
     {
-        $stmt = $this->db->prepare("INSERT INTO species (name, min_size, points_coefficient) VALUES (:name, :minSize, :pointsCoefficient)");
+        return $this->idEspece;
+    }
+
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
+
+    public function getNomScientifique(): string
+    {
+        return $this->nomScientifique;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setIdEspece(int $idEspece): void
+    {
+        $this->idEspece = $idEspece;
+    }
+
+    public function setNom(string $nom): void
+    {
+        $this->nom = $nom;
+    }
+
+    public function setNomScientifique(string $nomScientifique): void
+    {
+        $this->nomScientifique = $nomScientifique;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function createSpecies()
+    {
+        $sql = "INSERT INTO especes (idEspece , nom ,nomScientifique , description ) 
+        VALUES (:idEspece ,:nom ,:nomScientifique , :description ) ";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindValue(':idEspece', $this->idEspece);
+        $stmt->bindValue(':nom', $this->nom);
+        $stmt->bindValue(':nomScientifique', $this->nomScientifique);
+        $stmt->bindValue(':description', $this->description);
+
+        return $stmt->execute();
+    }
+
+    public function updateSpecies()
+    {
+        $sql = "UPDATE especes SET nom = :nom ,
+        nomScientifique = :nomScientifique ,
+        description = :description
+        WHERE idEspece = :id";
+
+        $stmt = $this->db->prepare($sql);
         return $stmt->execute([
-            'name' => $data['name'],
-            'minSize' => $data['minSize'],
-            'pointsCoefficient' => $data['pointsCoefficient']
-        ]);
+            ':nom' => $this->nom,
+            ':nomScientifique' => $this->nomScientifique,
+            ':description' => $this->description,
+            ':id' => $this->idEspece
+        ]) ? true : false;
     }
 
-    public function updateSpecies($id, $data)
+    public function deleteSpecies()
     {
-        $stmt = $this->db->prepare("UPDATE species SET name = :name, min_size = :minSize, points_coefficient = :pointsCoefficient WHERE id = :id");
+        $sql = "DELETE FROM especes WHERE idEspece = :id";
+
+        $stmt = $this->db->prepare($sql);
+
         return $stmt->execute([
-            'name' => $data['name'],
-            'minSize' => $data['minSize'],
-            'pointsCoefficient' => $data['pointsCoefficient'],
-            'id' => $id
-        ]);
+            ':id' => $this->idEspece
+        ]) ? true : false;
     }
 
-    public function deleteSpecies($id)
+    public static function getSpeciesById($db, $id)
     {
-        $stmt = $this->db->prepare("DELETE FROM species WHERE id = :id");
-        return $stmt->execute(['id' => $id]);
+        $sql = "SELECT * FROM species WHERE idspecies = ?";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id]);
+
+        return $stmt->fetch();
     }
 
-    public function listSpecies()
+    public static function getAllSpecies($db)
     {
-        $stmt = $this->db->query("SELECT * FROM species");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "SELECT * FROM species";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
+
+    public function setMinSize() {}
+
+    public function setPointCoefficient() {}
 }

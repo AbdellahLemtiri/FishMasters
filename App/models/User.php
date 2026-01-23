@@ -6,6 +6,7 @@ use Config\Connexion;
 abstract class User
 {
     protected $conn;
+<<<<<<< HEAD
     protected $table = "users";
     protected $idUser;
     protected $nomUser;
@@ -41,39 +42,36 @@ abstract class User
     public function setIdUser($idUser)
     {
         $this->idUser = $idUser;
-    }
+=======
+    private $table = "utilisateurs";
 
-    public function setNomUser($nomUser)
+    private $idUser;
+    private $nomUser;
+    private $emailUser;
+    private $idRole;
+
+    public function __construct($db)
     {
-        $this->nomUser = $nomUser;
+        $this->conn = $db;
+>>>>>>> origin/feature/visiteur
     }
 
-    public function setEmailUser($emailUser)
-    {
-        $this->emailUser = $emailUser;
-    }
+    public function getIdUser() { return $this->idUser; }
+    public function getNomUser() { return $this->nomUser; }
+    public function getIdRole() { return $this->idRole; }
 
-    public function setPasswordUser($passwordUser)
-    {
-        $this->passwordUser = $passwordUser;
-    }
+    public function setIdUser($id) { $this->idUser = $id; }
+    public function setNomUser($nom) { $this->nomUser = $nom; }
+    public function setIdRole($id) { $this->idRole = $id; }
 
-    public function setIdRole($idRole)
-    {
-        $this->idRole = $idRole;
-    }
 
-    public function register($nom, $email, $password, $idRole)
+    public function register($nom, $email, $password, $idRole = 2)
     {
         $query = 'INSERT INTO ' . $this->table . ' 
-                  ("nomUser", "emailUser", "passwordUser", "idRole") 
+                  (nomuser, emailuser, passworduser, roleid) 
                   VALUES (:nom, :email, :pass, :role)';
 
         $stmt = $this->conn->prepare($query);
-
-        $nom = htmlspecialchars(strip_tags($nom));
-        $email = htmlspecialchars(strip_tags($email));
-
 
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -82,33 +80,34 @@ abstract class User
         $stmt->bindParam(':pass', $passwordHash);
         $stmt->bindParam(':role', $idRole);
 
-        if ($stmt->execute()) {
-            return true;
-        }
-        return false;
+        return $stmt->execute();
     }
 
     public function login($email, $password)
     {
+<<<<<<< HEAD
     
         $query = 'SELECT * FROM ' . $this->table . ' WHERE "emailUser" = :email';
+=======
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE emailuser = :email';
+>>>>>>> origin/feature/visiteur
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
-            if (password_verify($password, $row['passwordUser'])) {
-                $this->setIdUser($row['idUser']);
-                $this->setNomUser($row['nomUser']);
-                $this->setEmailUser($row['emailUser']);
-                $this->setIdRole($row['idRole']);
-
+            if (password_verify($password, $row['passworduser'])) {
+                $this->setIdUser($row['iduser']);
+                $this->setNomUser($row['nomuser']);
+                $this->setIdRole($row['roleid']);
                 return true;
             }
         }
-
         return false;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/feature/visiteur

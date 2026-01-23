@@ -4,71 +4,60 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controllers\AuthController;
-
+use config\Connexion;
 use App\Controllers\PriseController;
-
-use Config\Connexion;
-
-// $database = Connexion::connect();
-// $db = $database->getConnexion();
-
-$action = $_GET['action'] ?? $_POST['action'] ?? 'home';
-// $authController = new AuthController($db);
+$db = Connexion::connect()->getConnexion();
+$action = $_GET['action'] ?? 'home';
+$authController = new AuthController($db);
 $priseController = new PriseController();
+$useStandardLayout = true;
+$view = '';
+
 switch ($action) {
     case 'signup':
-        include 'views/auth/signup.php';
-        break;
-    case 'process_signup':
-        $authController->signup();
+        $view = '../App/views/auth/signup.php';
         break;
 
+    case 'process_signup':
+        $authController->signup();
+        exit();
+
     case 'login':
-        include 'views/auth/login.php';
+        $view = '../App/views/auth/login.php';
         break;
 
     case 'process_login':
         $authController->login();
+        exit();
+
+    case 'admin_dashboard':
+        if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) {
+            header('Location: index.php?action=login');
+            exit();
+        }
+        $view = __DIR__ . '/../App/views/admin/a_dashbord.php';
+        $useStandardLayout = false;
         break;
 
     case 'logout':
         session_destroy();
         header('Location: index.php');
-        break;    case 'savePrise':
+        exit();
+///////////////////  Pecheur ////////////////////
+
+    break;    case 'savePrise':
        $priseController->creatPrise();
         break;
     default:
-        include 'views/home.php';
+        $view = '../App/views/visitor/home.php';
         break;
+    
 }
-?>
 
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Blog MaBagnole</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="bg-gray-100 p-10">
-
-    <h1 class="text-3xl font-bold text-red-600 mb-6">🚗 Blog MaBagnole (Architecture MVC)</h1>
-
-    <div class="grid gap-4">
-        <?php foreach ($mesArticles as $article): ?>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-bold mb-2"><?= $article['titre'] ?></h2>
-
-                <p class="text-gray-600">
-                    <?= $article['resume'] ?>
-                    <a href="#" class="text-blue-500 hover:underline text-sm ml-2">Voir l'article</a>
-                </p>
-            </div>
-        <?php endforeach; ?>
-    </div>
-
-</body>
-
-</html>
+if ($useStandardLayout) {
+    include '../App/views/layouts/header.php';
+    include $view;
+    include '../App/views/layouts/footer.php';
+} else {
+    include $view;
+}

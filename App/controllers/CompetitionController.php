@@ -1,6 +1,11 @@
 <?php
 
-use App\Models ;
+namespace App\Controllers;
+
+use App\Models\Competition;
+use PDO;
+use DateTime;
+
 class CompetitionController
 {
     private PDO $db;
@@ -10,45 +15,89 @@ class CompetitionController
         $this->db = $db;
     }
 
-    
-    public function getall()
-    {
-        $competitions = Competition::getall($this->db);
-        require __DIR__ . '/../views/competition/index.php';
-    }
 
-    
-    
-
-    
     public function create()
     {
-        Competition::createComp();
-        header('Location: /competitions');
-        exit;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $competition = new Competition($this->db);
+
+            $competition->setIdCompetition($_POST['idcompetition']);
+            $competition->setTitreCompetition($_POST['titre']);
+            $competition->setTypeMilieu($_POST['typemilieu']);
+            $competition->setStatut($_POST['status']);
+            $competition->setNbManches((int)$_POST['nbmanches']);
+            $competition->setIdCategorie((int)$_POST['idcategorie']);
+
+            $competition->setDate(
+                new DateTime($_POST['datedebut']),
+                new DateTime($_POST['datefin'])
+            );
+
+            if ($competition->createComp()) {
+                echo " Competition created successfully";
+            } else {
+                echo " Error while creating competition";
+            }
+        }
+    }
+
+    public function update()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $competition = new Competition($this->db);
+
+            $competition->setIdCompetition($_POST['idcompetition']);
+            $competition->setTitreCompetition($_POST['titre']);
+            $competition->setTypeMilieu($_POST['typemilieu']);
+            $competition->setStatut($_POST['status']);
+            $competition->setNbManches((int)$_POST['nbmanches']);
+            $competition->setIdCategorie((int)$_POST['idcategorie']);
+
+            $competition->setDate(
+                new DateTime($_POST['datedebut']),
+                new DateTime($_POST['datefin'])
+            );
+
+            if ($competition->updateComp()) {
+                echo " Competition updated successfully";
+            } else {
+                echo " Error while updating competition";
+            }
+        }
     }
 
     
-    public function getid($id)
+    public function delete()
     {
-        $competition = Competition::getbyId($this->db, $id);
-        require __DIR__ . '/../views/competition/edit.php';
+        if (isset($_GET['id'])) {
+
+            $competition = new Competition($this->db);
+            $competition->setIdCompetition((int)$_GET['id']);
+
+            if ($competition->deleteComp()) {
+                echo " Competition deleted";
+            } else {
+                echo " Error while deleting competition";
+            }
+        }
     }
 
     
-    public function update($id)
+    public function index()
     {
-        Competition::updateComp();
-        header('Location: /competitions');
-        exit;
+        return Competition::getall($this->db);
     }
 
-    
-    public function delete($id)
+
+    public function show($id)
     {
-        Competition::deleteComp($this->db, $id);
-        header('Location: /competitions');
-        exit;
+        return Competition::getbyId($this->db, $id);
+    }
+
+    public function totalCompetitions()
+    {
+        return Competition::getTotalCompetitions($this->db);
     }
 }
-?>

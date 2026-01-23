@@ -1,5 +1,14 @@
 <?php
 
+namespace App\Models;
+
+use App\Utils\Logger;
+
+use PDOException;
+use DateTime;
+use Exception;
+use PDO;
+
 class commentaire
 {
     private int $idCommentaire;
@@ -53,11 +62,11 @@ class commentaire
         $this->date = $date;
     }
 
-    public function getAllComments()
+    public static function getAllComments($db)
     {
 
         $sql = "SELECT * FROM comentaire ";
-        $stmt =  $this->db->prepare($sql);
+        $stmt =  $db->prepare($sql);
         $stmt->execute();
     }
 

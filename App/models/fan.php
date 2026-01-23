@@ -1,115 +1,130 @@
 <?php
+    namespace Projet\models;
+    use Config\Connexion;
+    use DateTime;
+    use PDOException;
+    use PDO;
 
-namespace App\models;
-
-use PDO;
-use PDOException;
-use Exception;
-require_once 'User.php';
-class Fan extends User
-{
-    private $statut_fan = 1;
-    private $dateInscription;
-
-    public function getStatut()
+    class Fan extends User
     {
-        return $this->statut_fan;
-    }
+        private ?bool $statut_fan = true;
+        private ?DateTime $dateInscription = null;
 
-    public function setStatut($value)
-    {
-        $this->statut_fan = $value ? trim($value) : $value;
-    }
+        public function getStatut():bool{
+            return $this->statut_fan;
+        }
 
-    public function getDateInscription()
-    {
-        return $this->dateInscription;
-    }
+        public function setStatut(?bool $value):void{
+            $this->statut_fan = $value ? trim($value) : $value;
+        }
 
-    public function ajouterFan($fan)
-    {
-        try {
-            $sql = "INSERT INTO fans (nomUser, emailUser, passwordUser, idRole, statut_fan)
+        public function getDateInscription():DateTime{
+            return $this->dateInscription;
+        }
+
+        static function getByEmail(string $email):Fan{
+            try {
+                $sql = "SELECT * 
+                        FROM fans
+                        WHERE emailUser = :emailUser";
+                $pdo = Connexion::connect()->getConnexion();
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(['emailUser' => $fan->emailUser]);
+                $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
+
+                return $stmt->fetch();
+            } catch (PDOException $e) {
+                error_log('Erreur lors de l\'insertion de fan:\n' . $e->getMessage() . '\n------------------\n');
+                return null;
+            }
+        }
+
+        static function ajouterFan(Fan $fan):bool{
+            try {
+                $sql = "INSERT INTO fans (nomUser, emailUser, passwordUser, role_id, statut_fan)
                         VALUES (:nomUser, :emailUser, :passwordUser, :role_id, :statut_fan)";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
-                'nomUser' => $fan->nomUser,
-                'emailUser' => $fan->emailUser,
-                'passwordUser' => password_hash($fan->passwordUser, PASSWORD_DEFAULT),
-                'role_id' => $fan->idRole,
-                'statut_fan' => $fan->statut_fan
-            ]);
+                $pdo = Connexion::connect()->getConnexion();
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([
+                    'nomUser' => $fan->nomUser,
+                    'emailUser' => $fan->emailUser,
+                    'passwordUser' => password_hash($fan->passwordUser, PASSWORD_DEFAULT),
+                    'role_id' => $fan->role_id,
+                    'statut_fan' => $fan->statut_fan
+                ]);
 
-            return true;
-        } catch (PDOException $e) {
-            error_log('Erreur lors de l\'insertion de fan:\n' . $e->getMessage() . '\n------------------\n');
-            return false;
+                return true;
+            } catch (PDOException $e) {
+                error_log('Erreur lors de l\'insertion de fan:\n' . $e->getMessage() . '\n------------------\n');
+                return false;
+            }
         }
-    }
 
-    public function modifierFan($fan)
-    {
-        try {
-            $sql = "UPDATE fans
-                        SET nomUser = :nomUser, emailUser = :emailUser, passwordUser = :passwordUser, idRole = :role_id, statut_fan = :statut_fan
+        public function modifierFan(Fan $fan):bool{
+            try {
+                $sql = "UPDATE fans
+                        SET nomUser = :nomUser, emailUser = :emailUser, passwordUser = :passwordUser, role_id = :role_id, statut_fan = :statut_fan
                         WHERE idUser = :idUser";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
-                'nomUser' => $fan->nomUser,
-                'emailUser' => $fan->emailUser,
-                'passwordUser' => password_hash($fan->passwordUser, PASSWORD_DEFAULT),
-                'role_id' => $fan->idRole,
-                'statut_fan' => $fan->statut_fan,
-                'idUser' => $this->idUser
-            ]);
+                $pdo = Connexion::connect()->getConnexion();
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([
+                    'nomUser' => $fan->nomUser,
+                    'emailUser' => $fan->emailUser,
+                    'passwordUser' => password_hash($fan->passwordUser, PASSWORD_DEFAULT),
+                    'role_id' => $fan->role_id,
+                    'statut_fan' => $fan->statut_fan,
+                    'idUser' => $this->idUser
+                ]);
 
-            return true;
-        } catch (PDOException $e) {
-            error_log('Erreur lors de la modification de fan:\n' . $e->getMessage() . '\n------------------\n');
-            return false;
+                return true;
+            } catch (PDOException $e) {
+                error_log('Erreur lors de la modification de fan:\n' . $e->getMessage() . '\n------------------\n');
+                return false;
+            }
         }
-    }
 
-    public function supprimerFan()
-    {
-        try {
-            $sql = "DELETE FROM fans
+        public function supprimerFan():bool{
+            try {
+                $sql = "DELETE FROM fans
                         WHERE idUser = :idUser";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['idUser' => $this->idUser]);
-            return true;
-        } catch (PDOException $e) {
-            error_log('Erreur lors de la suppression du fan:\n' . $e->getMessage() . '\n------------------\n');
-            return false;
+                $pdo = Connexion::connect()->getConnexion();
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(['idUser' => $this->idUser]);
+
+                return true;
+            } catch (PDOException $e) {
+                error_log('Erreur lors de la suppression du fan:\n' . $e->getMessage() . '\n------------------\n');
+                return false;
+            }
+        }
+
+        static function getById(int $id_fan):Fan{
+            try {
+                $sql = "SELECT * FROM fans WHERE idUser = :idUser";
+                $pdo = Connexion::connect()->getConnexion();
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(['idUser' => $id_fan]);
+                $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
+
+                return $stmt->fetch();
+            } catch (PDOException $e) {
+                error_log('Erreur lors de la récupération du fan:\n' . $e->getMessage() . '\n------------------\n');
+                return null;
+            }
+        }
+
+        static function allFans():array{
+            try {
+                $sql = "SELECT * FROM fans";
+                $pdo = Connexion::connect()->getConnexion();
+                $stmt = $pdo->query($sql);
+                $stmt->execute();
+
+                return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
+            } catch (PDOException $e) {
+                error_log('Erreur lors de la récupération des fans:\n' . $e->getMessage() . '\n------------------\n');
+                return [];
+            }
         }
     }
-
-    public function getById($id_fan)
-    {
-        try {
-            $sql = "SELECT * FROM fans WHERE idUser = :idUser";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['idUser' => $id_fan]);
-            $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
-
-            return $stmt->fetch();
-        } catch (PDOException $e) {
-            error_log('Erreur lors de la récupération du fan:\n' . $e->getMessage() . '\n------------------\n');
-            return null;
-        }
-    }
-
-    public function allFans()
-    {
-        try {
-            $sql = "SELECT * FROM fans";
-            $stmt = $this->conn->query($sql);
-            $stmt->execute();
-
-            return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
-        } catch (PDOException $e) {
-            error_log('Erreur lors de la récupération des fans:\n' . $e->getMessage() . '\n------------------\n');
-            return [];
-        }
-    }
-}
+?>

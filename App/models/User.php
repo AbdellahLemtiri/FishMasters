@@ -1,116 +1,94 @@
 <?php
-namespace App\models;
+    namespace Projet\models;
+    use PDO;
+    use Exception;
 
-use PDO;
+    abstract class User{
+        protected ?int $idUser = null;
+        protected ?string $nomUser = null;
+        protected ?string $emailUser = null;
+        protected ?string $passwordUser = null;
+        protected ?int $role_id = null;
 
-class User
-{
-    protected $conn;
-    protected $table = "users";
-    protected $idUser;
-    protected $nomUser;
-    protected $emailUser;
-    protected $passwordUser;
-    protected $roleUser;
-    protected $idRole;
-    public function __construct($db)
-    {
-        $this->conn = $db;
-    }
-    public function getIdUser()
-    {
-        return $this->idUser;
-    }
-    public function getNomUser()
-    {
-        return $this->nomUser;
-    }
-    public function getEmailUser()
-    {
-        return $this->emailUser;
-    }
-    public function getPasswordUser()
-    {
-        return $this->passwordUser;
-    }
-    public function getRoleUser()
-    {
-        return $this->roleUser;
-    }
-    public function getIdRole()
-    {
-        return $this->idRole;
-    }
-    public function setIdUser($idUser)
-    {
-        $this->idUser = $idUser;
-    }
-
-    public function setNomUser($nomUser)
-    {
-        $this->nomUser = $nomUser;
-    }
-
-    public function setEmailUser($emailUser)
-    {
-        $this->emailUser = $emailUser;
-    }
-
-    public function setPasswordUser($passwordUser)
-    {
-        $this->passwordUser = $passwordUser;
-    }
-
-    public function setIdRole($idRole)
-    {
-        $this->idRole = $idRole;
-    }
-
-    public function register($nom, $email, $password, $idRole)
-    {
-        $query = 'INSERT INTO ' . $this->table . ' 
-                  ("nomUser", "emailUser", "passwordUser", "idRole") 
-                  VALUES (:nom, :email, :pass, :role)';
-
-        $stmt = $this->conn->prepare($query);
-
-        $nom = htmlspecialchars(strip_tags($nom));
-        $email = htmlspecialchars(strip_tags($email));
-
-
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-        $stmt->bindParam(':nom', $nom);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':pass', $passwordHash);
-        $stmt->bindParam(':role', $idRole);
-
-        if ($stmt->execute()) {
-            return true;
+        public function getId():int{
+            return $this->idUser;
         }
-        return false;
-    }
 
-    public function login($email, $password)
-    {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE "emailUser" = :email';
+        public function getNom():string{
+            return $this->nomUser;
+        }
 
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
+        public function getEmail():string{
+            return $this->emailUser;
+        }
 
-        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        public function getRoleId():int{
+            return $this->role_id;
+        }
 
-            if (password_verify($password, $row['passwordUser'])) {
-                $this->setIdUser($row['idUser']);
-                $this->setNomUser($row['nomUser']);
-                $this->setEmailUser($row['emailUser']);
-                $this->setIdRole($row['idRole']);
-
-                return true;
+        public function setNom(?string $nomUser):void{
+            if($nomUser === null){
+                $this->nomUser = null;
+                return;
             }
+            $this->nomUser = trim($nomUser);
         }
 
-        return false;
+        public function setEmail(?string $emailUser):void{
+            if($emailUser === null){
+                $this->emailUser = null;
+                return;
+            }
+
+            $cleanEmail = trim($emailUser);
+            if(!filter_var($cleanEmail, FILTER_VALIDATE_EMAIL)){
+                throw new Exception("L'adresse email '$cleanEmail' est invalide.");
+            }
+            $this->emailUser = $cleanEmail;
+        }
+
+        public function setPassword(?string $passwordUser):void{
+            if($passwordUser == null){
+                $this->passwordUser = null;
+                return;
+            }
+
+            $cleanPassword = trim($passwordUser);
+            $this->passwordUser = password_hash($cleanPassword, PASSWORD_DEFAULT);
+        }
+
+        public function setRoleId(?int $idRole):void
+        {
+            $this->role_id = $idRole;
+        }
+
+        public function verifierMotDePass(string $password):bool{
+
+        }
+
+        abstract static function getByEmail(string $email):User;
+
+        // public function login($email, $password)
+        // {
+        //     $query = 'SELECT * FROM ' . $this->table . ' WHERE "emailUser" = :email';
+
+        //     $stmt = $this->conn->prepare($query);
+        //     $stmt->bindParam(':email', $email);
+        //     $stmt->execute();
+
+        //     if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+        //         if (password_verify($password, $row['passwordUser'])) {
+        //             $this->setIdUser($row['idUser']);
+        //             $this->setNomUser($row['nomUser']);
+        //             $this->setEmailUser($row['emailUser']);
+        //             $this->setIdRole($row['idRole']);
+
+        //             return true;
+        //         }
+        //     }
+
+        //     return false;
+        // }
     }
-}
+?>

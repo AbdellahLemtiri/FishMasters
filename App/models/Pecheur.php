@@ -54,7 +54,9 @@ class Pecheur extends User
       
     }
 
-    
+    Public function singup(){
+        
+    }
 
     
 }

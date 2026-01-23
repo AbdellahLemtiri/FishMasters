@@ -7,56 +7,52 @@ use App\Controllers\AuthController;
 use config\Connexion;
 
 $db = Connexion::connect()->getConnexion();
-
 $action = $_GET['action'] ?? 'home';
-
 $authController = new AuthController($db);
+
+$useStandardLayout = true;
+$view = '';
 
 switch ($action) {
     case 'signup':
-        include '../App/views/layouts/header.php';
-        include '../App/views/auth/signup.php';
-        include '../App/views/layouts/footer.php';
+        $view = '../App/views/auth/signup.php';
         break;
 
     case 'process_signup':
         $authController->signup();
-        break;
+        exit();
 
     case 'login':
-        include '../App/views/layouts/header.php';
-        include '../App/views/auth/login.php';
-        include '../App/views/layouts/footer.php';
+        $view = '../App/views/auth/login.php';
         break;
 
     case 'process_login':
         $authController->login();
-        break;
-
-    case 'logout':
-        session_destroy();
-        header('Location: index.php');
-        break;
-
-    default:
-        include '../App/views/layouts/header.php';
-        include '../App/views/visitor/home.php';
-        include '../App/views/layouts/footer.php';
-        break;
+        exit();
 
     case 'admin_dashboard':
         if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) {
             header('Location: index.php?action=login');
             exit();
         }
-        $view = 'admin/dashboard.php';
+        $view = __DIR__ . '/../App/views/admin/a_dashbord.php';
+        $useStandardLayout = false;
         break;
 
-    case 'dashboard':
-        if (!isset($_SESSION['user_id'])) {
-            header('Location: index.php?action=login');
-            exit();
-        }
-        $view = 'user/dashboard.php';
+    case 'logout':
+        session_destroy();
+        header('Location: index.php');
+        exit();
+
+    default:
+        $view = '../App/views/visitor/home.php';
         break;
+}
+
+if ($useStandardLayout) {
+    include '../App/views/layouts/header.php';
+    include $view;
+    include '../App/views/layouts/footer.php';
+} else {
+    include $view;
 }

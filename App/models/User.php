@@ -31,7 +31,7 @@ class User
     public function register($nom, $email, $password, $idRole = 2)
     {
         $query = 'INSERT INTO ' . $this->table . ' 
-                  (nomuser, emailuser, passworduser, role_id) 
+                  (nomuser, emailuser, passworduser, roleid) 
                   VALUES (:nom, :email, :pass, :role)';
 
         $stmt = $this->conn->prepare($query);
@@ -58,7 +58,7 @@ class User
             if (password_verify($password, $row['passworduser'])) {
                 $this->setIdUser($row['iduser']);
                 $this->setNomUser($row['nomuser']);
-                $this->setIdRole($row['role_id']);
+                $this->setIdRole($row['roleid']);
                 return true;
             }
         }

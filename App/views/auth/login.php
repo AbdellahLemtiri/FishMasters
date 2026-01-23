@@ -21,7 +21,7 @@ require_once __DIR__ . '/../layouts/header.php';
             
             <div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
 
-            <?php if (isset($_GET['error'])): ?>
+            <?php if (isset($_SESSION['error'])): ?>
                 <div class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded relative" role="alert">
                     <span class="block sm:inline">Email ou mot de passe incorrect.</span>
                 </div>

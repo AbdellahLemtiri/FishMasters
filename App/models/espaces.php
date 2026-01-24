@@ -111,16 +111,18 @@ class Especes
         return $stmt->fetch();
     }
 
-    public static function getAllSpecies($db)
+    public static function getAllSpecies($db): array
     {
         $sql = "SELECT * FROM species";
+        try {
 
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll();
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_CLASS, self::class) ?? [];
+        } catch (PDOException $e) {
+            return [];
+        }
     }
-
     public function setMinSize() {}
 
     public function setPointCoefficient() {}

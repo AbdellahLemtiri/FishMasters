@@ -225,6 +225,7 @@ class Competition
         $sql = "SELECT * FROM competitions";
         $stmt = $db->prepare($sql);
         $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
     public static function getbyId($db, $id)
@@ -249,6 +250,8 @@ class Competition
         $result = $stmt->fetch();
         return $result['total'];
     }
+
+    
 }
 
 

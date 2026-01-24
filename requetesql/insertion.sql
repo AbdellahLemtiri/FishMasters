@@ -77,3 +77,23 @@ INSERT INTO reglements (competitionId, especeId, tailleMin, pointsFixes, pointsP
 
 
 -- Lpass howa   password123 
+
+
+-- ملاحظة: استعملت نفس الـ IDs اللي تكرروا في جدول utilisateurs (بافتراض SERIAL)
+-- علي (ID: 1)
+INSERT INTO pecheurs (idUser, nomUser, emailUser, passwordUser, roleId, region, specialite, club, photoPecheur)
+SELECT idUser, nomUser, emailUser, passwordUser, roleId, 'Safi', 'Surfcasting', 'Club Shark', 'p1.jpg'
+FROM utilisateurs WHERE emailUser = 'ali@mail.com';
+ 
+INSERT INTO pecheurs (idUser, nomUser, emailUser, passwordUser, roleId, region, specialite, club, photoPecheur)
+SELECT idUser, nomUser, emailUser, passwordUser, roleId, 'Agadir', 'Spinning', 'Indépendant', 'p2.jpg'
+FROM utilisateurs WHERE emailUser = 'sara@mail.com';
+ 
+INSERT INTO pecheurs (idUser, nomUser, emailUser, passwordUser, roleId, region, specialite, club, photoPecheur)
+SELECT idUser, nomUser, emailUser, passwordUser, roleId, 'Dakhla', 'Chasse sous-marine', 'Dakhla Fishing', 'p3.jpg'
+FROM utilisateurs WHERE emailUser = 'yass@mail.com';
+ 
+INSERT INTO pecheurs (idUser, nomUser, emailUser, passwordUser, roleId, region, specialite, club, photoPecheur)
+SELECT idUser, nomUser, emailUser, passwordUser, roleId, 'Casablanca', 'Eging', 'Casa Anglers', 'p4.jpg'
+FROM utilisateurs WHERE emailUser = 'omar@mail.com';
+ DELETE FROM pecheurs WHERE idUser = 9;

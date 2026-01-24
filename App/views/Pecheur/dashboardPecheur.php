@@ -439,30 +439,59 @@
                                         <h4 class="text-lg font-black uppercase italic text-white tracking-tight">Identity & Parameters</h4>
                                     </div>
 
-                                    <form class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <form action="index.php?action=updateProfile" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
                                         <div class="space-y-2">
                                             <label class="text-[10px] font-black uppercase text-slate-500 px-2 tracking-widest italic">Pseudo Global</label>
-                                            <input type="text" class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-primary focus:border-primary transition-all text-white font-bold" value="Abdellah_The_Hunter">
+                                            <input type="text" name="nomUser"
+                                                class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all text-white font-bold"
+                                                value="<?= htmlspecialchars($Pecheur->getNomUser()); ?>">
                                         </div>
+
                                         <div class="space-y-2">
                                             <label class="text-[10px] font-black uppercase text-slate-500 px-2 tracking-widest italic">Email Terminal</label>
-                                            <input type="email" class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-primary focus:border-primary transition-all text-white font-bold" value="abdellah@fishpro.ma">
+                                            <input type="email" name="emailUser" readonly
+                                                class="w-full bg-white/5 border-white/10 opacity-50 cursor-not-allowed rounded-2xl p-4 text-sm text-white font-bold"
+                                                value="<?= htmlspecialchars($Pecheur->getEmailUser()); ?>">
                                         </div>
+
                                         <div class="space-y-2">
                                             <label class="text-[10px] font-black uppercase text-slate-500 px-2 tracking-widest italic">Spécialité Principale</label>
-                                            <select class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-primary focus:border-primary transition-all text-white font-bold appearance-none">
-                                                <option>Pêche au Gros (Big Game)</option>
-                                                <option selected>Surfcasting Elite</option>
-                                                <option>Spinning Coastal</option>
-                                            </select>
+                                            <div class="relative">
+                                                <select name="specialite" class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all text-white font-bold appearance-none">
+                                                    <?php
+                                                    $specs = ['Surfcasting Elite', 'Spinning Coastal', 'Pêche au Gros (Big Game)', 'Chasse sous-marine'];
+                                                    foreach ($specs as $s):
+                                                    ?>
+                                                        <option value="<?= $s ?>" <?= ($Pecheur->getSpecialite() == $s) ? 'selected' : '' ?>>
+                                                            <?= $s ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <span class="material-symbols-rounded absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">expand_more</span>
+                                            </div>
                                         </div>
+
                                         <div class="space-y-2">
                                             <label class="text-[10px] font-black uppercase text-slate-500 px-2 tracking-widest italic">Région Opérationnelle</label>
-                                            <input type="text" class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-primary focus:border-primary transition-all text-white font-bold" value="Marrakech-Safi, Morocco">
+                                            <input type="text" name="region"
+                                                class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all text-white font-bold"
+                                                value="<?= htmlspecialchars($Pecheur->getRegion()); ?>">
+                                        </div>
+
+                                        <div class="md:col-span-2 space-y-2">
+                                            <label class="text-[10px] font-black uppercase text-slate-500 px-2 tracking-widest italic">Affiliation Club</label>
+                                            <input type="text" name="club"
+                                                placeholder="Ex: Club Royal de Pêche"
+                                                class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all text-white font-bold"
+                                                value="<?= htmlspecialchars($Pecheur->getClub() ?? 'Indépendant'); ?>">
                                         </div>
 
                                         <div class="md:col-span-2 pt-6">
-                                            <button type="button" class="px-10 py-5 bg-primary text-bg-main rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:shadow-[0_0_30px_rgba(19,236,109,0.3)] transition-all">Save Profile DNA</button>
+                                            <button type="submit"
+                                                class="px-10 py-5 bg-emerald-500 text-slate-950 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:shadow-[0_0_30px_rgba(16,236,109,0.3)] hover:-translate-y-1 transition-all active:scale-95">
+                                                Save Profile DNA
+                                            </button>
                                         </div>
                                     </form>
                                 </div>

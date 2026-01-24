@@ -388,7 +388,7 @@
                             <div class="flex flex-col lg:flex-row items-center gap-12 relative z-10">
                                 <div class="relative">
                                     <div class="size-48 rounded-[3rem] p-1 bg-gradient-to-tr from-primary to-accent-blue shadow-2xl">
-                                        <img id="avatar-preview" src="https://ui-avatars.com/api/?name=Abdellah&size=256&background=050a08&color=13ec6d" class="size-full rounded-[2.8rem] object-cover">
+                                        <img id="avatar-preview" src="https://ui-avatars.com/api/?name=<?= $Pecheur->getNomUser() ?>&size=256&background=050a08&color=13ec6d" class="size-full rounded-[2.8rem] object-cover">
                                     </div>
                                     <label class="absolute -bottom-3 -right-3 size-14 bg-white text-bg-main rounded-[1.5rem] flex items-center justify-center cursor-pointer hover:scale-110 active:scale-90 transition-all shadow-2xl">
                                         <span class="material-symbols-rounded text-2xl">add_a_photo</span>
@@ -401,9 +401,9 @@
                                         <span class="px-4 py-1.5 glass border-primary/30 rounded-full text-[9px] font-black text-primary uppercase tracking-widest">Pro License #FP-2026</span>
                                         <span class="px-4 py-1.5 glass border-accent-blue/30 rounded-full text-[9px] font-black text-accent-blue uppercase tracking-widest">Verified Account</span>
                                     </div>
-                                    <h2 class="text-6xl font-black italic uppercase tracking-tighter text-white">Abdellah Lmrini</h2>
+                                    <h2 class="text-6xl font-black italic uppercase tracking-tighter text-white"><?= $Pecheur->getNomUser() ?></h2>
                                     <p class="text-slate-400 font-bold uppercase tracking-[0.4em] text-xs mt-3 flex items-center justify-center lg:justify-start gap-3">
-                                        <span class="material-symbols-rounded text-primary text-sm font-bold">location_on</span> Safi / Sidi Kaouki Region • Morocco
+                                        <span class="material-symbols-rounded text-primary text-sm font-bold">location_on</span> <?= $Pecheur->getRegion() ?> • Morocco
                                     </p>
 
                                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
@@ -438,21 +438,26 @@
                                         </div>
                                         <h4 class="text-lg font-black uppercase italic text-white tracking-tight">Identity & Parameters</h4>
                                     </div>
-
+                                    <?php
+                                    if (!isset($Pecheur) || !$Pecheur) {
+                                        echo "Error: Pecheur data not loaded.";
+                                        return;
+                                    }
+                                    ?>
                                     <form action="index.php?action=updateProfile" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                                         <div class="space-y-2">
                                             <label class="text-[10px] font-black uppercase text-slate-500 px-2 tracking-widest italic">Pseudo Global</label>
                                             <input type="text" name="nomUser"
                                                 class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all text-white font-bold"
-                                                value="<?= htmlspecialchars($Pecheur->getNomUser()); ?>">
+                                                value="<?= htmlspecialchars($Pecheur->getNomUser() ?? ''); ?>">
                                         </div>
 
                                         <div class="space-y-2">
                                             <label class="text-[10px] font-black uppercase text-slate-500 px-2 tracking-widest italic">Email Terminal</label>
                                             <input type="email" name="emailUser" readonly
                                                 class="w-full bg-white/5 border-white/10 opacity-50 cursor-not-allowed rounded-2xl p-4 text-sm text-white font-bold"
-                                                value="<?= htmlspecialchars($Pecheur->getEmailUser()); ?>">
+                                                value="<?= htmlspecialchars($Pecheur->getEmailUser() ?? 'indisponible'); ?>">
                                         </div>
 
                                         <div class="space-y-2">
@@ -461,9 +466,10 @@
                                                 <select name="specialite" class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all text-white font-bold appearance-none">
                                                     <?php
                                                     $specs = ['Surfcasting Elite', 'Spinning Coastal', 'Pêche au Gros (Big Game)', 'Chasse sous-marine'];
+                                                    $currentSpec = $Pecheur->getSpecialite();
                                                     foreach ($specs as $s):
                                                     ?>
-                                                        <option value="<?= $s ?>" <?= ($Pecheur->getSpecialite() == $s) ? 'selected' : '' ?>>
+                                                        <option value="<?= $s ?>" <?= ($currentSpec == $s) ? 'selected' : '' ?>>
                                                             <?= $s ?>
                                                         </option>
                                                     <?php endforeach; ?>
@@ -476,7 +482,7 @@
                                             <label class="text-[10px] font-black uppercase text-slate-500 px-2 tracking-widest italic">Région Opérationnelle</label>
                                             <input type="text" name="region"
                                                 class="w-full bg-white/5 border-white/10 rounded-2xl p-4 text-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all text-white font-bold"
-                                                value="<?= htmlspecialchars($Pecheur->getRegion()); ?>">
+                                                value="<?= htmlspecialchars($Pecheur->getRegion() ?? ''); ?>">
                                         </div>
 
                                         <div class="md:col-span-2 space-y-2">

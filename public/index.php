@@ -53,7 +53,9 @@ switch ($action) {
   case 'savePrise':
        $priseController->creatPrise();
         break;
-
+ case 'updateProfile':
+    $PecheurController->updateProfile();
+    break;
 /////////////////////////////////////////////////
     default:
         $view = '../App/views/visitor/home.php';

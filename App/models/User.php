@@ -25,7 +25,8 @@ abstract class User
     public function setIdUser($id) { $this->idUser = $id; }
     public function setNomUser($nom) { $this->nomUser = $nom; }
     public function setIdRole($id) { $this->idRole = $id; }
-
+    public function setEmailUser($email) { $this->emailUser = $email; }
+    public function getEmailUser() { return $this->emailUser; }
 
     public function register($nom, $email, $password, $idRole = 2)
     {

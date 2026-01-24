@@ -8,8 +8,8 @@ use PDOException;
 use DateTime;
 use Exception;
 use PDO;
-
-class Competition
+use Config\Connexion;
+class CompetitionP
 {
     private int $idCompetition;
     private string $titreCompetition;
@@ -29,27 +29,9 @@ class Competition
    
 
     public function __construct(
-        int $idCompetition,
-        string $titreCompetition,
-        string $lieu,
-        string $typeMilieu,
-        DateTime $dateDebut,
-        DateTime $dateFin,
-        string $statut,
-        int $nbManches,
-        string $modeScoring,
-        string $reglement
+       
     ) {
-        $this->idCompetition = $idCompetition;
-        $this->titreCompetition = $titreCompetition;
-        $this->lieu = $lieu;
-        $this->typeMilieu = $typeMilieu;
-        $this->dateDebut = $dateDebut;
-        $this->dateFin = $dateFin;
-        $this->statut = $statut;
-        $this->nbManches = $nbManches;
-        $this->modeScoring = $modeScoring;
-        $this->reglement = $reglement;
+  
     }
 
 
@@ -242,6 +224,8 @@ class Competition
 
     public static function getTotalCompetitions($db)
     {
+              $db = Connexion::connect()->getConnexion();
+
         $sql = "SELECT COUNT(*) AS total FROM competitions";
 
         $stmt = $db->prepare($sql);

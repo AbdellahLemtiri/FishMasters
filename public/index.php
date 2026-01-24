@@ -4,7 +4,7 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controllers\AuthController;
-use config\Connexion;
+use Config\Connexion;
 use App\Controllers\PriseController;
 use App\Controllers\PecheurController;
 $db = Connexion::connect();

@@ -51,11 +51,11 @@ class PriseController
                 $prise->setPhoto($photo);
                 $prise->setIdCompetition(1);
                 $prise->createPrise();
-                header('Location: index.php?action=dashboard&success=creation_successful'); 
+                header('Location: index.php?action=dashboardPecheur&success=creation_successful'); 
                 exit();
             } catch (Exception $e) {
                 Logger::log("Erreur lors de la création de la prise : " . $e->getMessage());
-                header('Location: index.php?action=dashboard&error=creation_failed');
+                header('Location: index.php?action=dashboardPecheur&error=creation_failed');
                 exit();
             }
         }

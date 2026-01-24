@@ -80,8 +80,7 @@ class Pecheur extends User
             }
             $this->conn->rollBack();
             return false;
-        } 
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->conn->rollBack();
             Logger::log("Pecheur Signup Error: " . $e->getMessage());
             return false;
@@ -108,4 +107,24 @@ class Pecheur extends User
             return false;
         }
     }
+    public function getPecheurById()
+    {
+        $sql = "SELECT u.idUser, u.nomUser, u.emailUser, p.region, p.specialite, p.photoPecheur, p.statutPecheur
+                FROM utilisateurs u
+                JOIN pecheurs p ON u.idUser = p.idUser
+                WHERE u.idUser = :id";
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $this->idUser);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_CLASS, self::class);
+        } catch (\Exception $e) {
+            Logger::log("Get Pecheur By Id Error: " . $e->getMessage());
+            return null;
+        }
+    }
+
+
+
 }

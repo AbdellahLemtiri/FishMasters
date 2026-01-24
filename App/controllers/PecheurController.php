@@ -5,6 +5,6 @@ class PecheurController
 {
     public function dashboardPecheur()
     { 
-        require_once 'App/views/pecheur/dashboardPecheur.php';
+        require_once '../App/views/Pecheur/dashboardPecheur.php';
     }
-}
+}   

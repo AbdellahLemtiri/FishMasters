@@ -22,7 +22,38 @@ INSERT INTO especes (nom, nomScientifique, description) VALUES
 ('Black Bass', 'Micropterus salmoides', 'Sportif');
 
 
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Ahmed Safi', 'ahmed@fish.ma', '$2y$10$xyz...', 2, 'Safi - Abda', 'Chasse sous-marine', 'uploads/pecheurs/p1.jpg');
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Youssef Dakhla', 'youssef@fish.ma', '$2y$10$xyz...', 2, 'Dakhla - Oued Eddahab', 'Pêche à la canne', 'uploads/pecheurs/p2.jpg');
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Leila Oualidia', 'leila@fish.ma', '$2y$10$xyz...', 2, 'Oualidia', 'Collecte de coquillages', 'uploads/pecheurs/p3.jpg');
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Karim Tanger', 'karim@fish.ma', '$2y$10$xyz...', 2, 'Tanger - Tetouan', 'Spinning Shore', 'uploads/pecheurs/p4.jpg');
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Mohamed Mogador', 'mohamed@fish.ma', '$2y$10$xyz...', 2, 'Essaouira', 'Surfcasting', 'uploads/pecheurs/p5.jpg');
 
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Omar Mehdia', 'omar@fish.ma', '$2y$10$xyz...', 2, 'Kenitra - Mehdia', 'Pêche aux leurres', 'uploads/pecheurs/p6.jpg');
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Yassine Agadir', 'yassine@fish.ma', '$2y$10$xyz...', 2, 'Agadir - Souss', 'Pêche au gros', 'uploads/pecheurs/p7.jpg');
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Hassan Nador', 'hassan@fish.ma', '$2y$10$xyz...', 2, 'Nador - Marchica', 'Pêche artisanale', 'uploads/pecheurs/p8.jpg');
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Driss Casa', 'driss@fish.ma', '$2y$10$xyz...', 2, 'Casablanca - Ain Diab', 'Bait Casting', 'uploads/pecheurs/p9.jpg');
+
+ 
+INSERT INTO pecheurs (nomUser, emailUser, passwordUser, roleId, region, specialite, photoPecheur)
+VALUES ('Mourad Bouznika', 'mourad@fish.ma', '$2y$10$xyz...', 2, 'Bouznika', 'Jigging', 'uploads/pecheurs/p10.jpg');
 
 INSERT INTO utilisateurs (nomUser, emailUser, passwordUser, roleId) VALUES
 ('Ali', 'ali@mail.com', '$2y$10$VfFV4TwgCAE3p1LW8h4z5ekWHZ3/Neg5dAEDfAyJSrY7AjZiKR6wy', 2),

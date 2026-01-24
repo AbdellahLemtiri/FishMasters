@@ -37,21 +37,24 @@
         }
     </script>
 
-    <style>.material-symbols-rounded {
-  font-family: 'Material Symbols Rounded' !important;
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px; /* حجم افتراضي */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  /* تحسين النعومة */
-  -webkit-font-smoothing: antialiased;
-}
+    <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded' !important;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            /* حجم افتراضي */
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+            /* تحسين النعومة */
+            -webkit-font-smoothing: antialiased;
+        }
+
         /* Custom UI Patterns */
         .glass {
             background: rgba(255, 255, 255, 0.02);
@@ -525,99 +528,99 @@
 
         </main>
     </div>
-  <div id="captureModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6 transition-all duration-500">
-    <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-xl transition-opacity" onclick="toggleCaptureModal()"></div>
-    
-    <div class="relative z-10 w-full max-w-2xl bg-[#0f172a]/90 border border-emerald-500/20 rounded-[3rem] shadow-[0_25px_80px_-15px_rgba(0,0,0,0.6)] overflow-hidden">
-        
-        <div class="max-h-[85vh] overflow-y-auto no-scrollbar p-8 md:p-12">
-            
-            <div class="flex justify-between items-start mb-12">
-                <div>
-                    <h3 class="text-4xl font-black italic uppercase tracking-tighter text-white leading-[0.8]">
-                        Capture <span class="text-emerald-500">Sync</span>
-                    </h3>
-                    <p class="text-emerald-500/50 text-[9px] font-black uppercase tracking-[0.3em] mt-3 flex items-center gap-2">
-                        <span class="relative flex h-2 w-2">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                        </span>
-                        Biometric System Active
-                    </p>
-                </div>
-                <button onclick="toggleCaptureModal()" class="size-12 rounded-2xl bg-white/5 hover:bg-red-500/10 hover:text-red-500 flex items-center justify-center transition-all group border border-white/5 shadow-inner">
-                    <span class="material-symbols-rounded text-2xl transition-transform group-hover:rotate-90">close</span>
-                </button>
-            </div>
+    <div id="captureModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6 transition-all duration-500">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-xl transition-opacity" onclick="toggleCaptureModal()"></div>
 
-            <form action="../../../public/index.php?action=savePrise" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-                
-                <div class="space-y-3 group">
-                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1 group-focus-within:text-emerald-500 transition-colors">Target Species</label>
-                    <div class="relative">
-                        <select name="espece" class="w-full bg-slate-900/50 border border-white/10 rounded-[1.5rem] py-4.5 px-6 text-sm focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500/40 outline-none text-white transition-all appearance-none cursor-pointer">
-                            <option value="Dorade Royale">Dorade Royale</option>
-                            <option value="Loup de Mer">Loup de Mer (Bar)</option>
-                            <option value="Sargue">Sargue</option>
-                            <option value="Courbine">Courbine</option>
-                        </select>
+        <div class="relative z-10 w-full max-w-2xl bg-[#0f172a]/90 border border-emerald-500/20 rounded-[3rem] shadow-[0_25px_80px_-15px_rgba(0,0,0,0.6)] overflow-hidden">
+
+            <div class="max-h-[85vh] overflow-y-auto no-scrollbar p-8 md:p-12">
+
+                <div class="flex justify-between items-start mb-12">
+                    <div>
+                        <h3 class="text-4xl font-black italic uppercase tracking-tighter text-white leading-[0.8]">
+                            Capture <span class="text-emerald-500">Sync</span>
+                        </h3>
+                        <p class="text-emerald-500/50 text-[9px] font-black uppercase tracking-[0.3em] mt-3 flex items-center gap-2">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            Biometric System Active
+                        </p>
                     </div>
+                    <button onclick="toggleCaptureModal()" class="size-12 rounded-2xl bg-white/5 hover:bg-red-500/10 hover:text-red-500 flex items-center justify-center transition-all group border border-white/5 shadow-inner">
+                        <span class="material-symbols-rounded text-2xl transition-transform group-hover:rotate-90">close</span>
+                    </button>
                 </div>
 
-                <div class="space-y-3">
-                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Metrics Unit</label>
-                    <div class="flex bg-slate-950/50 p-1.5 rounded-[1.5rem] border border-white/5 shadow-inner">
-                        <button type="button" id="btnSwitchPoids" onclick="setMeasure('poids')" class="flex-1 py-3 rounded-xl text-[10px] font-black transition-all bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/20">WEIGHT</button>
-                        <button type="button" id="btnSwitchTaille" onclick="setMeasure('taille')" class="flex-1 py-3 rounded-xl text-[10px] font-black text-slate-500 hover:text-white transition-all">LENGTH</button>
-                    </div>
-                </div>
+                <form action="index.php?action=savePrise" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
 
-                <div class="space-y-3">
-                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Exact Value</label>
-                    <div class="relative">
-                        <input type="number" id="measureInput" name="poids" step="0.01" placeholder="0.00 kg" class="w-full bg-slate-900/50 border border-white/10 rounded-[1.5rem] py-4.5 px-6 text-2xl font-black text-white focus:ring-2 focus:ring-emerald-500/40 outline-none transition-all placeholder:text-slate-800">
-                    </div>
-                </div>
-                <div class="space-y-3">
-                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Action Protocol</label>
-                    <div class="flex gap-4">
-                        <label class="flex-1 relative flex items-center justify-center h-[64px] cursor-pointer group">
-                            <input type="radio" name="relache" value="1" class="peer hidden" checked>
-                            <div class="absolute inset-0 bg-white/5 border border-white/10 rounded-[1.5rem] transition-all peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 peer-checked:shadow-[0_0_20px_rgba(16,185,129,0.1)]"></div>
-                            <span class="relative text-[10px] font-black uppercase text-slate-500 peer-checked:text-emerald-500 transition-colors">Relâché</span>
-                        </label>
-                        <label class="flex-1 relative flex items-center justify-center h-[64px] cursor-pointer group">
-                            <input type="radio" name="relache" value="0" class="peer hidden">
-                            <div class="absolute inset-0 bg-white/5 border border-white/10 rounded-[1.5rem] transition-all peer-checked:border-red-500/50 peer-checked:bg-red-500/10"></div>
-                            <span class="relative text-[10px] font-black uppercase text-slate-500 peer-checked:text-red-400 transition-colors">Gardé</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="md:col-span-2 space-y-3">
-                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">GPS Location / Spot</label>
-                    <div class="relative group">
-                        <span class="material-symbols-rounded absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-emerald-500 transition-colors">location_on</span>
-                        <input type="text" name="spot" placeholder="Ex: Casablanca, Jetée Nord" class="w-full bg-slate-900/50 border border-white/10 rounded-[1.5rem] py-4.5 pl-14 pr-6 text-sm text-white focus:ring-2 focus:ring-emerald-500/40 outline-none transition-all">
-                    </div>
-                </div>
-
-                <div class="md:col-span-2">
-                    <input type="file" name="photo" id="fishPhoto" class="hidden" accept="image/*" onchange="updateFileName(this)">
-                    <label for="fishPhoto" class="flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-[2.5rem] p-10 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all cursor-pointer min-h-[180px] group bg-white/[0.02]">
-                        <div class="size-16 rounded-full bg-white/5 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-emerald-500/20 transition-all duration-500 shadow-xl">
-                            <span class="material-symbols-rounded text-3xl text-slate-500 group-hover:text-emerald-500">camera_enhance</span>
+                    <div class="space-y-3 group">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1 group-focus-within:text-emerald-500 transition-colors">Target Species</label>
+                        <div class="relative">
+                            <select name="espece" class="w-full bg-slate-900/50 border border-white/10 rounded-[1.5rem] py-4.5 px-6 text-sm focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500/40 outline-none text-white transition-all appearance-none cursor-pointer">
+                                <option value="Dorade Royale">Dorade Royale</option>
+                                <option value="Loup de Mer">Loup de Mer (Bar)</option>
+                                <option value="Sargue">Sargue</option>
+                                <option value="Courbine">Courbine</option>
+                            </select>
                         </div>
-                        <p id="uploadText" class="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] group-hover:text-emerald-500/80 transition-colors">Visual Proof Required (HD)</p>
-                    </label>
-                </div>
+                    </div>
 
-                <button type="submit" class="md:col-span-2 bg-emerald-500 text-slate-950 py-6 mt-4 rounded-[2rem] font-black text-xs uppercase tracking-[0.5em] hover:shadow-[0_20px_40px_rgba(16,185,129,0.3)] hover:-translate-y-1 transition-all active:scale-[0.98] active:translate-y-0">
-                    Encrypt & Transmit Data
-                </button>
-            </form>
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Metrics Unit</label>
+                        <div class="flex bg-slate-950/50 p-1.5 rounded-[1.5rem] border border-white/5 shadow-inner">
+                            <button type="button" id="btnSwitchPoids" onclick="setMeasure('poids')" class="flex-1 py-3 rounded-xl text-[10px] font-black transition-all bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/20">WEIGHT</button>
+                            <button type="button" id="btnSwitchTaille" onclick="setMeasure('taille')" class="flex-1 py-3 rounded-xl text-[10px] font-black text-slate-500 hover:text-white transition-all">LENGTH</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Exact Value</label>
+                        <div class="relative">
+                            <input type="number" id="measureInput" name="poids" step="0.01" placeholder="0.00 kg" class="w-full bg-slate-900/50 border border-white/10 rounded-[1.5rem] py-4.5 px-6 text-2xl font-black text-white focus:ring-2 focus:ring-emerald-500/40 outline-none transition-all placeholder:text-slate-800">
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Action Protocol</label>
+                        <div class="flex gap-4">
+                            <label class="flex-1 relative flex items-center justify-center h-[64px] cursor-pointer group">
+                                <input type="radio" name="relache" value="1" class="peer hidden" checked>
+                                <div class="absolute inset-0 bg-white/5 border border-white/10 rounded-[1.5rem] transition-all peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 peer-checked:shadow-[0_0_20px_rgba(16,185,129,0.1)]"></div>
+                                <span class="relative text-[10px] font-black uppercase text-slate-500 peer-checked:text-emerald-500 transition-colors">Relâché</span>
+                            </label>
+                            <label class="flex-1 relative flex items-center justify-center h-[64px] cursor-pointer group">
+                                <input type="radio" name="relache" value="0" class="peer hidden">
+                                <div class="absolute inset-0 bg-white/5 border border-white/10 rounded-[1.5rem] transition-all peer-checked:border-red-500/50 peer-checked:bg-red-500/10"></div>
+                                <span class="relative text-[10px] font-black uppercase text-slate-500 peer-checked:text-red-400 transition-colors">Gardé</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 space-y-3">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">GPS Location / Spot</label>
+                        <div class="relative group">
+                            <span class="material-symbols-rounded absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-emerald-500 transition-colors">location_on</span>
+                            <input type="text" name="spot" placeholder="Ex: Casablanca, Jetée Nord" class="w-full bg-slate-900/50 border border-white/10 rounded-[1.5rem] py-4.5 pl-14 pr-6 text-sm text-white focus:ring-2 focus:ring-emerald-500/40 outline-none transition-all">
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <input type="file" name="photo" id="fishPhoto" class="hidden" accept="image/*" onchange="updateFileName(this)">
+                        <label for="fishPhoto" class="flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-[2.5rem] p-10 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all cursor-pointer min-h-[180px] group bg-white/[0.02]">
+                            <div class="size-16 rounded-full bg-white/5 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-emerald-500/20 transition-all duration-500 shadow-xl">
+                                <span class="material-symbols-rounded text-3xl text-slate-500 group-hover:text-emerald-500">camera_enhance</span>
+                            </div>
+                            <p id="uploadText" class="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] group-hover:text-emerald-500/80 transition-colors">Visual Proof Required (HD)</p>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="md:col-span-2 bg-emerald-500 text-slate-950 py-6 mt-4 rounded-[2rem] font-black text-xs uppercase tracking-[0.5em] hover:shadow-[0_20px_40px_rgba(16,185,129,0.3)] hover:-translate-y-1 transition-all active:scale-[0.98] active:translate-y-0">
+                        Encrypt & Transmit Data
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
     <script>
         function toggleCaptureModal() {
             const modal = document.getElementById('captureModal');
@@ -918,4 +921,3 @@
 </body>
 
 </html>
-

@@ -13,7 +13,7 @@ class Especes
     private string $description;
     private $db;
 
-
+// 
     public function __construct($db)
     {
         $this->db = $db;
@@ -22,22 +22,35 @@ class Especes
 
     public function getIdEspece(): int
     {
-        return $this->idEspece;
+        $stmt = $this->db->prepare("INSERT INTO especes (nom, nomScientifique, description) VALUES (:nom, :nomScientifique, :description)");
+        return $stmt->execute([
+            'nom' => $data['nom'],
+            'nomScientifique' => $data['nomScientifique'],
+            'description' => $data['description']
+        ]);
     }
 
     public function getNom(): string
     {
-        return $this->nom;
+        $stmt = $this->db->prepare("UPDATE especes SET nom = :nom, nomScientifique = :nomScientifique, description = :description WHERE idEspece = :idEspece");
+        return $stmt->execute([
+            'nom' => $data['nom'],
+            'nomScientifique' => $data['nomScientifique'],
+            'description' => $data['description'],
+            'idEspece' => $id
+        ]);
     }
 
     public function getNomScientifique(): string
     {
-        return $this->nomScientifique;
+        $stmt = $this->db->prepare("DELETE FROM especes WHERE idEspece = :idEspece");
+        return $stmt->execute(['idEspece' => $id]);
     }
 
     public function getDescription(): string
     {
-        return $this->description;
+        $stmt = $this->db->query("SELECT * FROM especes");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function setIdEspece(int $idEspece): void

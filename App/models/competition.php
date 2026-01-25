@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\models;
 
-use App\Utils\Logger;
-
+use App\utils\Logger;
 use PDOException;
 use DateTime;
 use Exception;

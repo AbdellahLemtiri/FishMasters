@@ -1,6 +1,7 @@
 <?php
 
 namespace App\models;
+
 use Config\Connexion;
 use DateTime;
 use PDOException;
@@ -26,7 +27,7 @@ class Fan extends User
         return $this->dateInscription;
     }
 
-    static function getByEmail(string $email): Fan
+    static function getByEmail(string $email): Fan | null
     {
         try {
             $sql = "SELECT * 
@@ -34,7 +35,7 @@ class Fan extends User
                         WHERE emailUser = :emailUser";
             $pdo = Connexion::connect()->getConnexion();
             $stmt = $pdo->prepare($sql);
-            $stmt->execute(['emailUser' => $fan->emailUser]);
+            $stmt->execute(['emailUser' => $email]);
             $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
 
             return $stmt->fetch();
@@ -55,7 +56,7 @@ class Fan extends User
                 'nomUser' => $fan->nomUser,
                 'emailUser' => $fan->emailUser,
                 'passwordUser' => password_hash($fan->passwordUser, PASSWORD_DEFAULT),
-                'role_id' => $fan->role_id,
+                'role_id' => $fan->idRole,
                 'statut_fan' => $fan->statut_fan
             ]);
 
@@ -78,7 +79,7 @@ class Fan extends User
                 'nomUser' => $fan->nomUser,
                 'emailUser' => $fan->emailUser,
                 'passwordUser' => password_hash($fan->passwordUser, PASSWORD_DEFAULT),
-                'role_id' => $fan->role_id,
+                'role_id' => $fan->idRole,
                 'statut_fan' => $fan->statut_fan,
                 'idUser' => $this->idUser
             ]);
@@ -106,7 +107,7 @@ class Fan extends User
         }
     }
 
-    static function getById(int $id_fan): Fan
+    static function getById(int $id_fan): Fan | null
     {
         try {
             $sql = "SELECT * FROM fans WHERE idUser = :idUser";

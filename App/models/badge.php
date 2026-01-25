@@ -83,7 +83,7 @@
             }
         }
 
-        public function getById(int $id_badge):Badge{
+        public function getById(int $id_badge):Badge | null{
             try {
                 $sql = "SELECT * FROM badges
                         WHERE id_badge = :id_badge";

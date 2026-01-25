@@ -1,11 +1,11 @@
 <?php
 
 namespace App\models;
-use App\models\User;
 use PDO;
+use App\models\User;
 use App\Utils\Logger;
 
-class Pecheur  extends User
+class Pecheur extends User
 {
     private string $region;
     private string $specialite;

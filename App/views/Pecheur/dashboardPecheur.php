@@ -293,42 +293,51 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-                        <div class="glass p-8 rounded-[2rem] glass-hover transition-all relative overflow-hidden group">
-                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <span class="material-symbols-rounded text-6xl">database</span>
-                            </div>
-                            <h3 class="text-4xl font-black tracking-tighter text-white uppercase italic">1,402 <small class="text-sm opacity-50 font-medium">kg</small></h3>
-                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-2">Biomasse Totale</p>
-                            <div class="mt-4 flex items-center gap-2 text-primary text-[10px] font-black">
-                                <span class="material-symbols-rounded text-sm">trending_up</span> +12.5% vs Prev. Month
-                            </div>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <?php 
+    $competitions = $compModel->getOpenCompetitions(); 
+    foreach($competitions as $comp): 
+        // $alreadyIn = $compModel->isUserRegistered($comp['idCompetition'], $_SESSION['user_id']);
+        $alreadyIn = false;
+    ?>
+    <div class="glass rounded-[3rem] overflow-hidden group border-white/5 hover:border-primary/30 transition-all">
+        <div class="h-48 bg-gradient-to-r from-emerald-900 to-bg-main relative p-8">
+            <div class="absolute inset-0 shimmer opacity-10"></div>
+            <div class="relative z-10">
+                <span class="px-3 py-1 bg-primary text-bg-main text-[9px] font-black rounded-lg uppercase italic">
+                    <?= $comp->getTypeMilieu() ?>
+                </span>
+                <h3 class="text-3xl font-black text-white uppercase italic mt-4">
+                    <?= htmlspecialchars($comp->getTitreCompetition()) ?>
+                </h3>
+                <p class="text-slate-400 text-xs mt-2 font-bold tracking-widest uppercase italic">
+                    Lieu: <?= htmlspecialchars($comp->getLieu()) ?>
+                </p>
+            </div>
+        </div>
+        
+        <div class="p-8 space-y-6">
+            <div class="flex justify-between text-xs font-bold text-slate-500 uppercase italic">
+                <span>Participants: <?= 'hhh'?></span>
+                <span>Début: <?= date('d M', strtotime($comp->dateDebut())) ?></span>
+            </div>
 
-                        <div class="glass p-8 rounded-[2rem] glass-hover transition-all relative overflow-hidden group">
-                            <h3 class="text-4xl font-black tracking-tighter text-white uppercase italic">158</h3>
-                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-2">Total Sessions</p>
-                            <div class="mt-4 flex items-center gap-2 text-accent-blue text-[10px] font-black">
-                                <span class="material-symbols-rounded text-sm">schedule</span> Avg 4.2h / Session
-                            </div>
-                        </div>
-
-                        <div class="glass p-8 rounded-[2rem] glass-hover transition-all relative overflow-hidden group">
-                            <h3 class="text-4xl font-black tracking-tighter text-white uppercase italic">89%</h3>
-                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-2">Release Rate</p>
-                            <div class="mt-4 flex items-center gap-2 text-primary text-[10px] font-black">
-                                <span class="material-symbols-rounded text-sm">eco</span> Sustainable Pro Level
-                            </div>
-                        </div>
-
-                        <div class="glass p-8 rounded-[2rem] glass-hover transition-all relative overflow-hidden group border-primary/20 bg-primary/5">
-                            <h3 class="text-4xl font-black tracking-tighter text-white uppercase italic">#12</h3>
-                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-2">Global Standing</p>
-                            <div class="mt-4 flex items-center gap-2 text-white text-[10px] font-black">
-                                <span class="material-symbols-rounded text-sm">workspace_premium</span> Top 1% World Wide
-                            </div>
-                        </div>
-                    </div>
+            <?php if(!$alreadyIn): ?>
+                <form action="actions/register_competition.php" method="POST">
+                    <input type="hidden" name="competition_id" value="<?= $comp->getIdCompetition() ?>">
+                    <button type="submit" class="w-full py-4 bg-white/5 hover:bg-primary hover:text-bg-main transition-all rounded-2xl text-[10px] font-black uppercase tracking-widest">
+                        Register Now
+                    </button>
+                </form>
+            <?php else: ?>
+                <button disabled class="w-full py-4 bg-primary/20 text-primary border border-primary/30 rounded-2xl text-[10px] font-black uppercase tracking-widest cursor-default flex items-center justify-center gap-2">
+                    <span class="material-symbols-rounded text-sm">check_circle</span> Already Registered
+                </button>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
 
                     <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
                         <div class="xl:col-span-2 glass rounded-[2.5rem] p-10">

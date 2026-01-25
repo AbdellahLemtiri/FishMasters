@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Pecheur;
 use App\models\Prise;
-use App\models\CompetitionP;
+use App\models\Competition;
 use Config\Connexion;
 use App\Utils\Logger;
 
@@ -14,6 +14,7 @@ class PecheurController
     {
         $db = Connexion::connect()->getConnexion();
         $Pecheur = (new Pecheur($db))->getPecheurById(4);
+        $cmpetitions = Competition::getOpenCompetitions();
         require_once '../App/views/Pecheur/dashboardPecheur.php';
     }
     public function updateProfile()
@@ -32,7 +33,7 @@ class PecheurController
                 $pecheur->setSpecialite($_POST['specialite'] ?? '');
                 $pecheur->setClub($_POST['club'] ?? 'Indépendant');
                 $newNom = $_POST['nomUser'] ?? '';
-                 $pecheur->setNomUser($newNom);
+                $pecheur->setNomUser($newNom);
                 if ($pecheur->updatePecheur()) {
                     header('Location: index.php?action=dashboardPecheur&status=success');
                 } else {

@@ -148,3 +148,4 @@ VALUES ('Individuel'),
 (4, 9, 1300),
 (4, 2, 2800);
 
+alter table pecheurs add COLUMN score int  DEFAULT 0;

@@ -9,7 +9,8 @@ use DateTime;
 use Exception;
 use PDO;
 use Config\Connexion;
-class CompetitionP
+
+class Competition
 {
     private int $idCompetition;
     private string $titreCompetition;
@@ -26,13 +27,9 @@ class CompetitionP
     private PDO $db;
 
 
-   
 
-    public function __construct(
-       
-    ) {
-  
-    }
+
+    public function __construct() {}
 
 
     public function getIdCompetition(): int
@@ -217,14 +214,11 @@ class CompetitionP
         $stmt->execute([":id" => $id]);
     }
 
-    public function changeStatus() {
-
-    
-    }
+    public function changeStatus() {}
 
     public static function getTotalCompetitions($db)
     {
-              $db = Connexion::connect()->getConnexion();
+        $db = Connexion::connect()->getConnexion();
 
         $sql = "SELECT COUNT(*) AS total FROM competitions";
 
@@ -235,7 +229,17 @@ class CompetitionP
         return $result['total'];
     }
 
-    
+    static function getOpenCompetitions(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "SELECT * FROM competitions WHERE status = 'ouvert'";
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
+        } catch (PDOException $e) {
+            Logger::log('Erreur lors de la récupération des competitions:' . $e->getMessage());
+            return [];
+        }
+    }
 }
-
-

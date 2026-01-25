@@ -12,7 +12,7 @@ class Pecheur extends User
     private string $club;
     private string $photoPecheur;
     private bool $statutPecheur;
- 
+    private int $score;
     public function __construct($db = null)
     {
         parent::__construct($db);
@@ -21,7 +21,7 @@ class Pecheur extends User
         }
     }
 
- 
+    
     
     public function getClub(): string
     {

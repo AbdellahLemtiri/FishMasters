@@ -13,7 +13,7 @@ class Score
     private int $id_pecheur;
     private int $points;
     private int $id_competition;
-   
+
     public function __construct($db)
     {
         $this->conn = $db;
@@ -33,10 +33,7 @@ class Score
     {
         return $this->points;
     }
-    public function getCreatedAt(): string
-    {
-        return $this->created_at;
-    }
+
 
     public function setIdScore(int $id_score): void
     {
@@ -51,55 +48,52 @@ class Score
         $this->points = $points;
     }
 
-    public function setCreatedAt(string $created_at): void
+    public function setIdCompetition(int $id_competition): void
     {
-        $this->created_at = $created_at;
+        $this->id_competition = $id_competition;
+    }
+
+    public function getIdCompetition(): int
+    {
+        return $this->id_competition;
     }
 
 
-    public function addScore()
-    {
 
-        $query = "INSERT INTO scores 
-              SET id_pecheur = :id_pecheur, 
-                  points = :points";
-
-        try {
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':id_pecheur', $this->id_pecheur);
-            $stmt->bindParam(':points', $this->points);
-
-            if ($stmt->execute()) {
-                return $this->updateTotalPecheurScore($this->id_pecheur);
-            }
-        } catch (\PDOException $e) {
-            error_log("Score Error: " . $e->getMessage());
-            return false;
-        }
-        return false;
-    }
+    // public function addScore(): bool
+    // {
+    //     $query = "INSERT INTO scores (id_pecheur, points, id_competition) 
+    //               VALUES (:id_pecheur, :points, :id_competition)";
+    //     try {
+    //         $stmt = $this->conn->prepare($query);
+    //         $stmt->bindParam(':id_pecheur', $this->id_pecheur);
+    //         $stmt->bindParam(':points', $this->points);
+    //         $stmt->bindParam(':id_competition', $this->id_competition);
+    //         if ($stmt->execute()) {
+    //             $this->updateTotalPecheurScore($this->id_pecheur);
+    //             return true;
+    //         }
+    //     } catch (\PDOException $e) {
+    //         Logger::log("Score Insertion Error: " . $e->getMessage());
+    //         return false;
+    //     }
+    // }
     public function getScoresByPecheur(): int
     {
-        $query = "SELECT * FROM scores WHERE id_pecheur = :id_pecheur ORDER BY created_at DESC";
+        $query = "SELECT sum(points) as total FROM scores WHERE id_pecheur = :id_pecheur ";
         try {
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':id_pecheur', $this->id_pecheur);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_CLASS, sel) 
+            $totale = $stmt->fetchColumn();
+            return $totale ?? 0;
         } catch (\PDOException $e) {
-            error_log("Score Fetch Error: " . $e->getMessage());
+            Logger::log("Score Fetch Error: " . $e->getMessage());
+            return 0;
         }
     }
-    private function updateTotalPecheurScore($id_pecheur)
-    {
-        $query = "UPDATE pecheurs 
-                  SET total_score = (SELECT SUM(points) FROM scores  )
-                  WHERE iduser = :id";
-
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([':id' => $id_pecheur]);
-    }
+  
 
 
     public function getLeaderboard()

@@ -1,10 +1,5 @@
 <?php
-<<<<<<< HEAD
-namespace App\Controllers;
-use App\models\Competition;
-=======
 require_once __DIR__ . '/../models/Competition.php';
->>>>>>> origin/Abdellah/featPecheur
 
 class VisitorController {
     
@@ -16,4 +11,5 @@ class VisitorController {
         require_once __DIR__ . '/../../views/layouts/footer.php';
     }
 }
+
 ?>

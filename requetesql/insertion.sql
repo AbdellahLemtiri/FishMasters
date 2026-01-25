@@ -79,8 +79,7 @@ INSERT INTO reglements (competitionId, especeId, tailleMin, pointsFixes, pointsP
 -- Lpass howa   password123 
 
 
--- ملاحظة: استعملت نفس الـ IDs اللي تكرروا في جدول utilisateurs (بافتراض SERIAL)
--- علي (ID: 1)
+ 
 INSERT INTO pecheurs (idUser, nomUser, emailUser, passwordUser, roleId, region, specialite, club, photoPecheur)
 SELECT idUser, nomUser, emailUser, passwordUser, roleId, 'Safi', 'Surfcasting', 'Club Shark', 'p1.jpg'
 FROM utilisateurs WHERE emailUser = 'ali@mail.com';
@@ -97,3 +96,11 @@ INSERT INTO pecheurs (idUser, nomUser, emailUser, passwordUser, roleId, region, 
 SELECT idUser, nomUser, emailUser, passwordUser, roleId, 'Casablanca', 'Eging', 'Casa Anglers', 'p4.jpg'
 FROM utilisateurs WHERE emailUser = 'omar@mail.com';
  DELETE FROM pecheurs WHERE idUser = 9;
+
+
+CREATE table scores (
+    idScore SERIAL PRIMARY KEY,
+    id_pecheur INT REFERENCES pecheurs(idUser) ON DELETE CASCADE,
+    id_competition INT REFERENCES competitions(idCompetition) ON DELETE CASCADE,
+    points INT DEFAULT 0
+);

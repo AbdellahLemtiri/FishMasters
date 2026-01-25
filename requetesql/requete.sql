@@ -134,3 +134,17 @@ INSERT INTO
     categories (nomCategorie)
 VALUES ('Individuel'),
     ('Équipe');
+
+
+ INSERT INTO scores (id_pecheur, id_competition, points) VALUES 
+(4, 2, 1200),
+(4, 2, 850),
+(4, 2, 2300),
+(4, 4, 1500),
+(4, 5, 3100),
+(4, 2, 900),
+(4, 7, 1750),
+(4, 8, 2100),
+(4, 9, 1300),
+(4, 2, 2800);
+

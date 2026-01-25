@@ -3,6 +3,7 @@
 namespace App\models;
 
 use PDO;
+use App\Utils\Logger;
 
 class Score
 {
@@ -11,7 +12,8 @@ class Score
     private int $id_score;
     private int $id_pecheur;
     private int $points;
-    private string $created_at;
+    private int $id_competition;
+   
     public function __construct($db)
     {
         $this->conn = $db;
@@ -76,12 +78,23 @@ class Score
         }
         return false;
     }
+    public function getScoresByPecheur(): int
+    {
+        $query = "SELECT * FROM scores WHERE id_pecheur = :id_pecheur ORDER BY created_at DESC";
+        try {
 
-
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id_pecheur', $this->id_pecheur);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_CLASS, sel) 
+        } catch (\PDOException $e) {
+            error_log("Score Fetch Error: " . $e->getMessage());
+        }
+    }
     private function updateTotalPecheurScore($id_pecheur)
     {
         $query = "UPDATE pecheurs 
-                  SET total_score = (SELECT SUM(points) FROM scores WHERE id_pecheur = :id)
+                  SET total_score = (SELECT SUM(points) FROM scores  )
                   WHERE iduser = :id";
 
         $stmt = $this->conn->prepare($query);
@@ -99,6 +112,6 @@ class Score
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS, self::class)??[];
+        return $stmt->fetchAll(PDO::FETCH_CLASS, self::class) ?? [];
     }
 }

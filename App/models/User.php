@@ -10,19 +10,19 @@
         protected ?string $passwordUser = null;
         protected ?int $role_id = null;
 
-        public function getId():int{
+        public function getId():?int{
             return $this->idUser;
         }
 
-        public function getNom():string{
+        public function getNom():?string{
             return $this->nomUser;
         }
 
-        public function getEmail():string{
+        public function getEmail():?string{
             return $this->emailUser;
         }
 
-        public function getRoleId():int{
+        public function getRoleId():?int{
             return $this->role_id;
         }
 
@@ -66,29 +66,6 @@
 
         }
 
-        abstract static function getByEmail(string $email):User;
-
-        // public function login($email, $password)
-        // {
-        //     $query = 'SELECT * FROM ' . $this->table . ' WHERE "emailUser" = :email';
-
-        //     $stmt = $this->conn->prepare($query);
-        //     $stmt->bindParam(':email', $email);
-        //     $stmt->execute();
-
-        //     if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
-        //         if (password_verify($password, $row['passwordUser'])) {
-        //             $this->setIdUser($row['idUser']);
-        //             $this->setNomUser($row['nomUser']);
-        //             $this->setEmailUser($row['emailUser']);
-        //             $this->setIdRole($row['idRole']);
-
-        //             return true;
-        //         }
-        //     }
-
-        //     return false;
-        // }
+        abstract static function getByEmail(string $email):?User;
     }
 ?>

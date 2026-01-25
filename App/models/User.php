@@ -4,39 +4,39 @@
     use Exception;
 
     abstract class User{
-        protected ?int $idUser = null;
-        protected ?string $nomUser = null;
-        protected ?string $emailUser = null;
-        protected ?string $passwordUser = null;
-        protected ?int $role_id = null;
+        protected ?int $iduser = null;
+        protected ?string $nomuser = null;
+        protected ?string $emailuser = null;
+        protected ?string $passworduser = null;
+        protected ?int $roleid = null;
 
         public function getId():?int{
-            return $this->idUser;
+            return $this->iduser;
         }
 
         public function getNom():?string{
-            return $this->nomUser;
+            return $this->nomuser;
         }
 
         public function getEmail():?string{
-            return $this->emailUser;
+            return $this->emailuser;
         }
 
         public function getRoleId():?int{
-            return $this->role_id;
+            return $this->roleid;
         }
 
         public function setNom(?string $nomUser):void{
             if($nomUser === null){
-                $this->nomUser = null;
+                $this->nomuser = null;
                 return;
             }
-            $this->nomUser = trim($nomUser);
+            $this->nomuser = trim($nomUser);
         }
 
         public function setEmail(?string $emailUser):void{
             if($emailUser === null){
-                $this->emailUser = null;
+                $this->emailuser = null;
                 return;
             }
 
@@ -44,26 +44,32 @@
             if(!filter_var($cleanEmail, FILTER_VALIDATE_EMAIL)){
                 throw new Exception("L'adresse email '$cleanEmail' est invalide.");
             }
-            $this->emailUser = $cleanEmail;
+            $this->emailuser = $cleanEmail;
         }
 
         public function setPassword(?string $passwordUser):void{
             if($passwordUser == null){
-                $this->passwordUser = null;
+                $this->passworduser = null;
                 return;
             }
 
             $cleanPassword = trim($passwordUser);
-            $this->passwordUser = password_hash($cleanPassword, PASSWORD_DEFAULT);
+            $this->passworduser = password_hash($cleanPassword, PASSWORD_DEFAULT);
         }
 
         public function setRoleId(?int $idRole):void
         {
-            $this->role_id = $idRole;
+            $this->roleid = $idRole;
         }
 
         public function verifierMotDePass(string $password):bool{
-
+            $cleanedPassword = trim($password);
+            if($cleanedPassword){
+                $hashedPassword = password_hash($cleanedPassword, PASSWORD_DEFAULT);
+                if($this->passworduser == $hashedPassword)
+                    return true;
+            }
+            return false;
         }
 
         abstract static function getByEmail(string $email):?User;

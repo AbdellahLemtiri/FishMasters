@@ -7,7 +7,6 @@ use PDO;
 class Role
 {
     private $table = "role";
-
     private $conn;
     private $idRole;
     private $titreRole;

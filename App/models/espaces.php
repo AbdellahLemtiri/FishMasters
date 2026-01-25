@@ -13,7 +13,6 @@ class Especes
     private string $description;
     private $db;
 
-// 
     public function __construct($db)
     {
         $this->db = $db;
@@ -22,35 +21,22 @@ class Especes
 
     public function getIdEspece(): int
     {
-        $stmt = $this->db->prepare("INSERT INTO especes (nom, nomScientifique, description) VALUES (:nom, :nomScientifique, :description)");
-        return $stmt->execute([
-            'nom' => $data['nom'],
-            'nomScientifique' => $data['nomScientifique'],
-            'description' => $data['description']
-        ]);
+        return $this->idEspece;
     }
 
     public function getNom(): string
     {
-        $stmt = $this->db->prepare("UPDATE especes SET nom = :nom, nomScientifique = :nomScientifique, description = :description WHERE idEspece = :idEspece");
-        return $stmt->execute([
-            'nom' => $data['nom'],
-            'nomScientifique' => $data['nomScientifique'],
-            'description' => $data['description'],
-            'idEspece' => $id
-        ]);
+        return $this->nom;
     }
 
     public function getNomScientifique(): string
     {
-        $stmt = $this->db->prepare("DELETE FROM especes WHERE idEspece = :idEspece");
-        return $stmt->execute(['idEspece' => $id]);
+        return $this->nomScientifique;
     }
 
     public function getDescription(): string
     {
-        $stmt = $this->db->query("SELECT * FROM especes");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->description;
     }
 
     public function setIdEspece(int $idEspece): void
@@ -125,16 +111,18 @@ class Especes
         return $stmt->fetch();
     }
 
-    public static function getAllSpecies($db)
+    public static function getAllSpecies($db): array
     {
         $sql = "SELECT * FROM species";
+        try {
 
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll();
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_CLASS, self::class) ?? [];
+        } catch (PDOException $e) {
+            return [];
+        }
     }
-
     public function setMinSize() {}
 
     public function setPointCoefficient() {}

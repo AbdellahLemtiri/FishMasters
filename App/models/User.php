@@ -1,5 +1,5 @@
 <?php
-    namespace Projet\models;
+    namespace App\models;
     use PDO;
     use Exception;
 
@@ -9,7 +9,12 @@
         protected ?string $emailUser = null;
         protected ?string $passwordUser = null;
         protected ?int $role_id = null;
-
+        protected $conn;
+        public function __construct($db = null){
+            if($db){
+                $this->conn = $db;
+            }
+        }
         public function getId():int{
             return $this->idUser;
         }
@@ -62,9 +67,9 @@
             $this->role_id = $idRole;
         }
 
-        public function verifierMotDePass(string $password):bool{
+        // public function verifierMotDePass(string $password):bool{
 
-        }
+        // }
 
         abstract static function getByEmail(string $email):User;
 

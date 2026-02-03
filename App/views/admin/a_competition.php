@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Manage Competitions - Fishing Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec37",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102213",
+                        "surface-dark": "#1a2e1d",
+                        "border-dark": "#28392b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside
+            class="w-64 border-r border-border-dark bg-background-dark flex flex-col justify-between p-4 hidden lg:flex">
+            <div class="flex flex-col gap-8">
+                <div class="flex items-center gap-3 px-2">
+                    <div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+                        <span class="material-symbols-outlined font-bold">anchor</span>
+                    </div>
+                    <div>
+                        <h1 class="text-white text-base font-bold leading-none">Fishing Admin</h1>
+                        <p class="text-[#9db9a1] text-xs font-medium mt-1">Management Portal</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-2">
+                    <a class="flex items-center gap-3 px-3 py-2 text-[#9db9a1] hover:text-white hover:bg-surface-dark rounded-lg transition-colors"
+                        href="#">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary border border-primary/20"
+                        href="#">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">trophy</span>
+                        <p class="text-sm font-semibold">Competitions</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2 text-[#9db9a1] hover:text-white hover:bg-surface-dark rounded-lg transition-colors"
+                        href="#">
+                        <span class="material-symbols-outlined">group</span>
+                        <p class="text-sm font-medium">Participants</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2 text-[#9db9a1] hover:text-white hover:bg-surface-dark rounded-lg transition-colors"
+                        href="#">
+                        <span class="material-symbols-outlined">analytics</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2 text-[#9db9a1] hover:text-white hover:bg-surface-dark rounded-lg transition-colors"
+                        href="#">
+                        <span class="material-symbols-outlined">settings</span>
+                        <p class="text-sm font-medium">Settings</p>
+                    </a>
+                </nav>
+            </div>
+            <div class="p-4 bg-surface-dark rounded-xl border border-border-dark">
+                <p class="text-xs text-[#9db9a1] mb-2 uppercase tracking-wider font-bold">System Status</p>
+                <div class="flex items-center gap-2">
+                    <span class="size-2 bg-primary rounded-full animate-pulse"></span>
+                    <span class="text-white text-sm">All systems online</span>
+                </div>
+                <button
+                    class="mt-4 w-full flex items-center justify-center gap-2 rounded-lg py-2 bg-primary text-background-dark text-sm font-bold hover:opacity-90 transition-opacity">
+                    <span class="material-symbols-outlined text-sm">support_agent</span>
+                    <span>Support</span>
+                </button>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation Bar -->
+            <header
+                class="flex items-center justify-between h-16 px-8 border-b border-border-dark bg-background-dark/50 backdrop-blur-md">
+                <div class="flex items-center gap-2 lg:hidden">
+                    <span class="material-symbols-outlined text-white">menu</span>
+                </div>
+                <div class="hidden md:flex items-center gap-2 text-[#9db9a1] text-sm">
+                    <span>Admin</span>
+                    <span class="material-symbols-outlined text-xs">chevron_right</span>
+                    <span class="text-white">Competitions</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="p-2 text-[#9db9a1] hover:text-white hover:bg-surface-dark rounded-lg relative">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span
+                            class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border border-background-dark"></span>
+                    </button>
+                    <div class="h-8 w-px bg-border-dark mx-2"></div>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-sm font-bold text-white">Alex Fisher</p>
+                            <p class="text-xs text-[#9db9a1]">Super Admin</p>
+                        </div>
+                        <div class="size-10 rounded-full bg-surface-dark border border-border-dark overflow-hidden bg-cover bg-center"
+                            data-alt="User profile avatar of admin"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD4FwhVsGqNQdS2XssMqAPEYwzlilSFnzZfHfZ1ZiH6MGVc6wUB9saorAocXpt4TXyQoO_YKDkDFtc6h8M9nOsuTxmgKTSLnDTizEBlK_w1VYeltIiOoi7PUpng8yxrf01Xx3hkKNFBuzyZdnQJRUzQo7SPKyEQ0sEcZEuY-nS2oJe7Bo8NHI4KQmbzqGSdSZvEHwLo9PAx5K4CxXdK5UjVS6R53tX6khDPNvAKrCsH85w3p0gFrC8_scoavf6HN2IZeBbhaQGKxiU')">
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Scrollable Content -->
+            <div
+                class="flex-1 overflow-y-auto p-8 bg-gradient-to-br from-background-dark via-[#122515] to-background-dark">
+                <!-- Page Heading -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                    <div>
+                        <h2 class="text-white text-3xl font-black tracking-tight">Manage Competitions</h2>
+                        <p class="text-[#9db9a1] mt-1">Schedule, monitor and finalize tournament results.</p>
+                    </div>
+                    <button id="competition"
+                        class="flex items-center gap-2 px-5 py-2.5 bg-primary text-background-dark rounded-lg font-bold hover:shadow-[0_0_15px_rgba(19,236,55,0.4)] transition-all">
+                        <span class="material-symbols-outlined">add_circle</span>
+                        <span>Create Competition</span>
+                    </button>
+                </div>
+                <!-- Filters & Search Bar -->
+                <div class="flex flex-col md:flex-row gap-4 mb-6">
+                    <div class="flex-1 relative">
+                        <span
+                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#9db9a1]">search</span>
+                        <input
+                            class="w-full bg-surface-dark border-border-dark text-white pl-12 pr-4 py-3 rounded-xl focus:ring-primary focus:border-primary placeholder:text-[#9db9a1]/50 transition-all"
+                            placeholder="Search by name, location or ID..." type="text" />
+                    </div>
+                    <div class="flex gap-3">
+                        <button
+                            class="flex items-center gap-2 px-4 py-3 bg-surface-dark border border-border-dark rounded-xl text-white hover:bg-border-dark transition-colors">
+                            <span class="material-symbols-outlined text-primary">water_drop</span>
+                            <span class="text-sm font-medium">All Environments</span>
+                            <span class="material-symbols-outlined text-xs">expand_more</span>
+                        </button>
+                        <button
+                            class="flex items-center gap-2 px-4 py-3 bg-surface-dark border border-border-dark rounded-xl text-white hover:bg-border-dark transition-colors">
+                            <span class="material-symbols-outlined text-[#9db9a1]">calendar_month</span>
+                            <span class="text-sm font-medium">Date Range</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Table Container -->
+                <div class="bg-surface-dark/40 backdrop-blur-sm border border-border-dark rounded-2xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-surface-dark/60 border-b border-border-dark">
+                                    <th class="px-6 py-4 text-[#9db9a1] font-bold text-xs uppercase tracking-wider">
+                                        Competition Name</th>
+                                    <th class="px-6 py-4 text-[#9db9a1] font-bold text-xs uppercase tracking-wider">Date
+                                        &amp; Time</th>
+                                    <th class="px-6 py-4 text-[#9db9a1] font-bold text-xs uppercase tracking-wider">
+                                        Location</th>
+                                    <th
+                                        class="px-6 py-4 text-[#9db9a1] font-bold text-xs uppercase tracking-wider text-center">
+                                        Environment</th>
+                                    <th class="px-6 py-4 text-[#9db9a1] font-bold text-xs uppercase tracking-wider">
+                                        Status</th>
+                                    <th
+                                        class="px-6 py-4 text-[#9db9a1] font-bold text-xs uppercase tracking-wider text-right">
+                                        Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-border-dark/50">
+                                <!-- Row 1 -->
+                                <tr class="hover:bg-primary/5 transition-colors group">
+                                    <td class="px-6 py-5">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-10 rounded-lg bg-cover bg-center"
+                                                data-alt="Cover image of coastal fishing spot"
+                                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCKT-6LjbyoRSxLvBcH28EFUBvt94p0XFLUOSF12LsRSi-0Un_Ds798Tqv31-RACgqVGdswGwDUJ0-Snfh48Y19caid49Ik7xqaXUbPNs-CO5v-AJW1Xsm5YsA33_ND4SNd8hzOkhwIG9iYZ80v5WmhDL4T5_W8x84q8oDpYUJvTvyqC8jLIbQecGzpRIVVUBP3zzY_RfkY-jkrfnUVngAsNuGPtut2FxPe2sd5mLFiWZc2ISQH6YqV309LB_Urj9KNoue15fyNlI')">
+                                            </div>
+                                            <div>
+                                                <p
+                                                    class="text-white font-bold group-hover:text-primary transition-colors">
+                                                    Atlantic Bass Masters</p>
+                                                <p class="text-[#9db9a1] text-xs">ID: COM-92831</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 text-white text-sm">
+                                        Oct 24, 2023<br />
+                                        <span class="text-[#9db9a1] text-xs">06:00 AM</span>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="flex items-center gap-1.5 text-white text-sm">
+                                            <span
+                                                class="material-symbols-outlined text-xs text-primary">location_on</span>
+                                            Outer Banks, NC
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 text-center">
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold border border-blue-500/20">
+                                            <span class="material-symbols-outlined text-[14px]">waves</span>
+                                            Sea
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-blue-500/20 text-blue-400 text-xs font-bold">Upcoming</span>
+                                    </td>
+                                    <td class="px-6 py-5 text-right">
+                                        <div class="flex justify-end gap-2">
+                                            <button
+                                                class="p-2 text-[#9db9a1] hover:text-white hover:bg-surface-dark rounded-lg"><span
+                                                    class="material-symbols-outlined text-[20px]">edit</span></button>
+                                            <button
+                                                class="p-2 text-[#9db9a1] hover:text-red-400 hover:bg-red-400/10 rounded-lg"><span
+                                                    class="material-symbols-outlined text-[20px]">delete</span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr class="hover:bg-primary/5 transition-colors group">
+                                    <td class="px-6 py-5">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-10 rounded-lg bg-cover bg-center"
+                                                data-alt="Lake landscape for fishing tournament"
+                                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD5OCawgq1OvDw8YgTYnVS32LQaiQGvN6T0c_g5VeLEdls3H1lXxThb2TH8c57G3R5Tv9Ujl_ov_2U8FcEUsaO0m6R8YoDUtbDTIMV13FS8RTmqgueUQzGfw3ie7QsQzl6RApxg_7uJ8cpZFYS5mBlCIXsxRM4Xz8_1GZszAZxtUcet9hZpHzgLdA27ufbFEdYVsqpiLyRQhhOIIGNvsiPWTM4DlZ9nNW60WedoOEmgS2ull9XzDGbQnt7b_R9UJruRAvCf07X6tBg')">
+                                            </div>
+                                            <div>
+                                                <p
+                                                    class="text-white font-bold group-hover:text-primary transition-colors">
+                                                    Silver Lake Trout Derby</p>
+                                                <p class="text-[#9db9a1] text-xs">ID: COM-92832</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 text-white text-sm">
+                                        Sep 15, 2023<br />
+                                        <span class="text-[#9db9a1] text-xs">05:30 AM</span>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="flex items-center gap-1.5 text-white text-sm">
+                                            <span
+                                                class="material-symbols-outlined text-xs text-primary">location_on</span>
+                                            Cascade Range, OR
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 text-center">
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20">
+                                            <span class="material-symbols-outlined text-[14px]">water</span>
+                                            Freshwater
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-primary/20 text-primary text-xs font-bold border border-primary/30">Ongoing</span>
+                                    </td>
+                                    <td class="px-6 py-5 text-right">
+                                        <div class="flex justify-end gap-2">
+                                            <button
+                                                class="p-2 text-[#9db9a1] hover:text-white hover:bg-surface-dark rounded-lg"><span
+                                                    class="material-symbols-outlined text-[20px]">edit</span></button>
+                                            <button
+                                                class="p-2 text-[#9db9a1] hover:text-red-400 hover:bg-red-400/10 rounded-lg"><span
+                                                    class="material-symbols-outlined text-[20px]">delete</span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 3 -->
+                                <tr class="hover:bg-primary/5 transition-colors group">
+                                    <td class="px-6 py-5">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-10 rounded-lg bg-cover bg-center"
+                                                data-alt="River aerial view for fishing contest"
+                                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDaSToTJlXyp2H70OoDtjJmXuwlbwX3HaHBV3fUnOQQ1KqgS95EDTuDGxkIHBHDDCD5QVvx1OEki5_d-__5s2f39c3U13KxLyf6sJicN5vDD_dz_W5w4HM3P5wP4u3yBLl7FWHtzKgAMAztjCmlpGvVcCtjG2o3CYW1uJh5MSo9gf5Iui-MNvQs-DUq_9-29EbpEjZ-bdN65cRzZ-gbaAUthrXCIHfhZec3LZiqqrXEulKkjOyuzL3wGheuA3y5wGjRZnSXwZH6Txg')">
+                                            </div>
+                                            <div>
+                                                <p
+                                                    class="text-white font-bold group-hover:text-primary transition-colors">
+                                                    Salmon Run Invitational</p>
+                                                <p class="text-[#9db9a1] text-xs">ID: COM-92833</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 text-white text-sm">
+                                        Aug 12, 2023<br />
+                                        <span class="text-[#9db9a1] text-xs">08:00 AM</span>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="flex items-center gap-1.5 text-white text-sm">
+                                            <span
+                                                class="material-symbols-outlined text-xs text-primary">location_on</span>
+                                            Kenai River, AK
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 text-center">
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20">
+                                            <span class="material-symbols-outlined text-[14px]">water</span>
+                                            Freshwater
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-[#9db9a1]/20 text-[#9db9a1] text-xs font-bold">Finished</span>
+                                    </td>
+                                    <td class="px-6 py-5 text-right">
+                                        <div class="flex justify-end gap-2">
+                                            <button
+                                                class="p-2 text-[#9db9a1] hover:text-white hover:bg-surface-dark rounded-lg"><span
+                                                    class="material-symbols-outlined text-[20px]">edit</span></button>
+                                            <button
+                                                class="p-2 text-[#9db9a1] hover:text-red-400 hover:bg-red-400/10 rounded-lg"><span
+                                                    class="material-symbols-outlined text-[20px]">delete</span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pagination Footer -->
+                    <div
+                        class="px-6 py-4 flex items-center justify-between border-t border-border-dark bg-background-dark/40">
+                        <p class="text-[#9db9a1] text-sm font-medium">Showing 1 to 3 of 12 competitions</p>
+                        <div class="flex gap-2">
+                            <button
+                                class="px-3 py-1.5 bg-surface-dark border border-border-dark rounded-lg text-white text-sm hover:bg-border-dark disabled:opacity-30 disabled:cursor-not-allowed">Previous</button>
+                            <button
+                                class="px-3 py-1.5 bg-primary text-background-dark rounded-lg text-sm font-bold">1</button>
+                            <button
+                                class="px-3 py-1.5 bg-surface-dark border border-border-dark rounded-lg text-white text-sm hover:bg-border-dark">2</button>
+                            <button
+                                class="px-3 py-1.5 bg-surface-dark border border-border-dark rounded-lg text-white text-sm hover:bg-border-dark">3</button>
+                            <button
+                                class="px-3 py-1.5 bg-surface-dark border border-border-dark rounded-lg text-white text-sm hover:bg-border-dark">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form id="form" class="hidden">
+                <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 modal-blur-bg">
+                    <!-- Modal Content -->
+                    <div
+                        class="w-full max-w-2xl bg-background-dark border border-primary/40 rounded-xl shadow-[0_0_50px_rgba(19,236,55,0.15)] overflow-hidden flex flex-col">
+                        <!-- Modal Header -->
+                        <div class="px-8 py-6 border-b border-[#28392b] flex justify-between items-center">
+                            <div>
+                                <h2 class="text-white text-2xl font-bold tracking-tight">Create New Competition</h2>
+                                <p class="text-[#9db9a1] text-sm mt-1">Set the parameters for your upcoming fishing
+                                    event.
+                                </p>
+                            </div>
+                            <button id="close1" class="text-[#9db9a1] hover:text-white transition-colors">
+                                <span class="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+                        <!-- Modal Form Body -->
+                        <div class="p-8 space-y-6">
+                            <!-- Comp Name -->
+                            <div class="space-y-2">
+                                <label class="text-white text-sm font-semibold uppercase tracking-wider">Competition
+                                    Name</label>
+                                <input
+                                    class="w-full bg-[#1c271d] border-[#3b543f] text-white rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-slate-500 outline-none"
+                                    placeholder="e.g. Atlantic Bass Championship 2024" type="text" />
+                            </div>
+                            <!-- Dates Row -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <label class="text-white text-sm font-semibold uppercase tracking-wider">Start
+                                        Date</label>
+                                    <div class="relative">
+                                        <input
+                                            class="w-full bg-[#1c271d] border-[#3b543f] text-white rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none [color-scheme:dark]"
+                                            type="date" />
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-white text-sm font-semibold uppercase tracking-wider">End
+                                        Date</label>
+                                    <div class="relative">
+                                        <input
+                                            class="w-full bg-[#1c271d] border-[#3b543f] text-white rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none [color-scheme:dark]"
+                                            type="date" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Location -->
+                            <div class="space-y-2">
+                                <label
+                                    class="text-white text-sm font-semibold uppercase tracking-wider">Location</label>
+                                <div
+                                    class="flex items-center gap-2 bg-[#1c271d] border border-[#3b543f] rounded-lg px-4 py-3 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary">
+                                    <span class="material-symbols-outlined text-[#9db9a1]">location_on</span>
+                                    <input
+                                        class="bg-transparent border-none text-white w-full p-0 focus:ring-0 placeholder:text-slate-500 outline-none"
+                                        placeholder="City, Region or Water Body Name" type="text" />
+                                </div>
+                            </div>
+                            <!-- Environment Selector -->
+                            <div class="space-y-3">
+                                <label class="text-white text-sm font-semibold uppercase tracking-wider">Environment
+                                    Type</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <!-- Option 1: Sea -->
+                                    <label class="cursor-pointer group">
+                                        <input checked="" class="hidden peer" name="environment" type="radio" />
+                                        <div
+                                            class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-[#1c271d] border border-[#3b543f] group-hover:border-primary/50 peer-checked:bg-primary/10 peer-checked:border-primary transition-all">
+                                            <span
+                                                class="material-symbols-outlined text-3xl peer-checked:text-primary">waves</span>
+                                            <span
+                                                class="text-sm font-bold text-white uppercase peer-checked:text-primary">Saltwater
+                                                / Sea</span>
+                                        </div>
+                                    </label>
+                                    <!-- Option 2: Freshwater -->
+                                    <label class="cursor-pointer group">
+                                        <input class="hidden peer" name="environment" type="radio" />
+                                        <div
+                                            class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-[#1c271d] border border-[#3b543f] group-hover:border-primary/50 peer-checked:bg-primary/10 peer-checked:border-primary transition-all">
+                                            <span
+                                                class="material-symbols-outlined text-3xl peer-checked:text-primary">set_meal</span>
+                                            <span
+                                                class="text-sm font-bold text-white uppercase peer-checked:text-primary">Freshwater
+                                                / Lake</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="px-8 py-6 bg-[#1c271d]/50 border-t border-[#28392b] flex justify-end gap-4">
+                            <button id="close2"
+                                class="px-6 py-3 rounded-lg border border-[#3b543f] text-white text-sm font-bold hover:bg-white/5 transition-colors">
+                                Cancel
+                            </button>
+                            <button
+                                class="px-8 py-3 rounded-lg bg-primary text-background-dark text-sm font-black uppercase tracking-widest shadow-[0_0_20px_rgba(19,236,55,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+                                Save Competition
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </div>
+    </form>
+    <script>
+        const modal = document.getElementById('form');
+        const createBtn = document.getElementById('competition');
+        const closeBtn = document.getElementById('close1');
+
+        // 1. Hide the modal by default when the page loads
+        // (Your current HTML has it visible by default)
+        modal.classList.add('hidden');
+
+        // 2. Function to open modal
+        createBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        // 3. Function to close modal
+        const closeModal = () => {
+            modal.classList.add('hidden');
+        };
+
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevents form submission
+            closeModal();
+        });
+
+        // 4. Close modal if user clicks on the dark backdrop
+        modal.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-blur-bg')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

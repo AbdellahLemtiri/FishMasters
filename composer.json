@@ -1,8 +1,11 @@
 {
     "autoload": {
         "psr-4": {
-            "APP\\": "app/",
-            "CONFIG\\": "config/"
+            "App\\": "App/",
+            "Config\\": "config/"
         }
+    },
+    "require": {
+        "pragmarx/google2fa": "^8.0"
     }
 }

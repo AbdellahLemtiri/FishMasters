@@ -1,0 +1,29 @@
+[2026-01-23 11:24:24] ERREUR : SQLSTATE[42703]: Undefined column: 7 ERROR:  column "espece" of relation "prises" does not exist
+LINE 1: INSERT INTO prises (espece, poids, taille, photo, spot, is_r...
+                            ^
+[2026-01-23 11:26:41] ERREUR : SQLSTATE[42703]: Undefined column: 7 ERROR:  column "espece" of relation "prises" does not exist
+LINE 1: INSERT INTO prises (espece, poids, taille, photo, spot, is_r...
+                            ^
+[2026-01-23 11:29:40] ERREUR : SQLSTATE[42703]: Undefined column: 7 ERROR:  column "relache" of relation "prises" does not exist
+LINE 1: ...NTO prises (idEspece, poids, taille, photo, spot, is_relache...
+                                                             ^
+[2026-01-23 11:30:35] ERREUR : SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type boolean: ""
+CONTEXT:  unnamed portal parameter $6 = ''
+[2026-01-23 11:30:36] ERREUR : SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type boolean: ""
+CONTEXT:  unnamed portal parameter $6 = ''
+[2026-01-23 11:30:37] ERREUR : SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type boolean: ""
+CONTEXT:  unnamed portal parameter $6 = ''
+[2026-01-23 11:30:38] ERREUR : SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type boolean: ""
+CONTEXT:  unnamed portal parameter $6 = ''
+[2026-01-23 11:32:22] ERREUR : SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type boolean: ""
+CONTEXT:  unnamed portal parameter $6 = ''
+[2026-01-23 11:35:21] ERREUR : SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type boolean: ""
+CONTEXT:  unnamed portal parameter $6 = ''
+[2026-01-23 11:36:57] ERREUR : SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "prises" violates foreign key constraint "prises_idespece_fkey"
+DETAIL:  Key (idespece)=(0) is not present in table "especes".
+[2026-01-23 11:41:00] ERREUR : SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "prises" violates foreign key constraint "prises_idespece_fkey"
+DETAIL:  Key (idespece)=(0) is not present in table "especes".
+[2026-01-23 11:41:53] ERREUR : SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "prises" violates foreign key constraint "prises_idpecheur_fkey"
+DETAIL:  Key (idpecheur)=(0) is not present in table "utilisateurs".
+[2026-01-23 11:42:39] ERREUR : SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "prises" violates foreign key constraint "prises_idpecheur_fkey"
+DETAIL:  Key (idpecheur)=(1) is not present in table "utilisateurs".

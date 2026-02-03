@@ -102,17 +102,23 @@
         }
 
         static function getById(int $id_fan):?Fan{
+            $fan = null;
             try {
                 $sql = "SELECT * FROM fans WHERE iduser = :idUser";
                 $pdo = Connexion::connect()->getConnexion();
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(['idUser' => $id_fan]);
-                $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
-                $fan = $stmt->fetch();
+                // $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
+                $fan_array = $stmt->fetch(PDO::FETCH_ASSOC);
+                if($fan_array){
+                    $fan = new Fan();
+                    $fan->nomuser = $fan_array['nomuser'];
+                    $fan->emailuser = $fan_array['emailuser'];
+                }
             } catch (PDOException $e) {
                 error_log('Erreur lors de la récupération du fan:\n' . $e->getMessage() . '\n------------------\n');
             } finally{
-                return $fan ? $fan:null;
+                return $fan;
             }
         }
 
